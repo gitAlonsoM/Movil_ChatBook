@@ -1,21 +1,20 @@
 <!-- myApp\src\app\login\login.page.html -->
 
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar>
     <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="login-container">
 
+<ion-content>
+  <div class="login-container" [@pulseAnimation]="animationState">
     <ion-card class="card-login">
       <ion-card-header>
         <ion-card-title>Iniciar Sesión</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
-
         <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input type="text"></ion-input>
@@ -26,40 +25,29 @@
           <ion-input type="password"></ion-input>
         </ion-item>
 
-      
-        <ion-button expand="block"  id="open-loading2" (click)="login()">Entrar</ion-button>
-        <ion-button expand="block" fill="clear" (click)="guestLogin()">Entrar como invitado</ion-button>    
+        <ion-button expand="block" id="open-loading2" (click)="login()">Entrar</ion-button>
+        <ion-button expand="block" fill="clear" (click)="guestLogin()">Entrar como invitado</ion-button>
         
-      
         <!-- Contenedor de las opciones adicionales -->
-     <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-button expand="block" fill="clear" (click)="createAcc()">Crear cuenta</ion-button>     
-        </ion-col>
-
-        <ion-col>
-          <ion-button expand="block" id="open-loading" fill="clear" (click)="forgottenPassword()">Olvidaste la contraseña?</ion-button>     
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" fill="clear" (click)="createAcc()">Crear cuenta</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" id="open-loading" fill="clear" (click)="forgottenPassword()">Olvidaste la contraseña?</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card-content>
     </ion-card>
-
-
   </div>
 
-
-  <!-- Trigger que genera pseudo animacion de "loading....
-   usar open-loading como un id en el componente" -->
+  <!-- Efecto de carga en botones desabilitados" -->
   <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
   <ion-loading trigger="open-loading2" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
 
-
 </ion-content>
-
-
 
 <ion-footer>
   <ion-toolbar>
