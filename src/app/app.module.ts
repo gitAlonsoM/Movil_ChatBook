@@ -1,3 +1,4 @@
+/* src\app\app.module.ts */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -8,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';  // Importa HttpClientM
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; //Usado para Angular Animations
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule // Necesario para realizar peticiones HTTP, incluyendo las llamadas a la API de OpenAI
+    HttpClientModule, // Necesario para realizar peticiones HTTP, incluyendo las llamadas a la API de OpenAI
+    BrowserAnimationsModule // Usado para Angular Animations
+
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]

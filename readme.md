@@ -37,9 +37,6 @@ La mayoria se encuetra solo en estado de frontend sin funcionalidad completa.
 ## Inicia el servidor de desarrollo con Ionic:
 ionic serve
 
-## Version proyecto
-IONIC: ionic --version   "7.2.0"
-ANGULAR: ng --version   "18.2.3"
 
 
 
@@ -56,3 +53,12 @@ ionic.config.json: Configuración específica de Ionic.
 capacitor.config.ts: Configuración de Capacitor para integrar funcionalidades nativas.
 src/app: Contiene todos los componentes y páginas de la aplicación.
 package.json: Listado de todas las dependencias y scripts del proyecto.
+
+
+## Version usada en el proyecto
+IONIC: ionic --version   "7.2.0"
+ANGULAR: ng --version   "18.2.3"
+
+## Instalaciones realizadas
+Angular Animations: npm install @angular/animations
+
