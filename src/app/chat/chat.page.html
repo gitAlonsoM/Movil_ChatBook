@@ -1,0 +1,74 @@
+<!-- myApp\src\app\chat\chat.page.html -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
+  </ion-toolbar>
+
+  <ion-button size="medium"  id="tool">
+    <ion-icon slot="icon-only" ios="logo-apple" md="settings-sharp"></ion-icon>
+  </ion-button>
+
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- Contenedor de la pantalla de chat -->
+  <div class="chat-container">
+
+    <!-- Área de mensajes -->
+    <div class="chat-messages">
+      <!-- Aquí se agregarán los mensajes -->
+      <ion-list>
+        <ion-item *ngFor="let message of messages">
+          <ion-label [ngClass]="{'user-message': message.fromUser, 'bot-message': !message.fromUser}">
+            {{ message.text }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </div>
+
+  <!-- Input y botones de acción -->
+  <div class="chat-input-container">
+
+    <!-- Botón para adjuntar archivos -->
+    <ion-button fill="clear" (click)="attachFile()">
+      <ion-icon name="attach-outline"></ion-icon>
+    </ion-button>
+
+    <!-- Input de mensaje -->
+    <ion-input [(ngModel)]="userMessage" placeholder="Escribe tu mensaje..."></ion-input>
+
+    <!-- Boton para enviar audio -->
+    <ion-button fill="clear" (click)="sendAudio()">
+      <ion-icon name="mic-outline"></ion-icon>
+    </ion-button>
+
+    <!-- Boton para enviar mensaje -->
+    <ion-button fill="clear" (click)="sendMessage()">
+      <ion-icon name="send-outline"></ion-icon>
+    </ion-button>
+
+  </div>
+
+  <!-- Boton para ir a la Libreta -->
+  <ion-button expand="block" fill="clear" (click)="libreta()">Libreta</ion-button>  
+
+  <!-- Boton para ir al login -->
+  <ion-button expand="block" fill="clear" (click)="login()">Login</ion-button>  
+
+
+
+
+</ion-content>
+
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      © 2028 Mi Aplicación
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
