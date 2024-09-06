@@ -8,7 +8,10 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 
-  // Definición de las animaciones para el componente
+
+
+  //"pulse animation" (animación de pulso), transforma el tamaño y opacidad de un elemento, antes de realizar una acción (como la redirección). 
+  //animación personalizada basada en estados dentro de Angular   
   animations: [
     trigger('pulseAnimation', [
       //Cuando la animación está inactiva
@@ -36,7 +39,7 @@ export class LoginPage {
 
   login() {
     // Redirigir al chat
-    this.router.navigate(['/chat']);
+    /* this.router.navigate(['/chat']); */
   }
 
   guestLogin() {
