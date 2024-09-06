@@ -12,7 +12,8 @@ import { Observable } from 'rxjs';
 
 /* Comentar API antes de subirla a github */
 export class ChatService {
-  private apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+  private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint de la API de OpenAI (que parte del servidor de OpenAI tu aplicación está enviando la solicitud.)
   private apiKey = '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';
 
 
@@ -62,9 +63,11 @@ export class ChatService {
     presence_penalty: 0.3 
   };
 
+
   constructor(private http: HttpClient) { }
 
   // Método para enviar un mensaje al LLM de OpenAI
+  // solicitud HTTP POST a la API de OpenAI 
   sendMessageToLLM(message: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -78,13 +81,49 @@ export class ChatService {
         { role: 'user', content: message }
       ]
     };
-
+    
     return this.http.post(this.apiUrl, body, { headers });
   }
 
 
 // Método para actualizar el prompt del sistema si es necesario
-updateSystemPrompt(newPrompt: string) {
+/* updateSystemPrompt(newPrompt: string) {
   this.systemPrompt = newPrompt;
+} */
+
+
 }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+Una solicitud HTTP POST es un tipo de petición o request que se hace desde algun SW
+a un servidor para enviar datos y recibir una respuesta.
+
+HTTP (HyperText Transfer Protocol) es el protocolo que define cómo los datos son transmitidos 
+entre un cliente (como un navegador web o aplicación) y un servidor 
+(el lugar donde están almacenados los datos o la lógica que quieres usar).
+
+POST es uno de los métodos más utilizados para enviar datos al servidor, 
+sobre todo cuando quieres que el servidor procese estos datos. En una solicitud POST, 
+los datos son enviados dentro del cuerpo de la solicitud.
+*/
+
