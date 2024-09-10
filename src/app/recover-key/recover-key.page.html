@@ -1,0 +1,46 @@
+<!-- myApp\src\app\recover-key\recover-key.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Card principal del contenido -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Recuperar Contraseña</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Formulario de la card, para enviar el correo email de recuperacion de cuenta-->
+      <form (ngSubmit)="sendRecoveryEmail()"> <!-- ngSubmit es una directiva de Angular que se usa en formularios para manejar el evento de envío (submit), el formulario activa la funcion "sendRecoveryEmail()" -->
+        <ion-item>
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            required
+            #emailInput="ngModel"
+          ></ion-input>
+        </ion-item>
+        <ion-button expand="full" type="submit" >Enviar Recuperación</ion-button>
+        <ion-button expand="full" fill="clear" (click)="goToLogin()">Volver al Login</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+
+
+<!-- 
+fill="clear" es un atributo específico de Ionic para los botones (<ion-button>).
+fill="clear" hace que el botón tenga un fondo transparente y no tenga relleno visible
+
+
+expand="full" es un atributo específico de Ionic para los botones (<ion-button>).
+Hace que el botón se expanda a todo el ancho disponible de su contenedor.
+-->

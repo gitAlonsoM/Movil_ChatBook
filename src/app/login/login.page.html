@@ -35,7 +35,7 @@
               <ion-button expand="block" fill="clear" (click)="createAcc()">Crear cuenta</ion-button>
             </ion-col>
             <ion-col>
-              <ion-button expand="block" id="open-loading" fill="clear" (click)="forgottenPassword()">Olvidaste la contraseña?</ion-button>
+              <ion-button expand="block" fill="clear" (click)="forgottenPassword()">Olvidaste la contraseña?</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -43,8 +43,7 @@
     </ion-card>
   </div>
 
-  <!-- Efecto de carga en botones desabilitados" -->
-  <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
+  <!-- Efecto de carga spinner en botones desabilitados" -->
   <ion-loading trigger="open-loading2" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
 
 </ion-content>
