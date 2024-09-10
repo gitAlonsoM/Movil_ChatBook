@@ -5,12 +5,13 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 
 
-@Component({
+@Component({/*Decorador @Component: Define la clase declarada en el código, como un componente Angular, configurando su comportamiento y apariencia. */
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 
-  //"pulse animation" (animación de pulso), transforma el tamaño y opacidad de un elemento, antes de realizar una acción (como la redirección). 
+  
+  //"pulse animation", transforma el tamaño y opacidad de un elemento, antes de realizar una acción (como la redirección). 
   //animación personalizada basada en estados dentro de Angular   
   animations: [
     trigger('pulseAnimation', [
@@ -29,34 +30,41 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       ]),
     ])
   ]
+
 })
 
 
+
 export class LoginPage {
+  //propiedades de la clase LoginPage
   animationState = 'inactive'; // Estado inicial de la animación
 
   constructor(private router: Router) { }
 
-  login() {
-    // Redirigir al chat
-    /* this.router.navigate(['/chat']); */
-  }
+  //Metodos de la clase LoginPage:
 
-  guestLogin() {
-    // Cambia el estado de la animación a activa
-    this.animationState = 'active';
-    setTimeout(() => {
-      this.router.navigate(['/chat']);
-      // Vuelve al estado de animacion inactiva
-      this.animationState = 'inactive';
-    }, 200); // Duración de la animación en milisegundos
-  }
+    login() {
+      // Redirigir al chat
+      /* this.router.navigate(['/chat']); */
+    }
 
-  forgottenPassword() {
-    this.router.navigate(['/recover-key']);
-  }
+    guestLogin() {
+      // Cambia el estado de la animación a activa
+      this.animationState = 'active';
+      setTimeout(() => {
+        this.router.navigate(['/chat']);
+        // Vuelve al estado de animacion inactiva
+        this.animationState = 'inactive';
+      }, 200); // Duración de la animación en milisegundos
+    }
+    
 
-  createAcc() {
-    this.router.navigate(['/register']);
-  }
+    forgottenPassword() {
+      this.router.navigate(['/recover-key']);
+    }
+
+    createAcc() {
+      this.router.navigate(['/register']);
+    }
 }
+

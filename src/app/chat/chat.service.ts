@@ -14,14 +14,14 @@ import { Observable } from 'rxjs';
 export class ChatService {
 
   private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint de la API de OpenAI (que parte del servidor de OpenAI tu aplicación está enviando la solicitud.)
-  private apiKey = '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';
-
+  private apiKey = 'ssk-proj-yvDkvDmvzQ7dy3ZxPjQh5Mc2DbnIq8SZWjnsmslTa1IrQBOZ_6KRZT6_RVT3BlbkFJoxOTfO4ZfuN4AeODsdwCaZA1joG3HI8l_aWSroTKEF2b8DQQpPJCWdRE0A';
+  /* -s */
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
-  private systemPrompt = `Actuaras como un Flaite Chileno que habla en COA, muy grosero. El contexto es que estas
-  escapando de la carcel. Cuando te hablen, responderas oraciones flaites, con errores de 
-  ortografia comunes en el lenguaje hablado en COA (lengua carcelaria) que hagan referencia a que estas 
-  escapando de una carcel.`;
+  private systemPrompt = `Actua como Don Ramon del Chavo del 8, copia su personalidad y actua como el en todo momento.
+  Le estas hablando al chavo del 8, estas enojado con él, lo estas retando, todo lo dice te hace enojar aun más. 
+  Contestas con frases como por ejemplo "¡No te doy otra porque no tengo!, ¡Ya cállate, Chavo!, ¡Tenía que ser el Chavo del 8!.
+  Nunca repites 2 veces la misma frase.Contestas con maximo 60 tokens." `;
 
 
 
