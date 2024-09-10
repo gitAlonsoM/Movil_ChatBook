@@ -1,3 +1,4 @@
+/* app-routing.module.ts */
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -10,6 +11,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
   { path: 'chat', loadChildren: () => import('./chat/chat.module').then(m => m.ChatPageModule) },
   { path: 'libreta', loadChildren: () => import('./libreta/libreta.module').then(m => m.LibretaPageModule) },
+  {path: 'recover-key', loadChildren: () => import('./recover-key/recover-key.module').then( m => m.RecoverKeyPageModule)
+  },
 ];
 
 

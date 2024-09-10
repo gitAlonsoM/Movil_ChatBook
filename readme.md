@@ -13,7 +13,8 @@ Esta aplicación permite a los usuarios interactuar con un modelo de lenguaje (L
 6. **Componentes adicionales**:
    - **Formulario de Tareas**: Para la gestión de tareas dentro de la página de Libreta.
    - **Botones Personalizados**: Elementos de interfaz diseñados para mejorar la experiencia de usuario.
-   - **Animaciones** con angular material. (instalarlo)
+   - **Animaciones** con angular material.
+   - **Otras paginas** adicionales para restablecer contraseña, u otros servicios secundarios.
 
 
 ## Estructura del Proyecto
@@ -25,7 +26,7 @@ La mayoria se encuetra solo en estado de frontend sin funcionalidad completa.
 - menu: Componente de menú desplegable con futuras opciones (aun no funcional).
 - register: Página de registro de nuevos usuarios (aun no funcional).
 - home: Página de inicio o bienvenida de la aplicación (no usada en el proyecto).
-
+- recover-key: Pagina dedicada para recuperar contraseña, solicita el email, y se envia la contraseña de recuperacion     de cuenta al correo (en desarrollo).
 
 
 ## Futuras Funcionalidades
@@ -61,4 +62,7 @@ ANGULAR: ng --version   "18.2.3"
 
 ## Instalaciones realizadas
 Angular Animations: npm install @angular/animations
+
+
+
 

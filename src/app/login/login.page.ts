@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-
-
 
   //"pulse animation" (animación de pulso), transforma el tamaño y opacidad de un elemento, antes de realizar una acción (como la redirección). 
   //animación personalizada basada en estados dentro de Angular   
@@ -53,7 +53,7 @@ export class LoginPage {
   }
 
   forgottenPassword() {
-    // Implementar funcionalidad
+    this.router.navigate(['/recover-key']);
   }
 
   createAcc() {
