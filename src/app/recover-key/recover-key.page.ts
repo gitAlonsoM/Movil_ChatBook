@@ -1,45 +1,43 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
-
-
-@Component({/*Decorador @Component: Define la clase declarada en el código, como un componente Angular, configurando su comportamiento y apariencia. */
+@Component({
   selector: 'app-recover-key',
   templateUrl: './recover-key.page.html',
   styleUrls: ['./recover-key.page.scss'],
 })
-
-
-
 export class RecoverKeyPage {
-
-  //propiedades de la clase 
-
   email: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   sendRecoveryEmail() {
+    // Verifica si el formato del correo es válido
     if (!this.isValidEmail(this.email)) {
       alert('Por favor, ingrese un correo electrónico válido.');
       return;
     }
 
+    // Llama al método del servicio para enviar el correo de recuperación
+    const success = this.authService.sendRecoveryEmail(this.email);
     
-    // Aquí iría la lógica para enviar el enlace de recuperacion al email
-    alert('La contraseña de recuperación se ha enviado a su correo electrónico, por favor revise su bandeja de entrada.');
+    if (success) {
+      alert('La contraseña de recuperación se ha enviado a su correo electrónico. Por favor, revise su bandeja de entrada.');
+      this.goToLogin(); // Redirige al login después de enviar el correo
+    } else {
+      alert('Hubo un problema al enviar el correo. Inténtalo de nuevo más tarde.');
+    }
   }
 
-  // Validar formato de correo electrónico con expresion regular
-  isValidEmail(email: string): boolean { //toma un parámetro email de tipo string y devuelve un valor de tipo boolean. 
+  // Método para validar el formato del correo electrónico
+  isValidEmail(email: string): boolean {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return re.test(String(email).toLowerCase()); //Metodo .test devolvera True al cumplir o viceversa
+    return re.test(String(email).toLowerCase());
   }
 
- 
-  //Funcion para redireccionar al login
+  // Método para redireccionar al login
   goToLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']); // Redirige a la ruta de login
   }
-
 }

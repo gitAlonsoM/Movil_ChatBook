@@ -1,26 +1,19 @@
-/*  myApp\src\app\login\login.page.ts*/
+/* myApp\src\app\login\login.page.ts */
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { AuthService } from '../services/auth.service';
 
-
-
-@Component({/*Decorador @Component: Define la clase declarada en el código, como un componente Angular, configurando su comportamiento y apariencia. */
+@Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-
-  
-  //"pulse animation", transforma el tamaño y opacidad de un elemento, antes de realizar una acción (como la redirección). 
-  //animación personalizada basada en estados dentro de Angular   
   animations: [
     trigger('pulseAnimation', [
-      //Cuando la animación está inactiva
       state('inactive', style({
         transform: 'scale(1)',
         opacity: 1
       })),
-      //Cuando la animación está activa
       state('active', style({
         transform: 'scale(1.9)',
         opacity: 0.5
@@ -30,41 +23,42 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       ]),
     ])
   ]
-
 })
-
-
-
 export class LoginPage {
-  //propiedades de la clase LoginPage
+  email: string = '';
+  password: string = '';
   animationState = 'inactive'; // Estado inicial de la animación
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  //Metodos de la clase LoginPage:
+  // Método para iniciar sesión
+  login() {
+    // Aquí puedes implementar la lógica para autenticar al usuario con email y contraseña
+    const token = 'miTokenSimulado'; // Simulando la autenticación
+    this.authService.login(token); // Guarda el token en el AuthService
+    this.router.navigate(['/chat']); // Redirige al chat después de iniciar sesión
+  }
 
-    login() {
-      // Redirigir al chat
-      /* this.router.navigate(['/chat']); */
-    }
+  // Método para iniciar sesión como invitado
+  guestLogin() {
+    this.animationState = 'active'; // Cambia el estado de la animación a activa
+    setTimeout(() => {
+      this.authService.setGuest(true); // Marcar al usuario como invitado
+      this.router.navigate(['/chat']); // Redirigir al chat
+      this.animationState = 'inactive'; // Vuelve al estado de animación inactiva
+    }, 200); // Duración de la animación en milisegundos
+  }
 
-    guestLogin() {
-      // Cambia el estado de la animación a activa
-      this.animationState = 'active';
-      setTimeout(() => {
-        this.router.navigate(['/chat']);
-        // Vuelve al estado de animacion inactiva
-        this.animationState = 'inactive';
-      }, 200); // Duración de la animación en milisegundos
-    }
-    
+  forgottenPassword() {
+    this.router.navigate(['/recover-key']);
+  }
 
-    forgottenPassword() {
-      this.router.navigate(['/recover-key']);
-    }
+  createAcc() {
+    this.router.navigate(['/register']);
+  }
 
-    createAcc() {
-      this.router.navigate(['/register']);
-    }
+  // Función para ir a la página de recuperación de contraseña
+  goToRecoverKey() {
+    this.router.navigate(['/recover-key']);
+  }
 }
-
