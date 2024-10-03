@@ -1,0 +1,108 @@
+
+# Aplicación "Libreta + Chat con LLM"
+
+## Descripción
+Esta aplicación permite a los usuarios interactuar con un modelo de lenguaje (LLM) a través de un chat y gestionar sus tareas diarias mediante una libreta de recordatorios. La aplicación está diseñada para funcionar tanto en dispositivos móviles como en navegadores web, utilizando Ionic y Angular.
+
+## Páginas y Componentes principales
+La mayoría de las funcionalidades aún están en desarrollo, pero se destacan las siguientes:
+1. **Login**: Página de autenticación de usuarios.
+2. **Creación de Cuenta**: Formulario para el registro de nuevos usuarios, que requiere un email único y una contraseña.
+3. **Chat**: Interfaz de chat para interactuar con el modelo de lenguaje (LLM), con la capacidad de guardar tareas de forma automática en la libreta y asignar un horario de alarma.
+4. **Libreta**: Página para gestionar tareas con funcionalidades CRUD (Crear, Leer, Actualizar, Eliminar). Las tareas pueden ser visualizadas, editadas y eliminadas directamente desde la lista. Cada tarea puede tener, opcionalmente, un horario de notificación en el dispositivo móvil.
+5. **Menú Desplegable**: Componente reutilizable para la navegación y opciones varias dentro de la aplicación.
+6. **Componentes adicionales**:
+   - **Formulario de Tareas**: Permite crear y editar tareas dentro de la página de Libreta.
+   - **Botones Personalizados**: Elementos de interfaz diseñados para mejorar la experiencia del usuario.
+   - **Animaciones** con Angular Material.
+   - **Otras Páginas**: Adicionales para restablecer contraseña, entre otros servicios secundarios.
+
+## Estructura del Proyecto
+El proyecto sigue una estructura típica de una aplicación Angular con Ionic. A continuación, se detalla la estructura principal del proyecto:
+## Estructura del Proyecto
+
+myApp/
+│
+├── .angular/                # Configuración de Angular
+├── .vscode/                 # Configuración de Visual Studio Code
+├── node_modules/            # Dependencias instaladas del proyecto
+├── src/                     # Código fuente del proyecto
+│   ├── app/                 # Contiene todas las páginas, componentes y servicios de la app
+│   │   ├── chat/            # Código de la página de chat y servicios relacionados con LLM
+│   │   ├── home/            # Página de inicio (no utilizada en este proyecto)
+│   │   ├── libreta/         # Página de la libreta de tareas con CRUD implementado
+│   │   ├── login/           # Página de autenticación de usuarios
+│   │   ├── recover-key/     # Página para recuperación de contraseñas
+│   │   ├── register/        # Página para el registro de nuevos usuarios
+│   │   ├── services/        # Servicios, incluyendo el servicio de tareas (TaskService)
+│   │   ├── app-routing.module.ts  # Módulo de enrutamiento de la aplicación
+│   │   ├── app.component.ts       # Componente principal de la aplicación
+│   │   ├── app.module.ts          # Módulo principal de la aplicación
+│   │
+│   ├── assets/              # Recursos estáticos (imágenes, íconos, etc.)
+│   ├── environments/        # Configuración de entornos (producción/desarrollo)
+│   ├── theme/               # Estilos globales de la aplicación (SCSS)
+│
+├── angular.json             # Configuración del proyecto Angular
+├── capacitor.config.ts      # Configuración de Capacitor
+├── ionic.config.json        # Configuración específica de Ionic
+├── package.json             # Dependencias y scripts del proyecto
+├── readme.md                # Archivo de documentación del proyecto
+├── tsconfig.json            # Configuración de TypeScript
+
+
+
+
+## Funcionalidades Implementadas
+- **CRUD en la Libreta**: Ahora es posible crear, editar y eliminar tareas en la libreta. Las tareas se almacenan localmente usando **Ionic Storage**, y son persistentes incluso después de cerrar y reabrir la aplicación.
+- **Persistencia Local**: La libreta de tareas usa **Capacitor Preferences** para asegurar que las tareas se guarden de manera local en dispositivos móviles y navegadores.
+- **Deslizamiento para Editar y Eliminar**: Las opciones de **Editar** y **Eliminar** están disponibles al deslizar cada tarea.
+
+## Futuras Funcionalidades
+- **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.
+- **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.
+- **Soporte Multimedia y Geolocalización en el Chat**: Permitir el envío de fotos, audios y la ubicación actual a través del chat.
+
+
+## Inicia el Servidor de Desarrollo con Ionic
+Para iniciar el servidor de desarrollo y probar la aplicación en un navegador, utiliza el siguiente comando:
+ionic serve
+
+
+## Dependencias Clave
+Ionic: Framework para construir aplicaciones móviles y web híbridas.
+Angular: Framework para desarrollo de aplicaciones web.
+Capacitor: Herramienta para acceder a APIs nativas en aplicaciones móviles.
+Ionic Storage: Para la persistencia de datos localmente.
+Capacitor Preferences: Utilizado para manejar el almacenamiento clave-valor en Capacitor 6.
+SQLite: Base de datos ligera para almacenamiento local en dispositivos móviles.
+Archivos Importantes
+angular.json: Configuración del proyecto Angular.
+ionic.config.json: Configuración específica de Ionic.
+capacitor.config.ts: Configuración de Capacitor para integrar funcionalidades nativas.
+src/app: Contiene todos los componentes y páginas de la aplicación.
+package.json: Listado de todas las dependencias y scripts del proyecto.
+
+
+## Versiones usadas en el Proyecto
+- **IONIC**: ionic --version "7.2.0"
+- **ANGULAR**: ng --version "18.2.3"
+- **CAPACITOR**:
+   @capacitor/core: 6.1.2
+   @capacitor/preferences: 1.2.5
+
+
+
+## Instalaciones Realizadas
+Para soportar las nuevas funcionalidades, se realizaron las siguientes instalaciones:
+
+Angular Animations:
+npm install @angular/animations
+
+Ionic Storage:
+npm install @ionic/storage-angular
+
+Capacitor Preferences:
+npm install @capacitor/preferences
+
+

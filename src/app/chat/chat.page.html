@@ -1,0 +1,88 @@
+<!-- myApp\src\app\chat\chat.page.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <!-- Contenedor de la pantalla de chat -->
+  <div class="chat-container">
+
+    <!-- Área de mensajes -->
+    <div class="chat-messages">
+      <!-- Aquí se agregarán los mensajes -->
+      <ion-list>
+        <ion-item *ngFor="let chatItem of messages">
+          <ion-label [ngClass]="{'user-message': chatItem.fromUser, 'bot-message': !chatItem.fromUser}">
+            {{ chatItem.text }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </div>
+
+
+  <!-- Input y botones de acción -->
+  <div class="chat-input-container">
+
+    <!-- Botón para adjuntar archivos -->
+    <ion-button fill="clear" (click)="adjuntarArchivo()">
+      <ion-icon name="attach-outline"></ion-icon>
+    </ion-button>
+
+    <!-- Input de mensaje -->
+    <ion-input [(ngModel)]="userMessage" placeholder="Escribe tu mensaje..."></ion-input>
+
+    <!-- Boton para enviar audio -->
+    <ion-button fill="clear" (click)="sendAudio()">
+      <ion-icon name="mic-outline"></ion-icon>
+    </ion-button>
+
+    <!-- Boton para enviar mensaje -->
+    <ion-button fill="clear" (click)="sendMessage()">
+      <ion-icon name="send-outline"></ion-icon>
+    </ion-button>
+
+
+  </div>
+
+  <!-- Boton para ir a la Libreta -->
+  <ion-button expand="block" fill="clear" (click)="libreta()">Libreta</ion-button>  
+
+  <!-- Boton para ir al login -->
+  <ion-button expand="block" fill="clear" (click)="login()">Login</ion-button>  
+
+
+</ion-content>
+
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>
+      © 2028 Mi Aplicación
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>
+
+
+
+
+
+
+
+<!-- 
+*ngFor="let chatItem of messages"
+Directiva de Angular que itera sobre una lista de elementos 
+(messages en este caso) y crea un elemento HTML para cada ítem en la lista.
+Genera dinámicamente una lista de mensajes en la interfaz de usuario. 
+Cada mensaje en el array messages se representa como un elemento en la lista.
+Es necesario para renderizar la lista de mensajes en la interfaz de usuario.
+ -->
+
+
