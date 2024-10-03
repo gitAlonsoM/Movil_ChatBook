@@ -13,8 +13,8 @@ import { Observable } from 'rxjs';
 /* Comentar API antes de subirla a github */
 export class ChatService {
 
-  /* private apiUrl = 'https://api.openai.com/v1/chat/completions'; */ //endpoint de la API de OpenAI (que parte del servidor de OpenAI tu aplicación está enviando la solicitud.)
-  /* private apiKey = ''; */
+  private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint de la API de OpenAI (que parte del servidor de OpenAI tu aplicación está enviando la solicitud.)
+  private apiKey = '';
   /* -s */
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
