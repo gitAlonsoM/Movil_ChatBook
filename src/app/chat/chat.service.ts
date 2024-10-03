@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 /* Comentar API antes de subirla a github */
 export class ChatService {
 
-  private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint de la API de OpenAI (que parte del servidor de OpenAI tu aplicación está enviando la solicitud.)
+  /* private apiUrl = 'https://api.openai.com/v1/chat/completions'; */ //endpoint de la API de OpenAI (que parte del servidor de OpenAI tu aplicación está enviando la solicitud.)
   /* private apiKey = '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'; */
   /* -s */
 
