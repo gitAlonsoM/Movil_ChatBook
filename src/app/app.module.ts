@@ -12,11 +12,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; //Usado para Angular Animations
 
 
+/* importaciones de ionic storage */
+import { IonicStorageModule } from '@ionic/storage-angular';
+
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),/* importaciones de ionic storage */
     AppRoutingModule,
     HttpClientModule, // Necesario para realizar peticiones HTTP, incluyendo las llamadas a la API de OpenAI
     BrowserAnimationsModule // Usado para Angular Animations
@@ -26,3 +32,4 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+

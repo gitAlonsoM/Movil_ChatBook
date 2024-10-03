@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 export class ChatService {
 
   private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint de la API de OpenAI (que parte del servidor de OpenAI tu aplicación está enviando la solicitud.)
-  private apiKey = 'ssk-proj-yvDkvDmvzQ7dy3ZxPjQh5Mc2DbnIq8SZWjnsmslTa1IrQBOZ_6KRZT6_RVT3BlbkFJoxOTfO4ZfuN4AeODsdwCaZA1joG3HI8l_aWSroTKEF2b8DQQpPJCWdRE0A';
+  private apiKey = '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';
   /* -s */
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
