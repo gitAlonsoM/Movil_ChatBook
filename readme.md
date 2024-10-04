@@ -1,4 +1,3 @@
-
 # Aplicación "Libreta + Chat con LLM"
 
 ## Descripción
@@ -50,24 +49,40 @@ myApp/
 ├── readme.md                # Archivo de documentación del proyecto
 ├── tsconfig.json            # Configuración de TypeScript
 
-
-
-
 ## Funcionalidades Implementadas
 - **CRUD en la Libreta**: Ahora es posible crear, editar y eliminar tareas en la libreta. Las tareas se almacenan localmente usando **Ionic Storage**, y son persistentes incluso después de cerrar y reabrir la aplicación.
 - **Persistencia Local**: La libreta de tareas usa **Capacitor Preferences** para asegurar que las tareas se guarden de manera local en dispositivos móviles y navegadores.
 - **Deslizamiento para Editar y Eliminar**: Las opciones de **Editar** y **Eliminar** están disponibles al deslizar cada tarea.
 
+
+
+## Funcionalidades del LLM
+
+La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar con los usuarios en un chat. Las funciones implementadas incluyen:
+
+- **Generación de Respuestas**: El LLM crea respuestas contextuales basadas en los mensajes del usuario.
+- **Personalización**: Se ha configurado un *prompt customizable*.
+
+### Módulos y Librerías Clave
+
+- **@angular/common/http**: Facilita las solicitudes HTTP a la API de OpenAI.
+- **rxjs**: Permite gestionar de manera reactiva la comunicación asíncrona con la API.
+
+
+
+
+
+
 ## Futuras Funcionalidades
 - **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.
 - **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.
 - **Soporte Multimedia y Geolocalización en el Chat**: Permitir el envío de fotos, audios y la ubicación actual a través del chat.
+- **Autenticación de Usuario con Firebase**: Implementar autenticación de usuarios utilizando Firebase, permitiendo el registro, inicio de sesión y gestión de sesiones de forma segura. Además, se integrarán guardianes de ruta para proteger las páginas que requieren autenticación y redirigir a los usuarios no autenticados a la página de inicio de sesión.
 
 
 ## Inicia el Servidor de Desarrollo con Ionic
 Para iniciar el servidor de desarrollo y probar la aplicación en un navegador, utiliza el siguiente comando:
 ionic serve
-
 
 ## Dependencias Clave
 Ionic: Framework para construir aplicaciones móviles y web híbridas.
@@ -76,13 +91,13 @@ Capacitor: Herramienta para acceder a APIs nativas en aplicaciones móviles.
 Ionic Storage: Para la persistencia de datos localmente.
 Capacitor Preferences: Utilizado para manejar el almacenamiento clave-valor en Capacitor 6.
 SQLite: Base de datos ligera para almacenamiento local en dispositivos móviles.
-Archivos Importantes
+
+## Archivos Importantes
 angular.json: Configuración del proyecto Angular.
 ionic.config.json: Configuración específica de Ionic.
 capacitor.config.ts: Configuración de Capacitor para integrar funcionalidades nativas.
 src/app: Contiene todos los componentes y páginas de la aplicación.
 package.json: Listado de todas las dependencias y scripts del proyecto.
-
 
 ## Versiones usadas en el Proyecto
 - **IONIC**: ionic --version "7.2.0"
@@ -90,8 +105,6 @@ package.json: Listado de todas las dependencias y scripts del proyecto.
 - **CAPACITOR**:
    @capacitor/core: 6.1.2
    @capacitor/preferences: 1.2.5
-
-
 
 ## Instalaciones Realizadas
 Para soportar las nuevas funcionalidades, se realizaron las siguientes instalaciones:
@@ -104,5 +117,3 @@ npm install @ionic/storage-angular
 
 Capacitor Preferences:
 npm install @capacitor/preferences
-
-
