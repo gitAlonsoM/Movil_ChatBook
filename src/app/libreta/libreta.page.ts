@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TaskService } from '../services/task.service';
 import { AlertController } from '@ionic/angular';
-
+import { trigger, state, style, transition, animate } from '@angular/animations'; // Importar animaciones
 
 // Definir la interfaz para el tipo de datos de las tareas
 interface Task {
@@ -15,16 +15,27 @@ interface Task {
   selector: 'app-libreta',
   templateUrl: './libreta.page.html',
   styleUrls: ['./libreta.page.scss'],
+  animations: [
+    trigger('pulseAnimation', [
+      state('inactive', style({ transform: 'scale(1)', opacity: 1 })),
+      state('active', style({ transform: 'scale(1.1)', opacity: 0.8 })),
+      transition('inactive <=> active', [animate('0.3s')]),
+    ]),
+  ],
 })
 export class LibretaPage implements OnInit {
   
-  // Tipar correctamente el array de tareas
-  tasks: Task[] = [];
+  tasks: Task[] = []; // Array de tareas
+  animationState: string = 'inactive'; // Inicializar el estado de la animación
 
-  constructor(private taskService: TaskService, private alertCtrl: AlertController, private router: Router,) {}
+  constructor(
+    private taskService: TaskService, 
+    private alertCtrl: AlertController, 
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.loadTasks();
+    this.loadTasks(); // Cargar tareas al inicializar
   }
 
   // Cargar todas las tareas
@@ -33,7 +44,7 @@ export class LibretaPage implements OnInit {
   }
 
   // Crear o editar una tarea
-  async newTask(taskId: string | null = null) { // Cambiar para aceptar 'string' o 'null'
+  async newTask(taskId: string | null = null) {
     const alert = await this.alertCtrl.create({
       header: taskId ? 'Editar tarea' : 'Nueva tarea',
       inputs: [
@@ -55,12 +66,10 @@ export class LibretaPage implements OnInit {
         },
         {
           text: taskId ? 'Actualizar' : 'Guardar',
-          handler: (data) => {
+          handler: async (data) => {
             const id = taskId ? taskId : new Date().getTime().toString();
-            // Asegurarse de que el 'id' esté incluido en el objeto 'Task'
-            this.taskService.saveTask(id, { id: id, title: data.title, content: data.content }).then(() => {
-              this.loadTasks(); // Recargar las tareas
-            });
+            await this.taskService.saveTask(id, { id, title: data.title, content: data.content });
+            this.loadTasks(); // Recargar las tareas
           }
         }
       ]
@@ -79,10 +88,13 @@ export class LibretaPage implements OnInit {
     this.newTask(taskId);
   }
 
-
-  //metodo navegar al chat
-  chat(){
+  // Método para navegar al chat
+  chat() {
     this.router.navigate(['/chat']);
   }
-  
+
+  // Método para iniciar sesión como invitado
+  guestLogin() {
+    this.router.navigate(['/chat']); // Redirige al chat al iniciar sesión como invitado
+  }
 }

@@ -71,8 +71,6 @@ La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar co
 
 
 
-
-
 ## Futuras Funcionalidades
 - **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.
 - **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.
@@ -102,9 +100,18 @@ package.json: Listado de todas las dependencias y scripts del proyecto.
 ## Versiones usadas en el Proyecto
 - **IONIC**: ionic --version "7.2.0"
 - **ANGULAR**: ng --version "18.2.3"
+--**FIREBASE**: firebase --version "10.14.0"
+--**EXPRESS**: express --version "4.21.0"
+--**SOCKET.IO**: socket.io --version "4.8.0"
+--**TSLIB**: tslib --version "2.3.0"
+--**ZONE.JS** zone.js --version "0.14.10"
+
 - **CAPACITOR**:
    @capacitor/core: 6.1.2
    @capacitor/preferences: 1.2.5
+
+## Firebase
+   @angular/fire@18.0.1
 
 ## Instalaciones Realizadas
 Para soportar las nuevas funcionalidades, se realizaron las siguientes instalaciones:
