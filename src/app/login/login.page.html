@@ -1,16 +1,11 @@
-<!-- myApp\src\app\login\login.page.html -->
-
 <ion-header>
   <ion-toolbar>
     <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-
   <div class="login-container" [@pulseAnimation]="animationState">
-    
     <ion-card class="card-login">
       <ion-card-header>
         <ion-card-title>Iniciar Sesión</ion-card-title>
@@ -19,15 +14,15 @@
       <ion-card-content>
         <ion-item>
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="email"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password"></ion-input>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" id="open-loading2" (click)="login()">Entrar</ion-button>
+        <ion-button expand="block" (click)="login()">Entrar</ion-button>
         <ion-button expand="block" fill="clear" (click)="guestLogin()">Entrar como invitado</ion-button>
         
         <!-- Contenedor de las opciones adicionales -->
@@ -45,15 +40,11 @@
     </ion-card>
   </div>
 
-  <!-- Efecto de carga spinner en botones desabilitados" -->
-  <ion-loading trigger="open-loading2" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
-
+  <ion-loading [isOpen]="loading" message="Cargando..." spinner="circles"></ion-loading>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title>
-      © 2028 Mi Aplicación
-    </ion-title>
+    <ion-title>© 2028 Mi Aplicación</ion-title>
   </ion-toolbar>
 </ion-footer>

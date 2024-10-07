@@ -1,35 +1,33 @@
-/* src\app\app.module.ts */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { HttpClientModule } from '@angular/common/http';  // Importa HttpClientModule para realizar peticiones HTTP
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; //Usado para Angular Animations
-
-
-/* importaciones de ionic storage */
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicStorageModule } from '@ionic/storage-angular';
-
-
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'; // Importa CUSTOM_ELEMENTS_SCHEMA
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
-    IonicStorageModule.forRoot(),/* importaciones de ionic storage */
+    IonicModule.forRoot(), // Asegúrate de que esté aquí
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule, // Necesario para realizar peticiones HTTP, incluyendo las llamadas a la API de OpenAI
-    BrowserAnimationsModule // Usado para Angular Animations
-
+    HttpClientModule,
+    BrowserAnimationsModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideFirebaseApp(() => initializeApp(environment.firebase)), // Debe estar aquí
+    provideAuth(() => getAuth()), // Debe estar aquí
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Debe estar aquí
   bootstrap: [AppComponent]
 })
 export class AppModule {}
-

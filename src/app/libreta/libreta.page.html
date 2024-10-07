@@ -1,5 +1,3 @@
-<!-- myApp\src\app\libreta\libreta.page.html -->
- 
 <ion-header>
   <ion-toolbar>
     <ion-title>Libreta de Tareas</ion-title>
@@ -12,7 +10,6 @@
 
   <!-- Lista de tareas con deslizamiento para Editar/Eliminar -->
   <ion-list>
-    <!-- Utilizamos 'ion-item-sliding' para habilitar las opciones al deslizar -->
     <ion-item-sliding *ngFor="let task of tasks">
       <ion-item>
         <ion-label>
@@ -20,24 +17,24 @@
           <p>{{ task.content }}</p>
         </ion-label>
       </ion-item>
-
       <!-- Opciones de acción (Editar y Eliminar) -->
       <ion-item-options side="end">
-        <!-- Botón para editar la tarea -->
         <ion-item-option (click)="editTask(task.id)">Editar</ion-item-option>
-        <!-- Botón para eliminar la tarea -->
         <ion-item-option color="danger" (click)="deleteTask(task.id)">Eliminar</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 
+  <!-- Botón para iniciar sesión como invitado con animación -->
+  <div [@pulseAnimation]="animationState">
+    <ion-button expand="block" (click)="guestLogin()">Iniciar sesión como invitado</ion-button>
+  </div>
 </ion-content>
 
 <!-- Botón para ir al Chat -->
-<ion-button expand="block" fill="clear" (click)="chat()">Chat</ion-button>
-
 <ion-footer>
   <ion-toolbar>
     <ion-title>© 2028 Mi Aplicación</ion-title>
+    <ion-button expand="block" fill="clear" (click)="chat()">Chat</ion-button>
   </ion-toolbar>
 </ion-footer>
