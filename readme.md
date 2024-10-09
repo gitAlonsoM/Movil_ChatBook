@@ -1,7 +1,8 @@
 # Aplicación "Libreta + Chat con LLM"
 
 ## Descripción
-Esta aplicación permite a los usuarios interactuar con un modelo de lenguaje (LLM) a través de un chat y gestionar sus tareas diarias mediante una libreta de recordatorios. La aplicación está diseñada para funcionar tanto en dispositivos móviles como en navegadores web, utilizando Ionic y Angular.
+Esta aplicación permite a los usuarios interactuar con un modelo de lenguaje (LLM) a través de un chat y gestionar sus tareas diarias mediante una libreta de recordatorios. La aplicación está diseñada para funcionar tanto en dispositivos móviles como en navegadores web, utilizando Ionic y Angular, usando autentificacion de usuarios mediante firebase.
+
 
 ## Páginas y Componentes principales
 La mayoría de las funcionalidades aún están en desarrollo, pero se destacan las siguientes:
@@ -15,6 +16,8 @@ La mayoría de las funcionalidades aún están en desarrollo, pero se destacan l
    - **Botones Personalizados**: Elementos de interfaz diseñados para mejorar la experiencia del usuario.
    - **Animaciones** con Angular Material.
    - **Otras Páginas**: Adicionales para restablecer contraseña, entre otros servicios secundarios.
+
+
 
 ## Estructura del Proyecto
 El proyecto sigue una estructura típica de una aplicación Angular con Ionic. A continuación, se detalla la estructura principal del proyecto:
@@ -33,7 +36,7 @@ myApp/
 │   │   ├── login/           # Página de autenticación de usuarios
 │   │   ├── recover-key/     # Página para recuperación de contraseñas
 │   │   ├── register/        # Página para el registro de nuevos usuarios
-│   │   ├── services/        # Servicios, incluyendo el servicio de tareas (TaskService)
+│   │   ├── services/        # Servicios, incluyendo el servicio de tareas y autentificación (TaskService, auth)
 │   │   ├── app-routing.module.ts  # Módulo de enrutamiento de la aplicación
 │   │   ├── app.component.ts       # Componente principal de la aplicación
 │   │   ├── app.module.ts          # Módulo principal de la aplicación
@@ -49,19 +52,19 @@ myApp/
 ├── readme.md                # Archivo de documentación del proyecto
 ├── tsconfig.json            # Configuración de TypeScript
 
+
 ## Funcionalidades Implementadas
-- **CRUD en la Libreta**: Ahora es posible crear, editar y eliminar tareas en la libreta. Las tareas se almacenan localmente usando **Ionic Storage**, y son persistentes incluso después de cerrar y reabrir la aplicación.
+- **CRUD en la Libreta**: Es posible crear, editar y eliminar tareas en la libreta. Las tareas se almacenan localmente usando **Ionic Storage**, y son persistentes incluso después de cerrar y reabrir la aplicación.
 - **Persistencia Local**: La libreta de tareas usa **Capacitor Preferences** para asegurar que las tareas se guarden de manera local en dispositivos móviles y navegadores.
 - **Deslizamiento para Editar y Eliminar**: Las opciones de **Editar** y **Eliminar** están disponibles al deslizar cada tarea.
-
+- **Atentificacion de usuario**: Es posible crear cuentas de usuario y autentificarse correctamente, haciendo uso de "firebase".
 
 
 ## Funcionalidades del LLM
-
 La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar con los usuarios en un chat. Las funciones implementadas incluyen:
-
 - **Generación de Respuestas**: El LLM crea respuestas contextuales basadas en los mensajes del usuario.
 - **Personalización**: Se ha configurado un *prompt customizable*.
+
 
 ### Módulos y Librerías Clave
 
@@ -69,13 +72,11 @@ La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar co
 - **rxjs**: Permite gestionar de manera reactiva la comunicación asíncrona con la API.
 
 
-
-
 ## Futuras Funcionalidades
 - **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.
 - **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.
 - **Soporte Multimedia y Geolocalización en el Chat**: Permitir el envío de fotos, audios y la ubicación actual a través del chat.
-- **Autenticación de Usuario con Firebase**: Implementar autenticación de usuarios utilizando Firebase, permitiendo el registro, inicio de sesión y gestión de sesiones de forma segura. Además, se integrarán guardianes de ruta para proteger las páginas que requieren autenticación y redirigir a los usuarios no autenticados a la página de inicio de sesión.
+- **Guardianes de rutas**: Se deberan usar guardianes de rutas para mejorar la seguridad en la autentificacion de usuarios con cuentas creadas en firebase.
 
 
 ## Inicia el Servidor de Desarrollo con Ionic
