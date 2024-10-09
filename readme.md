@@ -80,7 +80,9 @@ La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar co
 
 ## Inicia el Servidor de Desarrollo con Ionic
 Para iniciar el servidor de desarrollo y probar la aplicación en un navegador, utiliza el siguiente comando:
+
 ionic serve
+
 
 ## Dependencias Clave
 Ionic: Framework para construir aplicaciones móviles y web híbridas.
@@ -124,3 +126,8 @@ npm install @ionic/storage-angular
 
 Capacitor Preferences:
 npm install @capacitor/preferences
+
+
+## Posibles errores de inicio y solucion
+"Node packages may not be installed. Try installing with 'npm install'."
+npm install firebase @angular/fire
