@@ -22,12 +22,13 @@ export class TaskService {
     await this.storage.create();
   }
 
+
   // Crear o actualizar tarea
   saveTask(id: string, task: Task) {
     return this.storage.set(id, task);
   }
 
-  // Obtener todas las tareas
+  // Obtener todas las tareas, utiliza al array de objetos de "libreta.page.html"
   async getAllTasks(): Promise<Task[]> {
     let tasks: Task[] = [];
     await this.storage.forEach((value, key) => {
@@ -41,7 +42,7 @@ export class TaskService {
     return this.storage.get(id);
   }
 
-  // Eliminar tarea
+  // Eliminar tarea  por ID
   deleteTask(id: string) {
     return this.storage.remove(id);
   }
