@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   constructor(private auth: Auth) {}
 
@@ -18,6 +19,7 @@ export class AuthService {
       throw error; // Propaga el error para manejo en el componente
     }
   }
+  
 
   async login(email: string, password: string): Promise<User | null> {
     try {
@@ -49,3 +51,8 @@ export class AuthService {
     });
   }
 }
+
+
+
+
+

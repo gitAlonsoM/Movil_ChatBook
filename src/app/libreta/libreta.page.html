@@ -22,10 +22,11 @@
         <ion-label> <!-- Se obtiene el titulo y contenido de cada tarea creada para mostrarla en pantalla "interface Task" -->
           <h2>{{ task.title }}</h2>
           <p>{{ task.content }}</p>
+          <p>{{ task.id }}</p>
         </ion-label>
       </ion-item>
 
-      <!-- Opciones de acción (Editar y Eliminar) -->
+      <!-- Botones de  Editar y Eliminar -->
       <ion-item-options side="end">
         <ion-item-option (click)="editTask(task.id)">Editar</ion-item-option>
         <ion-item-option color="danger" (click)="deleteTask(task.id)">Eliminar</ion-item-option>

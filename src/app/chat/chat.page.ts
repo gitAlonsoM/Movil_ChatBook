@@ -38,7 +38,7 @@ export class ChatPage{
     login(){
       this.router.navigate(['/login']);
     }
-    
+
 
     //enviar el mensaje, trim elimina espacios en blanco, si esta vacio no se envia. 
     sendMessage() {
