@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TaskService } from '../services/task.service';
 import { AlertController } from '@ionic/angular';
 
+
 // Definir la interfaz para el tipo de datos de las tareas creadas
 interface Task {
   id: string;
@@ -23,7 +24,7 @@ interface Task {
 
 //Clase del componente "LibretaPage" que se encarga de gestionar la libreta de tareas atraves de "metodos".
 export class LibretaPage implements OnInit {
-  tasks: Task[] = []; // Array de objetos
+  tasks: Task[] = []; // Array de objetos, recibe las tareas almacenadas
 
   constructor( //constructor de la clase que inyecta dependencias o servicios.
     private taskService: TaskService,
