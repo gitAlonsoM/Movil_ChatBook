@@ -53,7 +53,6 @@ export class TaskService {
     return this.storage.remove(id);
   }
 
-
 }
 
 
@@ -104,7 +103,9 @@ Capacitor Preferences:
   npm install @capacitor/preferences
 
 
-
+*Promise<Task[]> 
+en este contexto significa que el método getAllTasks() devuelve una promesa que, cuando se resuelve, contiene un array de objetos Task.
+Se usa en operaciones asíncronas (como leer datos del almacenamiento) porque puede tardar un tiempo en completarse.
 
 
 
