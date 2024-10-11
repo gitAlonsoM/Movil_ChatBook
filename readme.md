@@ -58,6 +58,7 @@ myApp/
 - **Persistencia Local**: La libreta de tareas usa **Capacitor Preferences** para asegurar que las tareas se guarden de manera local en dispositivos móviles y navegadores.
 - **Deslizamiento para Editar y Eliminar**: Las opciones de **Editar** y **Eliminar** están disponibles al deslizar cada tarea.
 - **Atentificacion de usuario**: Es posible crear cuentas de usuario y autentificarse correctamente, haciendo uso de "firebase".
+- **Recuperacion contraseña**: Es posible entregar el correo de cuenta, y recuperar la contraseña en el correo personal.
 
 
 ## Funcionalidades del LLM
@@ -73,10 +74,13 @@ La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar co
 
 
 ## Futuras Funcionalidades
-- **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.
-- **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.
-- **Soporte Multimedia y Geolocalización en el Chat**: Permitir el envío de fotos, audios y la ubicación actual a través del chat.
-- **Guardianes de rutas**: Se deberan usar guardianes de rutas para mejorar la seguridad en la autentificacion de usuarios con cuentas creadas en firebase.
+- **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.(Alonso)
+- **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.(Alonso)
+- **Soporte Multimedia y Geolocalización en el Chat**: Permitir el envío de fotos, audios y la ubicación actual a través del chat.(Alonso)
+- **Menu de hamburgueza**: Implementar menu de hamburgueza con opciones varias del SW.(Alonso)
+- **Guardianes de rutas**: Se deberan usar guardianes de rutas para mejorar la seguridad en la autentificacion de usuarios con cuentas creadas en firebase.(Jerome)
+- **Logo de coneccion**: Se debe poder visualizar en las vistas mas importantes que se esta conectado a la cuenta personal, o si se esta usando el SW como invitado.(Jerome)
+- **Desconectarse de la cuenta**: Se debe poder desconectarse de la cuenta de firebase atraves de un boton.(Jerome)
 
 
 ## Inicia el Servidor de Desarrollo con Ionic
@@ -132,3 +136,5 @@ npm install @capacitor/preferences
 ## Posibles errores de inicio y solucion
 "Node packages may not be installed. Try installing with 'npm install'."
 npm install firebase @angular/fire
+
+
