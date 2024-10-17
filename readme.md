@@ -31,6 +31,7 @@ myApp/
 ├── src/                     # Código fuente del proyecto
 │   ├── app/                 # Contiene todas las páginas, componentes y servicios de la app
 │   │   ├── chat/            # Código de la página de chat y servicios relacionados con LLM
+        |──connection-status # componente que indica y gestiona el estado de conexion de un usuario en la aplicacion si esta conectado o no
 │   │   ├── home/            # Página de inicio (no utilizada en este proyecto)
 │   │   ├── libreta/         # Página de la libreta de tareas con CRUD implementado
 │   │   ├── login/           # Página de autenticación de usuarios
@@ -57,9 +58,10 @@ myApp/
 - **CRUD en la Libreta**: Es posible crear, editar y eliminar tareas en la libreta. Las tareas se almacenan localmente usando **Ionic Storage**, y son persistentes incluso después de cerrar y reabrir la aplicación.
 - **Persistencia Local**: La libreta de tareas usa **Capacitor Preferences** para asegurar que las tareas se guarden de manera local en dispositivos móviles y navegadores.
 - **Deslizamiento para Editar y Eliminar**: Las opciones de **Editar** y **Eliminar** están disponibles al deslizar cada tarea.
-- **Atentificacion de usuario**: Es posible crear cuentas de usuario y autentificarse correctamente, haciendo uso de "firebase".
+- **Autentificacion de usuario**: Es posible crear cuentas de usuario y autentificarse correctamente, haciendo uso de "firebase".
 - **Recuperacion contraseña**: Es posible entregar el correo de cuenta, y recuperar la contraseña en el correo personal.
-
+- **Desconectarse de la cuenta**: Es posible desconectarse de la cuenta al hacer click aparece un mensaje que dice se ha desconectado de forma exitosa.
+- **Logo de coneccion**: Funciona correctamente al entrar como usuario autenticado o como invitado aparece un mensaje en cada uno con una barra que se despliega y luego desaparece, ademas aparece el logo con un mensaje que dice iniciando sesion
 
 ## Funcionalidades del LLM
 La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar con los usuarios en un chat. Las funciones implementadas incluyen:
@@ -79,8 +81,8 @@ La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar co
 - **Soporte Multimedia y Geolocalización en el Chat**: Permitir el envío de fotos, audios y la ubicación actual a través del chat.(Alonso)
 - **Menu de hamburgueza**: Implementar menu de hamburgueza con opciones varias del SW.(Alonso)
 - **Guardianes de rutas**: Se deberan usar guardianes de rutas para mejorar la seguridad en la autentificacion de usuarios con cuentas creadas en firebase.(Jerome)
-- **Logo de coneccion**: Se debe poder visualizar en las vistas mas importantes que se esta conectado a la cuenta personal, o si se esta usando el SW como invitado.(Jerome)
-- **Desconectarse de la cuenta**: Se debe poder desconectarse de la cuenta de firebase atraves de un boton.(Jerome)
+
+
 
 
 ## Inicia el Servidor de Desarrollo con Ionic

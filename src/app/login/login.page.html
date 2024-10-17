@@ -5,8 +5,19 @@
 </ion-header>
 
 <ion-content>
-  <div class="login-container" [@pulseAnimation]="animationState">
-    <ion-card class="card-login">
+  <!-- Barra de mensaje de desconexión -->
+  <div *ngIf="showMessage" class="success-message">
+    {{ message }}
+  </div>
+
+  <!-- Contenedor de conexión -->
+  <div *ngIf="isConnecting" class="connection-status">
+    <img src="assets/images/logo.png" alt="Conexión" />
+    <p>{{ isGuest ? 'Entrando como invitado...' : 'Iniciando sesión...' }}</p>
+  </div>
+
+  <div class="login-container">
+    <ion-card class="card-login" [@pulseAnimation]="animationState">
       <ion-card-header>
         <ion-card-title>Iniciar Sesión</ion-card-title>
       </ion-card-header>
@@ -40,6 +51,7 @@
     </ion-card>
   </div>
 
+  <!-- Loading indicador -->
   <ion-loading [isOpen]="loading" message="Cargando..." spinner="circles"></ion-loading>
 </ion-content>
 

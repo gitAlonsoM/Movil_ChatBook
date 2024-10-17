@@ -6,7 +6,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
 
   <!-- Contenedor de la pantalla de chat -->
@@ -26,7 +25,6 @@
 
   </div>
 
-
   <!-- Input y botones de acción -->
   <div class="chat-input-container">
 
@@ -38,32 +36,33 @@
     <!-- Input de mensaje -->
     <ion-input [(ngModel)]="userMessage" placeholder="Escribe tu mensaje..."></ion-input>
 
-    <!-- Boton para enviar audio -->
+    <!-- Botón para enviar audio -->
     <ion-button fill="clear" (click)="sendAudio()">
       <ion-icon name="mic-outline"></ion-icon>
     </ion-button>
 
-    <!-- Boton para enviar mensaje -->
+    <!-- Botón para enviar mensaje -->
     <ion-button fill="clear" (click)="sendMessage()">
       <ion-icon name="send-outline"></ion-icon>
     </ion-button>
 
-
   </div>
 
-  <!-- Boton para ir a la Libreta -->
+  <!-- Botón para ir a la Libreta -->
   <ion-button expand="block" fill="clear" (click)="libreta()">Libreta</ion-button>  
 
-  <!-- Boton para ir al login -->
+  <!-- Botón para ir al login -->
   <ion-button expand="block" fill="clear" (click)="login()">Login</ion-button>  
 
+  <!-- Botón para desconectarse -->
+  <ion-button expand="block" fill="clear" (click)="logout()">Desconectarse</ion-button>  
 
-   <!-- Boton para desconectarse -->
-   <ion-button expand="block" fill="clear" (click)="login()">Desconectarse</ion-button>  
+  <!-- Barra de mensaje de desconexión -->
+  <div *ngIf="showMessage" class="success-message" style="background-color: green; color: white; padding: 10px; text-align: center;">
+    {{ message }}
+  </div>
 
 </ion-content>
-
-
 
 <ion-footer>
   <ion-toolbar>
@@ -73,12 +72,6 @@
   </ion-toolbar>
 </ion-footer>
 
-
-
-
-
-
-
 <!-- 
 *ngFor="let chatItem of messages"
 Directiva de Angular que itera sobre una lista de elementos 
@@ -87,5 +80,3 @@ Genera dinámicamente una lista de mensajes en la interfaz de usuario.
 Cada mensaje en el array messages se representa como un elemento en la lista.
 Es necesario para renderizar la lista de mensajes en la interfaz de usuario.
  -->
-
-
