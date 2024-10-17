@@ -9,24 +9,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'; // Importa CUSTOM_ELEMENTS_SCHEMA
-
-import { IonicStorageModule } from '@ionic/storage-angular'; //necesario para el crud de la libreta
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+   
+  ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(), // Asegúrate de que esté aquí
+    IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule, //no borrar
+    HttpClientModule,
     BrowserAnimationsModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // Inicializa Firebase
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // Inicializa la autenticación de Firebase
     provideAuth(() => getAuth()),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

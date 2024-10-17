@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User, sendPasswordResetEmail } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User, sendPasswordResetEmail, signOut } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
-  constructor(private auth: Auth) {}
+  constructor(private auth: Auth, private router: Router, private toastController: ToastController) {}
 
-  async register(email: string, password: string): Promise<any> {
+  async register(email: string, password: string): Promise<User> {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       console.log('Registro exitoso:', userCredential);
@@ -19,7 +20,6 @@ export class AuthService {
       throw error; // Propaga el error para manejo en el componente
     }
   }
-  
 
   async login(email: string, password: string): Promise<User | null> {
     try {
@@ -50,9 +50,33 @@ export class AuthService {
       return { unsubscribe };
     });
   }
+
+  // Método para desconectarse
+  async logout(): Promise<void> {
+    try {
+      await signOut(this.auth);
+      console.log('Usuario desconectado');
+      this.showToast('Te has desconectado de forma exitosa vuelve pronto!!');
+      this.router.navigate(['/login']); // Redirigir al login
+    } catch (error) {
+      console.error('Error al desconectarse:', error);
+      throw error; // Propaga el error para manejo en el componente
+    }
+  }
+
+  // Método para obtener el correo del usuario actual
+  getCurrentUserEmail(): string {
+    const user = this.auth.currentUser; // Se obtiene el usuario actual
+    return user && user.email ? user.email : 'Invitado'; // Retorna el email o 'Invitado'
+  }
+
+  private async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'top',
+      color: 'success'
+    });
+    toast.present();
+  }
 }
-
-
-
-
-
