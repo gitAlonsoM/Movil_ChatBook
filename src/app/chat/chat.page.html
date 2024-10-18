@@ -10,25 +10,24 @@
 <ion-content>
 
   <!-- Contenedor de la pantalla de chat -->
-  <div class="chat-container">
 
+  <div class="chat-container">
     <!-- Area de mensajes -->
     <div class="chat-messages">
-
       <!-- Listado de mensajes Bot - usuario -->
       <ion-list>
         <ion-item *ngFor="let chatItem of messages">
-          <ion-label [ngClass]="{'user-message': chatItem.fromUser, 
-                                  'bot-message': !chatItem.fromUser}">
+          <ion-label
+            [ngClass]="{'user-message': chatItem.fromUser, 
+                        'bot-message': !chatItem.fromUser}"
+          >
             {{ chatItem.text }}
           </ion-label>
         </ion-item>
       </ion-list>
-
     </div>
-
-    
   </div>
+
 
   <!-- Input y botones de acción -->
   <div class="chat-input-container">
@@ -38,42 +37,60 @@
       <ion-icon name="attach-outline"></ion-icon>
     </ion-button>
 
-    <!-- Input de mensaje -->
-    <ion-input [(ngModel)]="userMessage" placeholder="Escribe tu mensaje..."></ion-input>
-
-    <!-- Botón para enviar audio -->
+     <!-- Botón para enviar audio -->
     <ion-button fill="clear" (click)="sendAudio()">
       <ion-icon name="mic-outline"></ion-icon>
     </ion-button>
 
+
+    <!-- Input de mensaje -->
+    <ion-input
+      [(ngModel)]="userMessage" 
+      placeholder="Escribe tu mensaje..."
+    ></ion-input>
+   
     <!-- Botón para enviar mensaje -->
     <ion-button fill="clear" (click)="sendMessage()">
       <ion-icon name="send-outline"></ion-icon>
     </ion-button>
-
+    
   </div>
 
   <!-- Botón para ir a la Libreta -->
-  <ion-button expand="block" fill="clear" (click)="libreta()">Libreta</ion-button>  
+  <ion-button expand="block" fill="clear" (click)="libreta()"
+    >Libreta</ion-button
+  >
 
   <!-- Botón para ir al login -->
-  <ion-button expand="block" fill="clear" (click)="login()">Login</ion-button>  
+  <ion-button expand="block" fill="clear" (click)="login()">Login</ion-button>
 
   <!-- Botón para desconectarse -->
-  <ion-button expand="block" fill="clear" (click)="logout()">Desconectarse</ion-button>  
+  <ion-button expand="block" fill="clear" (click)="logout()"
+    >Desconectarse</ion-button
+  >
 
   <!-- Barra de mensaje de desconexión -->
-  <div *ngIf="showMessage" class="success-message" style="background-color: green; color: white; padding: 10px; text-align: center;">
+  <div
+    *ngIf="showMessage"
+    class="success-message"
+    style="
+      background-color: green;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    "
+  >
     {{ message }}
   </div>
 
+  
 </ion-content>
+
+
 
 <ion-footer>
   <ion-toolbar>
-    <ion-title>
-      © 2028 Mi Aplicación
-    </ion-title>
+    <ion-title> © 2028 Mi Aplicación </ion-title>
   </ion-toolbar>
 </ion-footer>
 
@@ -83,8 +100,10 @@
 
 
 
-<!-- 
 
+
+
+<!-- 
 *ng
 Es una abreviación de "Angular"
 ng es una convención que se utiliza manejar los servicios y módulos que son propios de Angular. 

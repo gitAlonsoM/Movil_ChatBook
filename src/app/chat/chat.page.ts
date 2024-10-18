@@ -7,14 +7,12 @@ import { AuthService } from '../services/auth.service';
 import { ToastController } from '@ionic/angular'; //permite mostrar mensajes emergentes.
 
 
-
-@Component({   //Decorador que marca esta clase como un componente de Angular
+@Component({
+  //Decorador que marca esta clase como un componente de Angular
   selector: 'app-chat', //nombre que se usara en el HTML
   templateUrl: './chat.page.html', // ruta del archivo HTML
   styleUrls: ['./chat.page.scss'], //ruta del archivo SCSS
 })
-
-
 
 
 export class ChatPage {
@@ -33,32 +31,24 @@ export class ChatPage {
 
 
   // Array que acumula los mensajes en forma de objetos, con 2 valores.
-  messages = [{ text: 'Hola, ¿En qué puedo ayudarte?', 
-                fromUser: false }];
-
-
-  // Métodos de la clase ChatPage
-  libreta() {
-    this.router.navigate(['/libreta']);
-  }
-
-  login() {
-    this.router.navigate(['/login']);
-  }
-
+  messages = [{ text: 'Hola, ¿En qué puedo ayudarte?', fromUser: false }];
 
   // enviar el mensaje al bot y obtener su respuesta
   sendMessage() {
-    if (this.userMessage.trim().length > 0) { //verifica que no este vacio al eliminar los espacios.
+    if (this.userMessage.trim().length > 0) {
+      //verifica que no este vacio al eliminar los espacios.
       this.messages.push({ text: this.userMessage, fromUser: true });
 
       // Enviar el mensaje al LLM
-      this.chatService.sendMessageToLLM(this.userMessage).subscribe( //Se suscribe a la respuesta de la API
-        (response) => { //Si la API responde correctamente envia la respuesta del bot al array messages
+      this.chatService.sendMessageToLLM(this.userMessage).subscribe(
+        //Se suscribe a la respuesta de la API
+        (response) => {
+          //Si la API responde correctamente envia la respuesta del bot al array messages
           const botReply = response.choices[0].message.content;
           this.messages.push({ text: botReply, fromUser: false }); // Añadir la respuesta del bot
         },
-        (error) => { //En caso de error se envia un mensaje al array messages
+        (error) => {
+          //En caso de error se envia un mensaje al array messages
           console.error('Error enviando mensaje al LLM', error);
           this.messages.push({
             text: 'Error al comunicarse con el LLM.',
@@ -71,6 +61,7 @@ export class ChatPage {
     }
   }
 
+
   adjuntarArchivo() {
     alert('Adjuntar archivo');
     // Implementacion futura para adjuntar archivos
@@ -79,6 +70,15 @@ export class ChatPage {
   sendAudio() {
     alert('Enviar audio');
     // Implementación futura para enviar audio
+  }
+
+  // Métodos de la clase ChatPage
+  libreta() {
+    this.router.navigate(['/libreta']);
+  }
+
+  login() {
+    this.router.navigate(['/login']);
   }
 
   // Método para desconectarse
@@ -101,7 +101,9 @@ export class ChatPage {
         console.error('Error al desconectarse', error);
       });
   }
+  
 }
+
 
 
 
