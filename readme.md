@@ -31,7 +31,7 @@ myApp/
 ├── src/                     # Código fuente del proyecto
 │   ├── app/                 # Contiene todas las páginas, componentes y servicios de la app
 │   │   ├── chat/            # Código de la página de chat y servicios relacionados con LLM
-        |──connection-status # componente que indica y gestiona el estado de conexion de un usuario en la aplicacion si esta conectado o no
+│   │   |──connection-status # Componente que indica y gestiona el estado de conexion.
 │   │   ├── home/            # Página de inicio (no utilizada en este proyecto)
 │   │   ├── libreta/         # Página de la libreta de tareas con CRUD implementado
 │   │   ├── login/           # Página de autenticación de usuarios
@@ -134,9 +134,14 @@ npm install @ionic/storage-angular
 Capacitor Preferences:
 npm install @capacitor/preferences
 
+Módulo HTTP de Angular: permite hacer solicitudes HTTP (como POST) al servidor de OpenAI.
+npm install @angular/common/http
+
+
 
 ## Posibles errores de inicio y solucion
 "Node packages may not be installed. Try installing with 'npm install'."
 npm install firebase @angular/fire
+
 
 
