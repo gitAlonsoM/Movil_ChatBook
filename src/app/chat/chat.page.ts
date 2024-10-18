@@ -87,12 +87,12 @@ export class ChatPage {
       .logout()
       .then(() => {
         // Limpiar cualquier estado de conexión
-        this.showMessage = false; // Asegúrate de ocultar el mensaje de desconexión
+        this.showMessage = false; //  ocultar el mensaje de desconexión
         this.message = ''; // Limpiar el mensaje
 
         // Limpiar cualquier mensaje de invitado en localStorage
-        localStorage.removeItem('guestMessage'); // Asegúrate de limpiar el mensaje de invitado
-        localStorage.removeItem('logoutMessage'); // Asegúrate de limpiar el mensaje de desconexión
+        localStorage.removeItem('guestMessage'); //limpiar el mensaje de invitado
+        localStorage.removeItem('logoutMessage'); //limpiar el mensaje de desconexión
 
         // Redirigir al usuario a la página de login
         this.router.navigate(['/login']);

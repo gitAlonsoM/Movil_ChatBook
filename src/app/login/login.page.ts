@@ -8,6 +8,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+
+
+  /* Animacion de entrada al chat, en caso de entrar como usuario registrado o como invitado. */
   animations: [
     trigger('pulseAnimation', [
       state('inactive', style({ transform: 'scale(1)', opacity: 1 })),
@@ -15,7 +18,11 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       transition('inactive <=> active', [animate('0.3s')]),
     ]),
   ],
+
+
 })
+
+
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';

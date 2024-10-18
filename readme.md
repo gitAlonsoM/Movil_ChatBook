@@ -62,6 +62,9 @@ myApp/
 - **Recuperacion contraseña**: Es posible entregar el correo de cuenta, y recuperar la contraseña en el correo personal.
 - **Desconectarse de la cuenta**: Es posible desconectarse de la cuenta al hacer click aparece un mensaje que dice se ha desconectado de forma exitosa.
 - **Logo de coneccion**: Funciona correctamente al entrar como usuario autenticado o como invitado aparece un mensaje en cada uno con una barra que se despliega y luego desaparece, ademas aparece el logo con un mensaje que dice iniciando sesion
+- **Guardianes de rutas**: 
+
+
 
 ## Funcionalidades del LLM
 La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar con los usuarios en un chat. Las funciones implementadas incluyen:
@@ -80,8 +83,9 @@ La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar co
 - **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.(Alonso)
 - **Soporte Multimedia y Geolocalización en el Chat**: Permitir el envío de fotos, audios y la ubicación actual a través del chat.(Alonso)
 - **Menu de hamburgueza**: Implementar menu de hamburgueza con opciones varias del SW.(Alonso)
-- **Guardianes de rutas**: Se deberan usar guardianes de rutas para mejorar la seguridad en la autentificacion de usuarios con cuentas creadas en firebase.(Jerome)
-
+- **Luz verde - gris de coneccion**: Al iniciar sesion, en el chat se ve una luz verde, indicando que se ha iniciado sesion, y una luz    gris en caso de estar como invitado.(Jerome)
+- **Boton de desconexion**: El boton de desconexion solo aparece cuando el usuario a ingresado con su cuenta, en caso de ingresar como invitado, este boton esta invisible.(Jerome)
+- **Boton de Libreta**: El boton de libreta solo funciona al estar el usuario ingresado correctamente. Si el usuario esta como invitado, aparece un mensaje de (debe iniciar sesion para hacer uso de esta caracteristica).(Jerome)
 
 
 
