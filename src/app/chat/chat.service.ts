@@ -16,7 +16,7 @@ export class ChatService {
   private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint de la API de OpenAi
   /* Comentar API antes de subir a github */
   private apiKey =
-    '';
+    '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';
   /* -s */
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
@@ -44,12 +44,6 @@ export class ChatService {
     // Importancia: Media. Controla la longitud de las respuestas y puede afectar los costos de la API.
     max_tokens: 70,
 
-    // Controla la diversidad de las respuestas mediante núcleo de muestreo.
-    // Rango: 0.0 a 1.0. Valor normal: 1.0
-    // Mínimo: 0.0 (considera todos los tokens), Máximo: 1.0 (considera solo los tokens más probables)
-    // Importancia: Media. Afecta la diversidad de las respuestas, especialmente útil con temperature baja.
-    top_p: 1,
-
     // Penaliza las repeticiones de palabras.
     // Rango: -2.0 a 2.0. Valor normal: 0
     // Mínimo: -2.0 (aumenta repeticiones), Máximo: 2.0 (reduce fuertemente las repeticiones)
@@ -61,6 +55,13 @@ export class ChatService {
     // Mínimo: -2.0 (incentiva nuevos temas), Máximo: 2.0 (se mantiene más en el tema actual)
     // Importancia: Baja-Media. Útil para mantener la conversación enfocada.
     presence_penalty: 0,
+
+    // Controla la diversidad de las respuestas mediante núcleo de muestreo.
+    // Rango: 0.0 a 1.0. Valor normal: 1.0
+    // Mínimo: 0.0 (considera todos los tokens), Máximo: 1.0 (considera solo los tokens más probables)
+    // Importancia: Media. Afecta la diversidad de las respuestas, especialmente útil con temperature baja.
+    top_p: 1,
+
   };
 
   constructor(private http: HttpClient) {}
@@ -71,8 +72,7 @@ export class ChatService {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.apiKey}`, //Se usa la apiKey
     });
-
-
+    
     const body = {
       ...this.apiParams, //Se incluyen los parametros, se usa el operador spread para incluir todos los parámetros definidos 
       messages: [
@@ -86,11 +86,20 @@ export class ChatService {
   }
 
 
+
     // Método para actualizar el prompt del sistema si es necesario
     /* updateSystemPrompt(newPrompt: string) {
     this.systemPrompt = newPrompt;
     } */
+
+
 }
+
+
+
+
+
+
 
 
 
