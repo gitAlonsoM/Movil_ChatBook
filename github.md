@@ -82,3 +82,26 @@ git status (Ver estado del proyecto actual antes de guardar)
 ASDASDASDASAD
 INICIALIZAR UN REPOSITORIO (solo si se está creando un nuevo proyecto)
 git init
+
+
+
+__________________________________________________
+## RANDOM
+
+
+*Api Open AI: toccatafugue45@gmail.com
+
+
+
+## Algunos comandos utiles
+
+**Comandos para Crear Servicios**
+ionic generate service nombre-del-servicio
+ionic generate service chat_ejemplo
+
+**Comandos para Crear Componentes**
+ionic generate component menu
+
+**Comandos para Crear Paginas**
+ionic generate page login 
+ionic generate page chat 

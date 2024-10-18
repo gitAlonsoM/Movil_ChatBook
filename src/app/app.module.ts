@@ -1,3 +1,5 @@
+/* src\app\app.module.ts */
+/*Modulo raiz de la web en donde se realizan las importaciones necesarias para su funcionamiento global  */
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -23,7 +25,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule,
+    HttpClientModule, //modulo HTTP de Angular para hacer uso de la API
     BrowserAnimationsModule,
   ],
   providers: [
