@@ -16,8 +16,9 @@ export class ChatService {
   private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint de la API de OpenAi
   /* Comentar API antes de subir a github */
   private apiKey =
-    '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';
+    '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';
   /* -s */
+
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
   private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. 
