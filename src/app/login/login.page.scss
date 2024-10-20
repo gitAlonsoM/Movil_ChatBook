@@ -11,8 +11,8 @@
   
   /* Transicion de la animacion del login */
   .card-login {
-    transition: transform 1s ease-in-out;
-    transform-style: preserve-3d;
+    transition: transform 1s ease-in-out, opacity 0.2s ease-in-out; /* Animación suave */
+    transform-style: preserve-3d; /* Preserva las transformaciones 3D */
   }
   
   .logo-img {

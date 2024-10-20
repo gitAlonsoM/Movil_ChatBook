@@ -1,51 +1,81 @@
 .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 80%;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  justify-content: center;
+}
 
-  }
-  
-  .chat-messages {
-    flex-grow: 1;
-    overflow-y: scroll;
-    padding-bottom: 10px;
-  }
-  
-  .chat-input-container {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-top: 1px solid var(--ion-border-color);
-    background-color: var(--ion-background-color);
-  }
-  
-  .chat-input-container ion-input {
-    flex-grow: 1;
-    margin-right: 10px;
-  }
-  
-  .user-message {
-    text-align: right;
-    background-color: #e0f7fa;
-    padding: 8px;
-    border-radius: 15px;
-    color: black;
-  }
-  
-  .bot-message {
-    text-align: left;
-    background-color: #f1f8e9;
-    padding: 8px;
-    border-radius: 15px;
-    color: black;
-  }
+.chat-messages {
+  flex-grow: 1; /* Asegura que ocupe el espacio disponible */
+  overflow-y: scroll; /* Permite el desplazamiento vertical */
+  padding-bottom: 10px; /* Espaciado en la parte inferior */
+}
 
+.chat-input-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+  padding: 10px; /* Espaciado interno */
+  border-top: 1px solid var(--ion-border-color); /* Línea en la parte superior */
+  background-color: var(--ion-background-color); /* Color de fondo */
+}
 
-  .success-message {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10; 
-    text-align: center;
-  }
+.chat-input-container ion-input {
+  flex-grow: 1; /* Permite que el input ocupe todo el ancho disponible */
+  margin-right: 10px; /* Espaciado a la derecha */
+}
+
+.user-message {
+  text-align: right; /* Alinea el mensaje del usuario a la derecha */
+  background-color: #e0f7fa; /* Color de fondo del mensaje del usuario */
+  padding: 8px; /* Espaciado interno */
+  border-radius: 15px; /* Bordes redondeados */
+  color: black; /* Color del texto */
+}
+
+.bot-message {
+  text-align: left; /* Alinea el mensaje del bot a la izquierda */
+  background-color: #f1f8e9; /* Color de fondo del mensaje del bot */
+  padding: 8px; /* Espaciado interno */
+  border-radius: 15px; /* Bordes redondeados */
+  color: black; /* Color del texto */
+}
+
+.success-message {
+  position: absolute; /* Mantiene el mensaje dentro del encabezado */
+  right: 10px; /* Ubica el mensaje a la derecha */
+  top: 5px; /* Ajusta el margen superior para que no esté pegado al borde */
+  background-color: green; /* Fondo verde */
+  color: white; /* Texto blanco */
+  padding: 9px; /* Espaciado interno */
+  z-index: 100; /* Asegura que se muestre sobre otros elementos */
+}
+
+.connection-indicator {
+  position: absolute;
+  right: 10px;
+  top: 50%; /* Asegura que esté en el centro vertical del encabezado */
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.connection-indicator div {
+  width: 60px; /* Tamaño aumentado del indicador */
+  height: 60px; /* Tamaño aumentado del indicador */
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.green-light {
+  background-color: green; /* Color para usuario autenticado */
+}
+
+.gray-light {
+  background-color: gray; /* Color para invitado */
+}
+
+.connection-status {
+  margin-left: 10px; /* Espacio entre el círculo y el texto */
+  font-size: 16px; /* Tamaño del texto */
+  color: white; /* Color del texto */
+}
