@@ -12,7 +12,7 @@ export class ChatService {
   private apiUrl = 'https://api.openai.com/v1/chat/completions'; // endpoint de la API de OpenAi
   /* Comentar API antes de subir a github */
   private apiKey =
-    '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';
+    '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';
   /* -s */
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM

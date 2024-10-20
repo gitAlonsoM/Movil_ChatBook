@@ -1,111 +1,175 @@
-/* src\app\libreta\libreta.page.ts  */
+
+// src/app/libreta/libreta.page.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TaskService } from '../services/task.service';
-import { AlertController, ToastController } from '@ionic/angular'; // Añadir ToastController para el mensaje
-import { AuthService } from '../services/auth.service'; // Importa el servicio de autenticación
+import { AlertController, ToastController } from '@ionic/angular';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; // Importar Capacitor Camera
+import { AuthService } from '../services/auth.service'; // Importar AuthService
 
 // Definir la interfaz para el tipo de datos de las tareas creadas
 interface Task {
   id: string;
   title: string;
   content: string;
+  imageUrl?: string | null; // Añadir el campo opcional para la imagen, permitiendo null
 }
 
-// Decorador de Angular para marcar una clase como componente, con su propio html, y estilos css
 @Component({
   selector: 'app-libreta',
   templateUrl: './libreta.page.html',
   styleUrls: ['./libreta.page.scss'],
 })
-
-// Clase del componente "LibretaPage" que se encarga de gestionar la libreta de tareas a través de "métodos".
 export class LibretaPage implements OnInit {
-  tasks: Task[] = []; // Array de objetos, recibe las tareas almacenadas
-  isLoggedIn: boolean = false; // Variable para el estado de inicio de sesión
-  showMessage: boolean = false; // Controla la visibilidad del mensaje
-  message: string = ''; // Almacena el mensaje que se mostrará
+  tasks: Task[] = []; // Array de objetos para almacenar las tareas
+  isLoggedIn: boolean = false;
+  showMessage: boolean = false;
+  message: string = '';
 
-  constructor( // Constructor de la clase que inyecta dependencias o servicios.
+  constructor(
     private taskService: TaskService,
     private alertCtrl: AlertController,
     private router: Router,
-    private authService: AuthService, // Inyectar el servicio de autenticación
-    private toastController: ToastController // Inyectar ToastController para mostrar el mensaje
+    private authService: AuthService, // Se inyecta AuthService
+    private toastController: ToastController
   ) {}
 
-  ngOnInit() { // Método "ngOnInit" que se ejecuta en cuanto es iniciado el componente.
-    this.loadTasks(); // Cargar tareas al inicializar la libreta
-    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn; // Actualiza el estado de inicio de sesión
+  ngOnInit() {
+    this.loadTasks();
+    this.authService.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
+      this.isLoggedIn = isLoggedIn;
     });
   }
 
-  // Cargar todas las tareas usando a "getAllTasks" del archivo "task.service.ts"
+  // Cargar todas las tareas almacenadas
   async loadTasks() {
-    this.tasks = await this.taskService.getAllTasks();
+    try {
+      console.log('Cargando tareas...'); // Mensaje en consola para depuración
+      this.tasks = await this.taskService.getAllTasks();
+      console.log('Tareas cargadas:', this.tasks); // Imprimir las tareas cargadas
+    } catch (error) {
+      console.error('Error cargando tareas', error);
+      this.showToast('Error al cargar las tareas.');
+    }
   }
 
-  // Crear o editar una tarea, finalmente usa a "saveTask()" del archivo "task.service.ts" para guardar el nuevo cambio.
-  async newTask(taskId: string | null = null) { // Se verifica si la tarea es nueva o existente a través del id, para crear o editar.   
-    const alert = await this.alertCtrl.create({ // Crea un formulario emergente con la función "alertCtrl", permite al usuario agregar título y tareas.
-      header: taskId ? 'Editar tarea' : 'Nueva tarea', // El operador ternario evalúa y de eso depende el título del formulario
 
-      // Se definen los inputs del formulario (title, content) y sus botones (Cancelar, guardar/actualizar)
-      inputs: [
-        {
-          name: 'title',
-          type: 'text',
-          placeholder: 'Título',
-        },
-        {
-          name: 'content',
-          type: 'textarea',
-          placeholder: 'Contenido',
-        },
-      ],
+  //*Codigo comentado para que no se utilice las funciones de la camara no disponible en el navegador
+  // Método para capturar una imagen o seleccionar desde la galería
+/*   async addImage(): Promise<string | null> {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Prompt, // Permite al usuario elegir entre cámara o galería
+      });
 
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-        },
-        {
-          text: taskId ? 'Actualizar' : 'Guardar', // Dependiendo si es tarea nueva o edición será el título del botón
-          handler: async (data) => { 
-            const id = taskId ? taskId : new Date().getTime().toString(); // Se usa el operador ternario para decidir qué valor dar al id, en caso que sea tarea nueva se genera un id nuevo en base a la fecha actual.
-            await this.taskService.saveTask(id, { // Se llama al método "saveTask" de "task.service.ts", se le entrega el id, título y contenido como parámetros.
-              id,
-              title: data.title,
-              content: data.content,
-            });
-            this.loadTasks(); // Recargar las tareas
+      return image?.dataUrl || null; // Devuelve la imagen en formato base64 o null si se cancela
+    } catch (error) {
+      console.error('Error obteniendo la imagen', error);
+      this.showToast('Error al obtener la imagen.');
+      return null;
+    }
+  } */
+
+
+  // Crear o editar una tarea, permite adjuntar imagen
+  async newTask(taskId: string | null = null) {
+    try {
+      console.log('Abriendo formulario para nueva tarea...'); // Mensaje en consola para depuración
+
+
+        //*Codigo comentado para que no se utilice las funciones de la camara no disponible en el navegador
+      let imageUrl: string | null = null; // Variable para almacenar la URL de la imagen
+    /*   if (!taskId) {
+        imageUrl = await this.addImage(); // Capturar o seleccionar imagen para nueva tarea
+        console.log('Imagen seleccionada:', imageUrl); // Imprimir la URL de la imagen seleccionada
+      } */
+
+        
+      const alert = await this.alertCtrl.create({
+        header: taskId ? 'Editar tarea' : 'Nueva tarea',
+        inputs: [
+          {
+            name: 'title',
+            type: 'text',
+            placeholder: 'Título', 
           },
-        },
-      ],
-    });
-    await alert.present();
+          {
+            name: 'content',
+            type: 'textarea',
+            placeholder: 'Contenido',
+          },
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+          },
+          {
+            text: taskId ? 'Actualizar' : 'Guardar',
+            handler: async (data) => {
+              console.log('Datos del formulario:', data); // Imprimir los datos del formulario
+              if (!data.title || !data.content) {
+                this.showToast('El título y el contenido son obligatorios.');
+                return;
+              }
+              const id = taskId ? taskId : new Date().getTime().toString();
+              const task: Task = {
+                id,
+                title: data.title,
+                content: data.content,
+                imageUrl: imageUrl || null, // Guardar la URL de la imagen
+              };
+              try {
+                console.log('Guardando tarea:', task); // Imprimir la tarea que se va a guardar
+                await this.taskService.saveTask(id, task);
+                this.loadTasks();
+              } catch (error) {
+                console.error('Error guardando la tarea', error);
+                this.showToast('Error al guardar la tarea.');
+              }
+            },
+          },
+        ],
+      });
+      await alert.present();
+    } catch (error) {
+      console.error('Error creando o editando tarea', error);
+      this.showToast('Error al abrir el formulario de tarea.');
+    }
   }
 
   // Eliminar tarea
   async deleteTask(taskId: string) {
-    await this.taskService.deleteTask(taskId);
-    this.loadTasks(); // Recargar las tareas
+    try {
+      await this.taskService.deleteTask(taskId);
+      this.loadTasks();
+    } catch (error) {
+      console.error('Error eliminando la tarea', error);
+      this.showToast('Error al eliminar la tarea.');
+    }
   }
 
   // Editar tarea
   editTask(taskId: string) {
-    this.newTask(taskId); // Reutilizar el formulario "newTask" para también editar una tarea existente.
+    this.newTask(taskId); // Reutiliza el formulario para editar
   }
 
-  // Método para manejar el clic en el botón de Libreta
-  onLibretaButtonClick() {
-    if (!this.isLoggedIn) {
-      this.message = 'Debe iniciar sesión para hacer uso de esta característica'; // Mensaje que se mostrará
-      this.showToast(this.message); // Llama a showToast en lugar de manejar el mensaje directamente
+  // Método para navegar al chat
+  chat() {
+    if (this.isLoggedIn) {
+      this.router.navigate(['/chat']);
     } else {
-      // Lógica para abrir la libreta
-      // Aquí puedes añadir la lógica que necesites para abrir la libreta si el usuario está autenticado
+      alert('Debe iniciar sesión para acceder al chat.');
+    }
+  }
+
+  // Método para desconectarse
+  async logout() {
+    if (this.isLoggedIn) {
+      await this.authService.logout();
     }
   }
 
@@ -114,28 +178,13 @@ export class LibretaPage implements OnInit {
     const toast = await this.toastController.create({
       message: message,
       duration: 3000, // Duración en milisegundos
-      color: 'success', // Puedes cambiar el color según tu preferencia
+      color: 'danger', // Puedes cambiar el color según tu preferencia
     });
     await toast.present();
   }
-
-  // Método para navegar al chat
-  chat() {
-    if (this.isLoggedIn) { // Verifica si el usuario está logueado
-      this.router.navigate(['/chat']);
-    } else {
-      // Muestra un mensaje indicando que debe iniciar sesión
-      alert('Debe iniciar sesión para acceder al chat.');
-    }
-  }
-
-  // Método para desconectarse
-  async logout() {
-    if (this.isLoggedIn) { // Solo intentar desconectarse si está logueado
-      await this.authService.logout();
-    }
-  }
 }
+
+
 
 /* 
 * El AlertController (alertCtrl) de Ionic:

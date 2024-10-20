@@ -141,6 +141,15 @@ Módulo HTTP de Angular: permite hacer solicitudes HTTP (como POST) al servidor 
 npm install @angular/common/http
 
 
+Comando relacionados con capacitor y uso de la camara
+npm install @capacitor/camera  Instala el plugin de la cámara
+npx cap sync  Sincroniza las dependencias de Capacitor con las plataformas nativas.
+
+ionic build  compila la aplicación, generando archivos 
+npm run build compila la aplicación, generando scripts en packege.json
+
+
+
 
 ## Posibles errores de inicio y solucion
 "Node packages may not be installed. Try installing with 'npm install'."
