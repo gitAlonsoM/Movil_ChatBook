@@ -3,14 +3,18 @@
 <ion-header>
   <ion-toolbar>
     <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
+
+    <!-- Indicador de conexión si estas como usuario autenticado o estas como invitado -->
+    <div class="connection-indicator" >
+    <div [ngClass]="{ 'green-light': isLoggedIn, 'gray-light': !isLoggedIn }"></div>
+    <div class="connection-status">{{ isLoggedIn ? 'Estás como usuario' : 'Estás como invitado' }}</div>
+  </div>
+
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-
   <!-- Contenedor de la pantalla de chat -->
-
   <div class="chat-container">
     <!-- Area de mensajes -->
     <div class="chat-messages">
@@ -26,22 +30,28 @@
         </ion-item>
       </ion-list>
     </div>
-  </div>
 
+    <!-- Barra de mensaje de conexión -->
+    <div
+      *ngIf="showMessage"
+      class="success-message"
+      style="background-color: green; color: white; padding: 9px; text-align: center; position: absolute; right: 0; top: 0;"
+    >
+      {{ message }}
+    </div>
+  </div>
 
   <!-- Input y botones de acción -->
   <div class="chat-input-container">
-
     <!-- Botón para adjuntar archivos -->
     <ion-button fill="clear" (click)="adjuntarArchivo()">
       <ion-icon name="attach-outline"></ion-icon>
     </ion-button>
 
-     <!-- Botón para enviar audio -->
+    <!-- Botón para enviar audio -->
     <ion-button fill="clear" (click)="sendAudio()">
       <ion-icon name="mic-outline"></ion-icon>
     </ion-button>
-
 
     <!-- Input de mensaje -->
     <ion-input
@@ -53,40 +63,24 @@
     <ion-button fill="clear" (click)="sendMessage()">
       <ion-icon name="send-outline"></ion-icon>
     </ion-button>
-    
   </div>
 
   <!-- Botón para ir a la Libreta -->
-  <ion-button expand="block" fill="clear" (click)="libreta()"
-    >Libreta</ion-button
-  >
+  <ion-button expand="block" fill="clear" (click)="libreta()">Libreta</ion-button>
 
   <!-- Botón para ir al login -->
   <ion-button expand="block" fill="clear" (click)="login()">Login</ion-button>
 
   <!-- Botón para desconectarse -->
-  <ion-button expand="block" fill="clear" (click)="logout()"
-    >Desconectarse</ion-button
+  <ion-button 
+    *ngIf="!logoutButtonHidden" 
+    expand="block" 
+    fill="clear" 
+    (click)="logout()"
   >
-
-  <!-- Barra de mensaje de desconexión -->
-  <div
-    *ngIf="showMessage"
-    class="success-message"
-    style="
-      background-color: green;
-      color: white;
-      padding: 10px;
-      text-align: center;
-    "
-  >
-    {{ message }}
-  </div>
-
-  
+    Desconectarse
+  </ion-button>
 </ion-content>
-
-
 
 <ion-footer>
   <ion-toolbar>
@@ -94,48 +88,25 @@
   </ion-toolbar>
 </ion-footer>
 
-
-
-
-
-
-
-
-
-
 <!-- 
 *ng
 Es una abreviación de "Angular"
 ng es una convención que se utiliza manejar los servicios y módulos que son propios de Angular. 
 
-
-
 *ngClass: 
 Directiva de Angular para clases CSS.
-
   [ngClass]="{'user-message': chatItem.fromUser, 
               'bot-message': !chatItem.fromUser}"
     Agrega la clase de CSS "user-message" si proveien del usuario el mensaje(True), o la clase bot-message en el otro caso (false), 
-
-
-
 
 *ngModel: 
 Directiva de Angular para la vinculación de datos bidireccional entre el componente y el template HTML.
 Cuando los datos en el template html cambian, tambien lo hara en su componente "ChatPage.ts" y viceversa. 
 En este caso conecta el input "userMessage" con el archivo "chat.page.ts", en la propiedad de la clase del mismo nombre "userMessage"
 
-
-
-
 *ngFor="let chatItem of messages"
 Directiva de Angular que itera sobre una lista de elementos 
 (messages en este caso) y crea un elemento HTML para cada ítem en la lista.
 Genera dinámicamente una lista de mensajes en la interfaz de usuario. 
 Cada mensaje en el array messages se representa como un elemento en la lista.
-
-
-
-
-
 -->

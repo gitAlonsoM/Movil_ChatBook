@@ -8,8 +8,6 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-
-
   /* Animacion de entrada al chat, en caso de entrar como usuario registrado o como invitado. */
   animations: [
     trigger('pulseAnimation', [
@@ -18,16 +16,12 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       transition('inactive <=> active', [animate('0.3s')]),
     ]),
   ],
-
-
 })
-
-
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
   loading: boolean = false; // Control del loading
-  animationState: string = 'inactive';
+  animationState: string = 'inactive'; // Estado de la animación
   showMessage: boolean = false; // Para mostrar la barra de mensaje de desconexión
   message: string | null = null; // Para el mensaje de desconexión
   isConnecting: boolean = false; // Para controlar el estado de conexión
@@ -52,13 +46,13 @@ export class LoginPage implements OnInit {
 
     // Asegúrate de limpiar el mensaje de invitado si existe
     localStorage.removeItem('guestMessage'); // Limpia el mensaje de invitado
-    this.isConnecting = false; // Asegúrate de ocultar el logo de conexión
+    this.isConnecting = false; //oculta el logo de conexión si esta en false
   }
 
   async login() {
     console.log('Email:', this.email);
     console.log('Password:', this.password);
-    
+
     if (!this.email.trim() || !this.password.trim()) {
       this.presentToast('Error: Debes estar autenticado por favor crea una cuenta registrate.');
       return;
@@ -76,18 +70,18 @@ export class LoginPage implements OnInit {
       const user = await this.authService.login(this.email, this.password);
       if (user) {
         this.presentToast('Entrando como usuario autenticado...'); // Mensaje de autenticación
+        this.animationState = 'active'; // Activa la animación
         setTimeout(() => {
-          console.log('Redirigiendo a /chat...');
           this.router.navigate(['/chat']); // Redirige a la página del chat
-          console.log('Navegación completada');
-          loading.dismiss(); // Asegúrate de que el loading desaparezca
+          loading.dismiss(); //loading desaparece
+          this.animationState = 'inactive'; // Restablece la animación
         }, 2000); // Espera 2 segundos
       }
     } catch (error) {
       this.handleError(error);
     } finally {
       this.isConnecting = false; // Oculta el logo de conexión
-      loading.dismiss(); // Asegúrate de que el loading desaparezca en caso de error
+      loading.dismiss(); //loading desaparece en caso de error
     }
   }
 
@@ -104,11 +98,9 @@ export class LoginPage implements OnInit {
     this.presentToast('Entrando como invitado...');
 
     setTimeout(() => {
-      console.log('Entrando como invitado...');
       this.router.navigate(['/chat']); // Redirige a la página del chat
-      console.log('Navegación completada');
-      loading.dismiss(); // Asegúrate de que el loading desaparezca
-      this.isConnecting = false; // Oculta el logo de conexión después de navegar
+      loading.dismiss(); // loading desaparece
+      this.isConnecting = false; // Oculta el logo de conexión
     }, 1000); // Simula un retraso de 1 segundo
   }
 
@@ -142,8 +134,8 @@ export class LoginPage implements OnInit {
 
     console.error('Error en el inicio de sesión:', error);
     this.presentToast(errorMessage);
-    this.loading = false; // Asegúrate de ocultar el loading en caso de error
-    this.isConnecting = false; // Asegúrate de ocultar el logo de conexión en caso de error
+    this.loading = false; // oculta el loading en caso de error
+    this.isConnecting = false; // oculta el logo de conexión en caso de error
   }
 
   createAcc() {

@@ -1,79 +1,65 @@
-<!--src\app\libreta\libreta.page.html  -->
+<!-- src\app\libreta\libreta.page.html  -->
+
+
 <ion-header>
   <ion-toolbar>
     <ion-title>Libreta de Tareas</ion-title>
+
+    <!-- Botón de desconexión visible solo si el usuario está autenticado -->
+    <ion-buttons slot="end">
+      <ion-button *ngIf="isLoggedIn" (click)="logout()">Desconectar</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content class="ion-padding">
+
+  <!-- Luz de conexión -->
+  <div class="connection-status">
+    <span [class]="isLoggedIn ? 'green-light' : 'gray-light'"></span>
+    <p>{{ isLoggedIn ? 'Usuario Conectado' : 'Acceso como Invitado' }}</p>
+  </div>
 
   <!-- Botón para agregar una nueva tarea -->
   <ion-button expand="block" (click)="newTask()">Agregar nueva tarea</ion-button>
 
+  <!-- Botón de Libreta siempre visible -->
+  <ion-button expand="block" (click)="onLibretaButtonClick()">Libreta</ion-button>
+  
 
-  <!-- Lista de tareas con deslizamiento para Editar/Eliminar -->
+  <!-- Mensaje de alerta -->
+  <div *ngIf="showMessage" class="alert">{{ message }}</div>
+
+  <!-- Lista de tareas -->
   <ion-list>
-
-    <ion-item-sliding *ngFor="let task of tasks"> <!-- ngFor: itera por cada tarea, generando un nuevo "ion-item-sliding" por cada tarea. -->
-
+    <ion-item-sliding *ngFor="let task of tasks">
       <ion-item>
-        <ion-label> <!-- Se obtiene el titulo y contenido de cada tarea creada para mostrarla en pantalla "interface Task" -->
+        <ion-label>
           <h2>{{ task.title }}</h2>
           <p>{{ task.content }}</p>
-          <p>{{ task.id }}</p>
         </ion-label>
       </ion-item>
 
-      <!-- Botones de  Editar y Eliminar -->
       <ion-item-options side="end">
         <ion-item-option (click)="editTask(task.id)">Editar</ion-item-option>
         <ion-item-option color="danger" (click)="deleteTask(task.id)">Eliminar</ion-item-option>
       </ion-item-options>
 
     </ion-item-sliding>
-
   </ion-list>
 
 </ion-content>
 
 
-<!-- Boton para ir al Chat -->
-<ion-button expand="block" fill="clear" (click)="chat()">Chat</ion-button>
-
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-title>© 2028 Mi Aplicación</ion-title>
-  </ion-toolbar>
-</ion-footer>
-
-
-
-
-
-
-
-
-
 
 <!-- 
-
 *<ion-item-sliding>: 
 Este es un componente de Ionic que permite deslizar los elementos de la lista para mostrar opciones de acción (como editar o eliminar). Es como un "contenedor" deslizante para cada tarea.
 
-
 *ngFor="let task of tasks": 
 Es una directiva de Angular que itera sobre la lista de tareas (tasks). Por cada tarea en esa lista, se genera un nuevo <ion-item-sliding> que contiene los detalles de esa tarea.
-let task of tasks: "task" y "tasks" hacen referencia a nombres declarados en el codigo. "task" es la variable que se genera por cada tarea, y "taks" es el array de objetos. "let" y "of" son parte de la sintaxis.
-
+let task of tasks: "task" y "tasks" hacen referencia a nombres declarados en el código. "task" es la variable que se genera por cada tarea, y "tasks" es el array de objetos. "let" y "of" son parte de la sintaxis.
 
 *(click)="editTask(task.id)": 
 Eventos de Angular que llama a la función editTask() cuando el usuario hace clic en esta opción. Pasa como argumento el id de la tarea (task.id), que es necesario para identificar cuál tarea debe ser editada.
-
-
-
-
-
 -->

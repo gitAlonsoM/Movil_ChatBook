@@ -8,17 +8,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root', // servicio disponible en toda la aplicación. Asegura que solo haya una única instancia del servicio (singleton) en toda la aplicación.
 })
-
-
-
 export class ChatService {
-
-  private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint de la API de OpenAi
+  private apiUrl = 'https://api.openai.com/v1/chat/completions'; // endpoint de la API de OpenAi
   /* Comentar API antes de subir a github */
   private apiKey =
     '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';
   /* -s */
-
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
   private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. 
@@ -27,9 +22,9 @@ export class ChatService {
   tus respuestas. No repitas la misma frase dos veces y mantén tus respuestas dentro de un límite de 60 tokens. Cada 
   vez que alguien solicite una tarea o recordatorio, asegúrate de confirmar que lo has anotado correctamente. `;
 
-  // Parámetros de la API de OpenAI,
+  // Parámetros de la API de OpenAI
   private apiParams = {
-    //Modelos: gpt-4o, gpt-4o-mini, gpt-3.5-turbo, gpt-4, gpt-4-turbo
+    // Modelos: gpt-4o, gpt-4o-mini, gpt-3.5-turbo, gpt-4, gpt-4-turbo
     model: 'gpt-4o-mini',
 
     /*
@@ -62,7 +57,6 @@ export class ChatService {
     // Mínimo: 0.0 (considera todos los tokens), Máximo: 1.0 (considera solo los tokens más probables)
     // Importancia: Media. Afecta la diversidad de las respuestas, especialmente útil con temperature baja.
     top_p: 1,
-
   };
 
   constructor(private http: HttpClient) {}
@@ -71,31 +65,26 @@ export class ChatService {
   sendMessageToLLM(message: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.apiKey}`, //Se usa la apiKey
+      Authorization: `Bearer ${this.apiKey}`, // Se usa la apiKey
     });
-    
+
     const body = {
-      ...this.apiParams, //Se incluyen los parametros, se usa el operador spread para incluir todos los parámetros definidos 
+      ...this.apiParams, // Se incluyen los parámetros, se usa el operador spread para incluir todos los parámetros definidos 
       messages: [
         { role: 'system', content: this.systemPrompt },
         { role: 'user', content: message },
       ],
     };
 
-    // Realiza una solicitud HTTP POST a la URL de la API de OpenAI. Retorna un observable .post(), lo que significa que la operacion es asincrona 
+    // Realiza una solicitud HTTP POST a la URL de la API de OpenAI. Retorna un observable .post(), lo que significa que la operación es asíncrona 
     return this.http.post(this.apiUrl, body, { headers });
   }
 
-
-
-    // Método para actualizar el prompt del sistema si es necesario
-    /* updateSystemPrompt(newPrompt: string) {
+  // Método para actualizar el prompt del sistema si es necesario
+  /* updateSystemPrompt(newPrompt: string) {
     this.systemPrompt = newPrompt;
-    } */
-
-
+  } */
 }
-
 
 
 
