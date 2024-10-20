@@ -1,58 +1,52 @@
 /* myApp\src\app\services\task.service.ts */
-import { Injectable } from '@angular/core'; //{Injectable} para que el servicio pueda ser inyectado en otros componentes.
-import { Storage } from '@ionic/storage-angular'; //almacenamiento local de Ionic
+/* src\app\services\task.service.ts */
+import { Injectable } from '@angular/core'; // {Injectable} para que el servicio pueda ser inyectado en otros componentes.
+import { Storage } from '@ionic/storage-angular'; // almacenamiento local de Ionic
 
 // Definir la interfaz para el tipo de datos de las tareas creadas
 interface Task {
   id: string;
   title: string;
   content: string;
+  imageUrl?: string | null; // Añadir el campo opcional para almacenar la URL de la imagen
 }
 
 @Injectable({
-  providedIn: 'root', //permite que el servicio esté disponible en toda la aplicación (a nivel raiz)
+  providedIn: 'root', // permite que el servicio esté disponible en toda la aplicación (a nivel raíz)
 })
 
-
 export class TaskService {
-
-  constructor(private storage: Storage) { // se inyecta el servicio de almacenamiento de Ionic (Storage), para poder usarlo dentro de la clase TaskService.
-    this.init(); //inicializa el almacenamiento de Ionic.
+  constructor(private storage: Storage) {
+    this.init(); // inicializa el almacenamiento de Ionic.
   }
 
   async init() {
-    await this.storage.create();// Inicializa el almacenamiento
+    await this.storage.create(); // Inicializa el almacenamiento
   }
-
 
   // Crear o actualizar tarea
   saveTask(id: string, task: Task) {
-    return this.storage.set(id, task); //guarda la tarea en el almacenamiento local usando el id como la clave y el objeto task como el valor.
+    return this.storage.set(id, task); // guarda la tarea en el almacenamiento local usando el id como la clave y el objeto task como el valor.
   }
-
 
   // Obtener todas las tareas almacenadas en local
   async getAllTasks(): Promise<Task[]> {
-    let tasks: Task[] = [];                          //Se crea un array vacío para almacenar las tareas.
-    await this.storage.forEach((value, key) => {     //Recorre cada elemento guardado en el almacenamiento, Para cada tarea, empuja un objeto { id: key, ...value } al array tasks.
+    let tasks: Task[] = []; // Se crea un array vacío para almacenar las tareas.
+    await this.storage.forEach((value, key) => {
       tasks.push({ id: key, ...value });
     });
-    return tasks;  //devuelve el array de tareas almacenadas.
+    return tasks; // devuelve el array de tareas almacenadas.
   }
-
-
 
   // Obtener una tarea por su clave "ID"
   getTask(id: string) {
     return this.storage.get(id);
   }
 
-
-  // Eliminar tarea  por ID
+  // Eliminar tarea por ID
   deleteTask(id: string) {
     return this.storage.remove(id);
   }
-
 }
 
 

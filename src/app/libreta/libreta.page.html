@@ -1,11 +1,7 @@
 <!-- src\app\libreta\libreta.page.html  -->
-
-
 <ion-header>
   <ion-toolbar>
     <ion-title>Libreta de Tareas</ion-title>
-
-    <!-- Botón de desconexión visible solo si el usuario está autenticado -->
     <ion-buttons slot="end">
       <ion-button *ngIf="isLoggedIn" (click)="logout()">Desconectar</ion-button>
     </ion-buttons>
@@ -13,32 +9,26 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <!-- Luz de conexión -->
   <div class="connection-status">
     <span [class]="isLoggedIn ? 'green-light' : 'gray-light'"></span>
     <p>{{ isLoggedIn ? 'Usuario Conectado' : 'Acceso como Invitado' }}</p>
   </div>
 
-  <!-- Botón para agregar una nueva tarea -->
   <ion-button expand="block" (click)="newTask()">Agregar nueva tarea</ion-button>
+  
 
-  <!-- Botón para volver al chat -->
   <ion-button expand="block" (click)="chat()">Chat</ion-button>
 
-
-
-
-  <!-- Mensaje de alerta -->
   <div *ngIf="showMessage" class="alert">{{ message }}</div>
 
-  <!-- Lista de tareas -->
   <ion-list>
     <ion-item-sliding *ngFor="let task of tasks">
       <ion-item>
         <ion-label>
           <h2>{{ task.title }}</h2>
           <p>{{ task.content }}</p>
+          <!-- Mostrar la miniatura de la imagen si existe -->
+          <img *ngIf="task.imageUrl" [src]="task.imageUrl" alt="Imagen de tarea" style="max-width: 100px;" />
         </ion-label>
       </ion-item>
 
@@ -46,11 +36,10 @@
         <ion-item-option (click)="editTask(task.id)">Editar</ion-item-option>
         <ion-item-option color="danger" (click)="deleteTask(task.id)">Eliminar</ion-item-option>
       </ion-item-options>
-
     </ion-item-sliding>
   </ion-list>
-
 </ion-content>
+
 
 
 
