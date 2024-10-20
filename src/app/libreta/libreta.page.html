@@ -23,9 +23,11 @@
   <!-- Botón para agregar una nueva tarea -->
   <ion-button expand="block" (click)="newTask()">Agregar nueva tarea</ion-button>
 
-  <!-- Botón de Libreta siempre visible -->
-  <ion-button expand="block" (click)="onLibretaButtonClick()">Libreta</ion-button>
-  
+  <!-- Botón para volver al chat -->
+  <ion-button expand="block" (click)="chat()">Chat</ion-button>
+
+
+
 
   <!-- Mensaje de alerta -->
   <div *ngIf="showMessage" class="alert">{{ message }}</div>
