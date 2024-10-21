@@ -1,89 +1,55 @@
-/* myApp\src\app\chat\chat.service.ts
-Servicio dedicado a gestionar la API de OpenAI */
+/* src/app/chat/chat.service.ts */
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root', // servicio disponible en toda la aplicación. Asegura que solo haya una única instancia del servicio (singleton) en toda la aplicación.
+  providedIn: 'root',
 })
 export class ChatService {
-  private apiUrl = 'https://api.openai.com/v1/chat/completions'; // endpoint de la API de OpenAi
-  /* Comentar API antes de subir a github */
-  private apiKey =
-    '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';
-  /* -s */
+  private apiUrl = 'https://api.openai.com/v1/chat/completions';
+  private apiKey = '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'; // Reemplaza esto con una forma segura de manejar tu clave
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
   private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. 
-  Debes recordar y gestionar las tareas según se necesiten. Siempre debes estar dispuesta a ofrecer recordatorios 
-  sobre lo que se debe hacer y cuándo. Utiliza un tono profesional y amigable, asegurándote de ser clara y concisa en 
-  tus respuestas. No repitas la misma frase dos veces y mantén tus respuestas dentro de un límite de 60 tokens. Cada 
-  vez que alguien solicite una tarea o recordatorio, asegúrate de confirmar que lo has anotado correctamente. `;
+Debes recordar y gestionar las tareas según se necesiten. Siempre debes estar dispuesta a ofrecer recordatorios 
+sobre lo que se debe hacer y cuándo. Utiliza un tono profesional y amigable, asegurándote de ser clara y concisa en 
+tus respuestas. No repitas la misma frase dos veces y mantén tus respuestas dentro de un límite de 60 tokens. Cada 
+vez que alguien solicite una tarea o recordatorio, asegúrate de confirmar que lo has anotado correctamente. `;
 
   // Parámetros de la API de OpenAI
   private apiParams = {
-    // Modelos: gpt-4o, gpt-4o-mini, gpt-3.5-turbo, gpt-4, gpt-4-turbo
-    model: 'gpt-4o-mini',
-
-    /*
-    temperature: Controla la aleatoriedad de las respuestas. 
-    Rango: 0.0 a 2.0. Valor normal: 0.7
-    Mínimo: 0.0 (muy determinista), Máximo: 2.0 (muy aleatorio, más creatividad)
-    Importancia: Alta. Afecta directamente la creatividad y variabilidad de las respuestas. */
+    model: 'gpt-4o-mini',  /* gpt-4o-mini, gpt-4o	, gpt-4-turbo, gpt-3.5-turbo	 */
     temperature: 1,
-
-    // Limita el número de tokens (palabras y signos de puntuación) en la respuesta.
-    // Rango: 1 a 4096 para gpt-3.5-turbo, 1 a 8192 para gpt-4. Valor normal: 1000
-    // Mínimo: 1, Máximo: depende del modelo
-    // Importancia: Media. Controla la longitud de las respuestas y puede afectar los costos de la API.
-    max_tokens: 70,
-
-    // Penaliza las repeticiones de palabras.
-    // Rango: -2.0 a 2.0. Valor normal: 0
-    // Mínimo: -2.0 (aumenta repeticiones), Máximo: 2.0 (reduce fuertemente las repeticiones)
-    // Importancia: Baja-Media. Útil para evitar respuestas repetitivas.
+    max_tokens: 150,
     frequency_penalty: 0.3,
-
-    // Penaliza el uso de nuevos temas o conceptos.
-    // Rango: -2.0 a 2.0. Valor normal: 0
-    // Mínimo: -2.0 (incentiva nuevos temas), Máximo: 2.0 (se mantiene más en el tema actual)
-    // Importancia: Baja-Media. Útil para mantener la conversación enfocada.
     presence_penalty: 0,
-
-    // Controla la diversidad de las respuestas mediante núcleo de muestreo.
-    // Rango: 0.0 a 1.0. Valor normal: 1.0
-    // Mínimo: 0.0 (considera todos los tokens), Máximo: 1.0 (considera solo los tokens más probables)
-    // Importancia: Media. Afecta la diversidad de las respuestas, especialmente útil con temperature baja.
     top_p: 1,
   };
 
   constructor(private http: HttpClient) {}
 
-  // Metodo para enviar un mensaje del usuario al LLM, solicitud HTTP POST a la API de OpenAI
-  sendMessageToLLM(message: string): Observable<any> {
+  // Método para enviar el historial de mensajes al LLM
+  sendMessageToLLM(messages: { role: string; content: string }[]): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.apiKey}`, // Se usa la apiKey
+      Authorization: `Bearer ${this.apiKey}`,
     });
 
+    // Prepend el systemPrompt al array de mensajes
+    const messagesWithSystemPrompt = [
+      { role: 'system', content: this.systemPrompt },
+      ...messages,
+    ];
+
     const body = {
-      ...this.apiParams, // Se incluyen los parámetros, se usa el operador spread para incluir todos los parámetros definidos 
-      messages: [
-        { role: 'system', content: this.systemPrompt },
-        { role: 'user', content: message },
-      ],
+      ...this.apiParams,
+      messages: messagesWithSystemPrompt,
     };
 
-    // Realiza una solicitud HTTP POST a la URL de la API de OpenAI. Retorna un observable .post(), lo que significa que la operación es asíncrona 
     return this.http.post(this.apiUrl, body, { headers });
   }
-
-  // Método para actualizar el prompt del sistema si es necesario
-  /* updateSystemPrompt(newPrompt: string) {
-    this.systemPrompt = newPrompt;
-  } */
 }
 
 

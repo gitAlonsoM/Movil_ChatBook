@@ -1,25 +1,33 @@
+// src/app/guards/auth.guard.ts
+// src/app/guards/auth.guard.ts
+
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private toastController: ToastController
+  ) {}
 
-  canActivate(): Observable<boolean> {
-    return this.authService.getUser().pipe(
-      map(user => {
-        if (user) {
-          return true; // Usuario autenticado, permite el acceso
-        } else {
-          this.router.navigate(['/login']); // Redirige al login si no está autenticado
-          return false; // No permite el acceso
-        }
-      })
-    );
+  async canActivate(): Promise<boolean> {
+    const isLoggedIn = this.authService.getIsLoggedIn();
+    if (isLoggedIn) {
+      return true;
+    } else {
+      const toast = await this.toastController.create({
+        message: 'Debes iniciar sesión para acceder a esta característica.',
+        duration: 3000,
+        position: 'top',
+      });
+      await toast.present();
+      // Mantener al usuario en la página actual
+      return false;
+    }
   }
 }
