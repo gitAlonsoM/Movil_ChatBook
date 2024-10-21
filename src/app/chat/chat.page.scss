@@ -1,81 +1,109 @@
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 80%;
-  justify-content: center;
-}
+/* src\app\chat\chat.page.scss */
 
-.chat-messages {
-  flex-grow: 1; /* Asegura que ocupe el espacio disponible */
-  overflow-y: scroll; /* Permite el desplazamiento vertical */
-  padding-bottom: 10px; /* Espaciado en la parte inferior */
-}
-
-.chat-input-container {
-  display: flex;
-  align-items: center; /* Centra verticalmente los elementos */
-  padding: 10px; /* Espaciado interno */
-  border-top: 1px solid var(--ion-border-color); /* Línea en la parte superior */
-  background-color: var(--ion-background-color); /* Color de fondo */
-}
-
-.chat-input-container ion-input {
-  flex-grow: 1; /* Permite que el input ocupe todo el ancho disponible */
-  margin-right: 10px; /* Espaciado a la derecha */
-}
-
-.user-message {
-  text-align: right; /* Alinea el mensaje del usuario a la derecha */
-  background-color: #e0f7fa; /* Color de fondo del mensaje del usuario */
-  padding: 8px; /* Espaciado interno */
-  border-radius: 15px; /* Bordes redondeados */
-  color: black; /* Color del texto */
-}
-
-.bot-message {
-  text-align: left; /* Alinea el mensaje del bot a la izquierda */
-  background-color: #f1f8e9; /* Color de fondo del mensaje del bot */
-  padding: 8px; /* Espaciado interno */
-  border-radius: 15px; /* Bordes redondeados */
-  color: black; /* Color del texto */
-}
-
-.success-message {
-  position: absolute; /* Mantiene el mensaje dentro del encabezado */
-  right: 10px; /* Ubica el mensaje a la derecha */
-  top: 5px; /* Ajusta el margen superior para que no esté pegado al borde */
-  background-color: green; /* Fondo verde */
-  color: white; /* Texto blanco */
-  padding: 9px; /* Espaciado interno */
-  z-index: 100; /* Asegura que se muestre sobre otros elementos */
-}
-
-.connection-indicator {
-  position: absolute;
-  right: 10px;
-  top: 50%; /* Asegura que esté en el centro vertical del encabezado */
-  transform: translateY(-50%);
+/* Estilos para el ion-toolbar */
+ion-toolbar {
   display: flex;
   align-items: center;
 }
 
-.connection-indicator div {
-  width: 60px; /* Tamaño aumentado del indicador */
-  height: 60px; /* Tamaño aumentado del indicador */
-  border-radius: 50%;
-  margin-left: 5px;
+/* Estilos para los ion-buttons */
+ion-buttons[slot="start"],
+ion-buttons[slot="end"] {
+  flex: none;
 }
 
-.green-light {
-  background-color: green; /* Color para usuario autenticado */
+/* Ajustar el tamaño del logo */
+.logo-img {
+  height: 70px; /* Ajusta el tamaño según tus necesidades */
 }
 
-.gray-light {
-  background-color: gray; /* Color para invitado */
+/* Contenedor central para centrar el mensaje */
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilos para el indicador de conexión */
+.connection-indicator {
+  display: flex;
+  align-items: center;
 }
 
 .connection-status {
-  margin-left: 10px; /* Espacio entre el círculo y el texto */
-  font-size: 16px; /* Tamaño del texto */
-  color: white; /* Color del texto */
+  margin-left: 5px;
+  font-size: 16px;
+  color: white;
 }
+
+.green-light,
+.gray-light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.green-light {
+  background-color: green;
+}
+
+.gray-light {
+  background-color: gray;
+}
+
+/* Contenedor principal del chat */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ocupa toda la altura disponible */
+}
+
+/* Área de mensajes */
+.chat-messages {
+  flex: 1; /* Ocupa el espacio restante */
+  overflow-y: auto; /* Permite el desplazamiento vertical */
+  padding: 10px; /* Espaciado interno */
+}
+
+/* Contenedor del input de mensaje */
+.chat-input-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid var(--ion-border-color);
+  background-color: var(--ion-background-color);
+}
+
+.chat-input-container ion-input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+/* Estilos para los mensajes del usuario y del bot */
+.user-message {
+  text-align: right;
+  background-color: #e0f7fa;
+  padding: 8px;
+  border-radius: 15px;
+  color: black;
+}
+
+.bot-message {
+  text-align: left;
+  background-color: #f1f8e9;
+  padding: 8px;
+  border-radius: 15px;
+  color: black;
+}
+
+/* Mensaje de éxito */
+.success-message {
+  position: fixed;
+  top: 60px; /* Ajusta según la altura del header */
+  right: 10px;
+  background-color: green;
+  color: white;
+  padding: 9px;
+  z-index: 100;
+}
+

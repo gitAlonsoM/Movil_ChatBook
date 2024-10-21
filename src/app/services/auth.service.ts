@@ -6,11 +6,13 @@ import { Observable, BehaviorSubject } from 'rxjs'; // Importar BehaviorSubject
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   // BehaviorSubject para el estado de inicio de sesión
+  
   private isLoggedInSubject = new BehaviorSubject<boolean>(false); // Inicializa en false
   isLoggedIn$ = this.isLoggedInSubject.asObservable(); // Observable para que otros componentes puedan suscribirse
 
@@ -108,5 +110,10 @@ export class AuthService {
       color: 'success' // Cambia a 'warning' si quieres un color diferente
     });
     toast.present();
+  }
+
+  // Método público para obtener el valor actual de isLoggedIn
+  getIsLoggedIn(): boolean {
+    return this.isLoggedInSubject.getValue();
   }
 }

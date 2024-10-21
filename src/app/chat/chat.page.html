@@ -1,87 +1,94 @@
-<!-- myApp\src\app\chat\chat.page.html -->
+
+
+<!-- src/app/chat/chat.page.html -->
 
 <ion-header>
   <ion-toolbar>
-    <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
+    <!-- Logo en el lado izquierdo -->
+    <ion-buttons slot="start">
+      <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
+    </ion-buttons>
 
-    <!-- Indicador de conexión si estas como usuario autenticado o estas como invitado -->
-    <div class="connection-indicator" >
-    <div [ngClass]="{ 'green-light': isLoggedIn, 'gray-light': !isLoggedIn }"></div>
-    <div class="connection-status">{{ isLoggedIn ? 'Estás como usuario' : 'Estás como invitado' }}</div>
-  </div>
+    <!-- Contenedor central para el mensaje de estado de conexión -->
+    <div class="header-center">
+      <div class="connection-indicator">
+        <div
+          [ngClass]="{ 'green-light': isLoggedIn, 'gray-light': !isLoggedIn }"
+        ></div>
+        <div class="connection-status">
+          {{ isLoggedIn ? 'Estás como usuario' : 'Estás como invitado' }}
+        </div>
+      </div>
+    </div>
 
+    <!-- Botón de menú en el lado derecho -->
+    <ion-buttons slot="end">
+      <ion-menu-button menu="chatMenu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- Contenedor de la pantalla de chat -->
+  <!-- Contenedor principal del chat -->
   <div class="chat-container">
-    <!-- Area de mensajes -->
+    <!-- Área de mensajes -->
     <div class="chat-messages">
       <!-- Listado de mensajes Bot - usuario -->
       <ion-list>
-        <ion-item *ngFor="let chatItem of messages">
+        <ion-item
+          *ngFor="let chatItem of messages"
+          [hidden]="chatItem.role === 'system'"
+        >
           <ion-label
-            [ngClass]="{'user-message': chatItem.fromUser, 
-                        'bot-message': !chatItem.fromUser}"
+            [ngClass]="{
+              'user-message': chatItem.role === 'user',
+              'bot-message': chatItem.role === 'assistant'
+            }"
           >
-            {{ chatItem.text }}
+            {{ chatItem.content }}
           </ion-label>
         </ion-item>
       </ion-list>
     </div>
 
-    <!-- Barra de mensaje de conexión -->
-    <div
-      *ngIf="showMessage"
-      class="success-message"
-      style="background-color: green; color: white; padding: 9px; text-align: center; position: absolute; right: 0; top: 0;"
-    >
-      {{ message }}
+    <!-- Input y botones de acción -->
+    <div class="chat-input-container">
+      <!-- Botón para adjuntar archivos -->
+      <ion-button fill="clear" (click)="adjuntarArchivo()">
+        <ion-icon name="attach-outline"></ion-icon>
+      </ion-button>
+
+      <!-- Botón para enviar audio -->
+      <ion-button fill="clear" (click)="sendAudio()">
+        <ion-icon name="mic-outline"></ion-icon>
+      </ion-button>
+
+      <!-- Botón para obtener y enviar las tareas almacenadas al LLM -->
+      <ion-button fill="clear" (click)="sendTasksToLLM()">
+        <ion-icon name="list-outline"></ion-icon>
+        Tasks
+      </ion-button>
+
+      <!-- Input de mensaje -->
+      <ion-input
+        [(ngModel)]="userMessage"
+        placeholder="Escribe tu mensaje..."
+      ></ion-input>
+
+      <!-- Botón para enviar mensaje -->
+      <ion-button fill="clear" (click)="sendMessage()">
+        <ion-icon name="send-outline"></ion-icon>
+      </ion-button>
     </div>
   </div>
 
-  <!-- Input y botones de acción -->
-  <div class="chat-input-container">
-    <!-- Botón para adjuntar archivos -->
-    <ion-button fill="clear" (click)="adjuntarArchivo()">
-      <ion-icon name="attach-outline"></ion-icon>
-    </ion-button>
-
-    <!-- Botón para enviar audio -->
-    <ion-button fill="clear" (click)="sendAudio()">
-      <ion-icon name="mic-outline"></ion-icon>
-    </ion-button>
-
-    <!-- Input de mensaje -->
-    <ion-input
-      [(ngModel)]="userMessage" 
-      placeholder="Escribe tu mensaje..."
-    ></ion-input>
-   
-    <!-- Botón para enviar mensaje -->
-    <ion-button fill="clear" (click)="sendMessage()">
-      <ion-icon name="send-outline"></ion-icon>
-    </ion-button>
-  </div>
-
-  <!-- Botón para ir a la Libreta -->
-  <ion-button expand="block" fill="clear" (click)="libreta()">Libreta</ion-button>
-
-  <!-- Botón para ir al login -->
-  <ion-button expand="block" fill="clear" (click)="login()">Login</ion-button>
-
-
-
-  <!-- Botón para desconectarse -->
-  <ion-button 
-    *ngIf="!logoutButtonHidden" 
-    expand="block" 
-    fill="clear" 
-    (click)="logout()"
+  <!-- Barra de mensaje de conexión -->
+  <div
+    *ngIf="showMessage"
+    class="success-message"
   >
-    Desconectarse
-  </ion-button>
+    {{ message }}
+  </div>
 </ion-content>
 
 <ion-footer>
@@ -89,6 +96,10 @@
     <ion-title> © 2028 Mi Aplicación </ion-title>
   </ion-toolbar>
 </ion-footer>
+
+
+
+
 
 <!-- 
 *ng
