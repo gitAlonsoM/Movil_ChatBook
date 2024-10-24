@@ -1,5 +1,4 @@
 // src/app/chat/chat.page.ts
-// src/app/chat/chat.page.ts
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
@@ -7,25 +6,29 @@ import { ChatService } from './chat.service';
 import { AuthService } from '../services/auth.service';
 import { ToastController } from '@ionic/angular';
 import { TaskService } from '../services/task.service';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';  // Importa Subscription para manejar observables
 
+
+//decorador para declarar que es un Componente de Angular (pagina visual, interactuar con html, escuchar eventos de usuario, (UI),etc)
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',
   styleUrls: ['./chat.page.scss'],
 })
+
+
 export class ChatPage implements OnInit, OnDestroy {
+  //Propiedades de la clase
   userMessage: string = '';
-  showMessage: boolean = false;
-  message: string = '';
+
   isLoggedIn: boolean = false;
   logoutButtonHidden: boolean = false;
+  message: string = ''; // Mensaje emergente que se mostrara
+  showMessage: boolean = false; //controlar la visibilidad de mensajes emergentes
   private authSubscription: Subscription | null = null; // Inicializado a null
 
   // Inicializar el array de mensajes con el mensaje del asistente
-  messages = [
-    { role: 'assistant', content: 'Hola, ¿En qué puedo ayudarte?' },
-  ];
+  messages = [{ role: 'assistant', content: 'Hola, ¿En qué puedo ayudarte?' }];
 
   constructor(
     private router: Router,
@@ -81,10 +84,11 @@ export class ChatPage implements OnInit, OnDestroy {
     }
   }
 
+  
+  // Método para enviar las tareas almacenadas al LLM
   async sendTasksToLLM() {
     try {
       const tasks = await this.taskService.getAllTasks();
-
       if (tasks.length === 0) {
         this.messages.push({
           role: 'assistant',
@@ -99,6 +103,7 @@ export class ChatPage implements OnInit, OnDestroy {
         tasksMessage += `Tarea ${index + 1}:\nTítulo: ${
           task.title
         }\nDescripción: ${task.content}\n\n`;
+        tasksMessage+= '. Por favor, devuélveme las tareas en un mensaje claramente organizado, formato **Tarea 1**: Título - Descripción , **Tarea 2**: Título - Descripción , etc';
       });
 
       // Agregar el mensaje de tareas al array de mensajes
@@ -127,6 +132,8 @@ export class ChatPage implements OnInit, OnDestroy {
     }
   }
 
+
+
   adjuntarArchivo() {
     alert('Adjuntar archivo');
     // Implementación futura para adjuntar archivos
@@ -147,7 +154,6 @@ export class ChatPage implements OnInit, OnDestroy {
   }
 }
 
-
 /* 
 ./: Directorio actual (mismo nivel).
 ../: Sube un nivel en el árbol de directorios.
@@ -158,4 +164,19 @@ Un array que contiene los mensajes del chat.
 Cada mensaje es un objeto con dos propiedades:
   text: El texto del mensaje.
   fromUser: Un booleano que indica si el mensaje fue enviado por el usuario (true) o por el bot (false).
+
+
+*OnInit y OnDestroy 
+se utilizan para ejecutar lógica en momentos específicos del ciclo de vida de un componente. 
+La interfaz OnInit define el método ngOnInit(), que es invocado por Angular justo después de que el componente ha sido inicializado.
+La interfaz OnDestroy define el método ngOnDestroy(), que es invocado por Angular justo antes de que el componente sea destruido o eliminado.
+
+
+*\n 
+salto de linea
+
+
+
+
+
 */

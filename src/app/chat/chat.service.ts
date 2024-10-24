@@ -1,43 +1,48 @@
-/* src/app/chat/chat.service.ts */
-
+/* src/app/chat/chat.service.ts  */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+//decorador que marca la clase como un servicio Injectable a nivel raiz para toda la aplicacion
 @Injectable({
   providedIn: 'root',
 })
+
 export class ChatService {
-  private apiUrl = 'https://api.openai.com/v1/chat/completions';
-  private apiKey = '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'; // Reemplaza esto con una forma segura de manejar tu clave
+  private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint en donde se envian las solicitudes post
+  private apiKey =
+    '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';
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
   private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. 
-Debes recordar y gestionar las tareas según se necesiten. Siempre debes estar dispuesta a ofrecer recordatorios 
-sobre lo que se debe hacer y cuándo. Utiliza un tono profesional y amigable, asegurándote de ser clara y concisa en 
-tus respuestas. No repitas la misma frase dos veces y mantén tus respuestas dentro de un límite de 60 tokens. Cada 
-vez que alguien solicite una tarea o recordatorio, asegúrate de confirmar que lo has anotado correctamente. `;
+  Debes recordar y gestionar las tareas según se necesiten. Siempre debes estar dispuesta a ofrecer recordatorios 
+  sobre lo que se debe hacer y cuándo. Utiliza un tono profesional y amigable, asegurándote de ser clara y concisa en 
+  tus respuestas. No repitas la misma frase dos veces y mantén tus respuestas dentro de un límite de 150 tokens. Cada 
+  vez que alguien solicite una tarea o recordatorio, asegúrate de confirmar que lo has anotado correctamente. `;
 
-  // Parámetros de la API de OpenAI
+
+  // Objeto con los parametros de la API de OpenAI
   private apiParams = {
-    model: 'gpt-4o-mini',  /* gpt-4o-mini, gpt-4o	, gpt-4-turbo, gpt-3.5-turbo	 */
-    temperature: 1,
-    max_tokens: 150,
-    frequency_penalty: 0.3,
-    presence_penalty: 0,
-    top_p: 1,
+    model: 'gpt-4o-mini',     /* gpt-4o-mini, gpt-4o	, gpt-4-turbo, gpt-3.5-turbo	 */
+    temperature: 1,          //aleatoriedad en las respuestas (1 es más creativo, 0 sería más determinista)
+    max_tokens: 150, 
+    frequency_penalty: 0.3,  // Penaliza la repetición de las mismas palabras
+    presence_penalty: 0,     // Penaliza el uso de nuevos temas o conceptos (0 en este caso, sin penalización)
+    top_p: 1,                // Controla el nivel de diversidad de las respuestas (1 considera todas las opciones posibles)
   };
+
 
   constructor(private http: HttpClient) {}
 
-  // Método para enviar el historial de mensajes al LLM
-  sendMessageToLLM(messages: { role: string; content: string }[]): Observable<any> {
-    const headers = new HttpHeaders({
+  // Metodo para enviar el historial de mensajes al LLM
+  sendMessageToLLM(messages: { role: string; content: string }[]  //Recibe un array de objetos con el historial de mensajes
+  ): Observable<any> {
+    
+    const headers = new HttpHeaders({ //Cabeceras HTTP
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.apiKey}`,
     });
 
-    // Prepend el systemPrompt al array de mensajes
     const messagesWithSystemPrompt = [
       { role: 'system', content: this.systemPrompt },
       ...messages,
@@ -48,10 +53,11 @@ vez que alguien solicite una tarea o recordatorio, asegúrate de confirmar que l
       messages: messagesWithSystemPrompt,
     };
 
-    return this.http.post(this.apiUrl, body, { headers });
+    return this.http.post(this.apiUrl, body, { headers }); // Realiza una solicitud HTTP POST a la URL de la API de OpenAI, y devuelve un Observable para manejar la respuesta
   }
-}
 
+  
+}
 
 
 
@@ -66,9 +72,9 @@ vez que alguien solicite una tarea o recordatorio, asegúrate de confirmar que l
 
 /*
 
-
 *Injectable:
 Decorador de Angular que permite que una clase sea inyectable como un servicio en otros componentes o servicios de la aplicación
+En lugar de @Component, los servicios usan el decorador @Injectable que indica que esta clase puede ser inyectada como una dependencia en otros componentes o servicios.
 
 *HttpClient:
 Forma parte del módulo HTTP de Angular (@angular/common/http). Se utiliza para hacer solicitudes HTTP (GET, POST, PUT, DELETE, etc.) a servidores web.
@@ -81,6 +87,12 @@ Permite manejar el resultado de una llamada HTTP, como la respuesta de la API de
 
 *endpoint:
 es una URL específica dentro de una API a la que se envían solicitudes para interactuar con un servicio o recurso. 
+
+
+*apiParams
+La estructura que usa es un "objeto" de JS.
+Un objeto es una colección de pares clave-valor. En este caso, apiParams es un objeto con varias propiedades o claves; como model, temperature, max_tokens, etc., cada una con su propio valor.
+
 
 
 
