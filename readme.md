@@ -83,8 +83,6 @@ La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar co
 ## Futuras Funcionalidades
 - **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.(Alonso)
 - **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.(Alonso)
-- **Soporte Multimedia y Geolocalización en el Chat**: Permitir el envío de fotos, audios y la ubicación actual a través del chat.(Alonso)
-- **Menu de hamburgueza**: Implementar menu de hamburgueza con opciones varias del SW.(Alonso)
 
 
 
