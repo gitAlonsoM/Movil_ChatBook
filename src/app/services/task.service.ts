@@ -25,13 +25,13 @@ export class TaskService {
     await this.storage.create(); // Inicializa el almacenamiento
   }
 
-  // Crear o actualizar tarea
+  //*Crear o actualizar tarea
   saveTask(id: string, task: Task) {
     return this.storage.set(id, task); // guarda la tarea en el almacenamiento local usando el id como la clave y el objeto task como el valor.
   }
 
 
-  // Obtener todas las tareas almacenadas en local
+  //*Obtener todas las tareas almacenadas en local
   async getAllTasks(): Promise<Task[]> {
     let tasks: Task[] = []; // Se crea un array vacío para almacenar las tareas recuperadas
     await this.storage.forEach((value, key) => {

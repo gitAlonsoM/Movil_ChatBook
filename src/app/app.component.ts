@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Inicializaciones adicionales si son necesarias
+     
     });
   }
 

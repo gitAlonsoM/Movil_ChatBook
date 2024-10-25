@@ -43,7 +43,7 @@
         <ion-label>
           <h2>{{ task.title }}</h2>
           <p>{{ task.content }}</p>
-          <!-- Mostrar la miniatura de la imagen si existe -->
+          <!-- Mostrar la miniatura de la imagen en caso que exista -->
           <img
             *ngIf="task.imageUrl"
             [src]="task.imageUrl"
@@ -62,6 +62,17 @@
     </ion-item-sliding>
   </ion-list>
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center ion-margin-top">
+    <ion-title>© 2024 ChatBook</ion-title>
+    <p>Todos los derechos reservados.</p>
+  </ion-toolbar>
+</ion-footer>
+
+
+
 
 
 

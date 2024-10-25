@@ -208,6 +208,8 @@ Puedes colocar otros métodos dentro de ngOnInit() para que se ejecuten al inici
 *operador ternario (? :) 
 se utiliza para evaluar una expresión y devolver uno de dos valores dependiendo de si la expresión es verdadera o falsa.
 
+*operador || 
+(OR lógico) indica si cualquiera de los operandos es verdadero. 
 
 */   
 
@@ -219,6 +221,8 @@ se utiliza para evaluar una expresión y devolver uno de dos valores dependiendo
 * Para mostrar mensajes emergentes en lugar de una alerta simple:
 - Puedes considerar utilizar "ToastController" para mostrar el mensaje de forma más elegante. 
 - En el constructor, ya se ha importado "ToastController", lo cual será útil para esto.
+
+
 
 
 
