@@ -4,25 +4,28 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TaskService } from '../services/task.service';
 import { AlertController, ToastController } from '@ionic/angular';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; // Importar Capacitor Camera
 import { AuthService } from '../services/auth.service'; // Importar AuthService
+//import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; // Importar funciones de la camara con capacitor
 
-// Definir la interfaz para el tipo de datos de las tareas creadas
+
+// Definir la interface para el tipo de datos de las tareas creadas
 interface Task {
   id: string;
   title: string;
   content: string;
-  imageUrl?: string | null; // Añadir el campo opcional para la imagen, permitiendo null
+  imageUrl?: string | null; // Url de la img es opcional
 }
+
 
 @Component({
   selector: 'app-libreta',
   templateUrl: './libreta.page.html',
   styleUrls: ['./libreta.page.scss'],
 })
+
 export class LibretaPage implements OnInit {
   tasks: Task[] = []; // Array de objetos para almacenar las tareas
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = false; 
   showMessage: boolean = false;
   message: string = '';
 
@@ -34,29 +37,28 @@ export class LibretaPage implements OnInit {
     private toastController: ToastController
   ) {}
 
-  ngOnInit() {
+
+  ngOnInit() { // Metodo que se ejecuta al iniciar el componente
     this.loadTasks();
     this.authService.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
       this.isLoggedIn = isLoggedIn;
     });
   }
 
-  // Cargar todas las tareas almacenadas
+
+  //*Cargar todas las tareas almacenadas
   async loadTasks() {
     try {
-      console.log('Cargando tareas...'); // Mensaje en consola para depuración
-      this.tasks = await this.taskService.getAllTasks();
-      console.log('Tareas cargadas:', this.tasks); // Imprimir las tareas cargadas
+      this.tasks = await this.taskService.getAllTasks(); //se obtienen las tareas desde el almacenamiento
     } catch (error) {
-      console.error('Error cargando tareas', error);
       this.showToast('Error al cargar las tareas.');
     }
   }
 
 
-  //*Codigo comentado para que no se utilice las funciones de la camara no disponible en el navegador
+  //*funciones de la camara capacitor no disponible en el navegador, se debe usar emulador android, ios ()
   // Método para capturar una imagen o seleccionar desde la galería
-/*   async addImage(): Promise<string | null> {
+  /*   async addImage(): Promise<string | null> {
     try {
       const image = await Camera.getPhoto({
         quality: 90,
@@ -74,11 +76,9 @@ export class LibretaPage implements OnInit {
   } */
 
 
-  // Crear o editar una tarea, permite adjuntar imagen
+  //*Crear o editar una tarea, permite adjuntar imagen
   async newTask(taskId: string | null = null) {
     try {
-      console.log('Abriendo formulario para nueva tarea...'); // Mensaje en consola para depuración
-
 
         //*Codigo comentado para que no se utilice las funciones de la camara no disponible en el navegador
       let imageUrl: string | null = null; // Variable para almacenar la URL de la imagen
@@ -86,10 +86,9 @@ export class LibretaPage implements OnInit {
         imageUrl = await this.addImage(); // Capturar o seleccionar imagen para nueva tarea
         console.log('Imagen seleccionada:', imageUrl); // Imprimir la URL de la imagen seleccionada
       } */
-
-        
+       
       const alert = await this.alertCtrl.create({
-        header: taskId ? 'Editar tarea' : 'Nueva tarea',
+        header: taskId ? 'Editar tarea' : 'Nueva tarea',   // Define el titulo del formulario (dependiendo si es una nueva tarea o se esta editando una existente)
         inputs: [
           {
             name: 'title',
@@ -141,7 +140,7 @@ export class LibretaPage implements OnInit {
     }
   }
 
-  // Eliminar tarea
+  //*Eliminar tarea
   async deleteTask(taskId: string) {
     try {
       await this.taskService.deleteTask(taskId);
@@ -186,6 +185,13 @@ export class LibretaPage implements OnInit {
 
 
 
+
+
+
+
+
+
+
 /* 
 * El AlertController (alertCtrl) de Ionic:
 es una clase que se utiliza para crear y mostrar alertas en las aplicaciones. 
@@ -198,6 +204,11 @@ interface Task; cada tarea creada es un objeto con "id, titulo y contenido", la 
 * ngOnInit() :
 método opcional que puedes definir en tu componente si implementas la interfaz OnInit. Es comúnmente utilizado para cargar datos y realizar inicializaciones importantes.
 Puedes colocar otros métodos dentro de ngOnInit() para que se ejecuten al inicializar el componente.
+
+*operador ternario (? :) 
+se utiliza para evaluar una expresión y devolver uno de dos valores dependiendo de si la expresión es verdadera o falsa.
+
+
 */   
 
 /*
@@ -208,4 +219,8 @@ Puedes colocar otros métodos dentro de ngOnInit() para que se ejecuten al inici
 * Para mostrar mensajes emergentes en lugar de una alerta simple:
 - Puedes considerar utilizar "ToastController" para mostrar el mensaje de forma más elegante. 
 - En el constructor, ya se ha importado "ToastController", lo cual será útil para esto.
+
+
+
+
 */ 

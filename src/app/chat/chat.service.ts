@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class ChatService {
   private apiUrl = 'https://api.openai.com/v1/chat/completions'; //endpoint en donde se envian las solicitudes post
   private apiKey =
-    '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';
+    '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';
 
   // Prompt del sistema que define el comportamiento y personalidad del LLM
   private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. 
