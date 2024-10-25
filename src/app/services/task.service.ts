@@ -1,14 +1,14 @@
-/* myApp\src\app\services\task.service.ts */
 /* src\app\services\task.service.ts */
 import { Injectable } from '@angular/core'; // {Injectable} para que el servicio pueda ser inyectado en otros componentes.
 import { Storage } from '@ionic/storage-angular'; // almacenamiento local de Ionic
 
-// Definir la interfaz para el tipo de datos de las tareas creadas
+
+// Definicion de la interface "task", que representa cada tarea y sus propiedades
 interface Task {
   id: string;
   title: string;
   content: string;
-  imageUrl?: string | null; // Añadir el campo opcional para almacenar la URL de la imagen
+  imageUrl?: string | null; // Url de la img es opcional
 }
 
 @Injectable({
@@ -20,7 +20,8 @@ export class TaskService {
     this.init(); // inicializa el almacenamiento de Ionic.
   }
 
-  async init() {
+
+  async init() {   // Metodo asíncrono para inicializar el almacenamiento local.
     await this.storage.create(); // Inicializa el almacenamiento
   }
 
@@ -29,24 +30,28 @@ export class TaskService {
     return this.storage.set(id, task); // guarda la tarea en el almacenamiento local usando el id como la clave y el objeto task como el valor.
   }
 
+
   // Obtener todas las tareas almacenadas en local
   async getAllTasks(): Promise<Task[]> {
-    let tasks: Task[] = []; // Se crea un array vacío para almacenar las tareas.
+    let tasks: Task[] = []; // Se crea un array vacío para almacenar las tareas recuperadas
     await this.storage.forEach((value, key) => {
       tasks.push({ id: key, ...value });
     });
     return tasks; // devuelve el array de tareas almacenadas.
   }
 
-  // Obtener una tarea por su clave "ID"
-  getTask(id: string) {
-    return this.storage.get(id);
-  }
 
   // Eliminar tarea por ID
   deleteTask(id: string) {
     return this.storage.remove(id);
   }
+
+    // *Obtener una tarea por su clave "ID"
+  /* getTask(id: string) {
+    return this.storage.get(id);
+  } */
+
+
 }
 
 

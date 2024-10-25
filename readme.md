@@ -147,8 +147,6 @@ ionic build  compila la aplicación, generando archivos
 npm run build compila la aplicación, generando scripts en packege.json
 
 
-
-
 ## Posibles errores de inicio y solucion
 "Node packages may not be installed. Try installing with 'npm install'."
 npm install firebase @angular/fire

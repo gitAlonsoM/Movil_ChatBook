@@ -23,7 +23,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot(),  //Necesario para el almacenamiento local (tasks)
     AppRoutingModule,
     HttpClientModule, //modulo HTTP de Angular para hacer uso de la API
     BrowserAnimationsModule,
