@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatService } from './chat.service';
 import { AuthService } from '../services/auth.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, Platform } from '@ionic/angular'; //Platform se usa para verificar si la app esta ejecutada en un entorno nativo
 import { TaskService } from '../services/task.service';
 import { Subscription } from 'rxjs';  // Importa Subscription para manejar observables
 
@@ -35,7 +35,9 @@ export class ChatPage implements OnInit, OnDestroy {
     private chatService: ChatService,
     private authService: AuthService,
     private toastController: ToastController,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private platform: Platform 
+
   ) {}
 
   ngOnInit() {
@@ -66,10 +68,38 @@ export class ChatPage implements OnInit, OnDestroy {
       // Enviar el array completo de mensajes al LLM
       this.chatService.sendMessageToLLM(this.messages).subscribe(
         (response) => {
-          // Obtener la respuesta del asistente
-          const botReply = response.choices[0].message.content;
+          // Manejar la respuesta dependiendo del entorno
+          let botReplyContent: string;
+
+          if (this.platform.is('hybrid')) { //entorno nativo
+            // En dispositivos, la respuesta está en response.data
+            const responseData = response.data;
+            console.log('Respuesta del LLM:', responseData);
+            if (
+              responseData &&
+              responseData.choices &&
+              responseData.choices.length > 0
+            ) {
+              botReplyContent = responseData.choices[0].message.content;
+            } else {
+              botReplyContent = 'Error al interpretar la respuesta del LLM.';
+            }
+          } else {
+            // En el navegador, la respuesta está directamente en response
+            console.log('Respuesta del LLM:', response);
+            if (
+              response &&
+              response.choices &&
+              response.choices.length > 0
+            ) {
+              botReplyContent = response.choices[0].message.content;
+            } else {
+              botReplyContent = 'Error al interpretar la respuesta del LLM.';
+            }
+          }
+
           // Agregar la respuesta del asistente al array de mensajes
-          this.messages.push({ role: 'assistant', content: botReply });
+          this.messages.push({ role: 'assistant', content: botReplyContent });
         },
         (error) => {
           console.error('Error enviando mensaje al LLM', error);
