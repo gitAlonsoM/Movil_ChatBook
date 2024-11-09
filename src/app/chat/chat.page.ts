@@ -115,53 +115,82 @@ export class ChatPage implements OnInit, OnDestroy {
   }
 
   
+
   // Método para enviar las tareas almacenadas al LLM
-  async sendTasksToLLM() {
-    try {
-      const tasks = await this.taskService.getAllTasks();
-      if (tasks.length === 0) {
-        this.messages.push({
-          role: 'assistant',
-          content: 'No hay tareas guardadas.',
-        });
-        return;
-      }
-
-      // Formatear las tareas en un texto que el LLM pueda entender
-      let tasksMessage = 'Estas son tus tareas:\n';
-      tasks.forEach((task, index) => {
-        tasksMessage += `Tarea ${index + 1}:\nTítulo: ${
-          task.title
-        }\nDescripción: ${task.content}\n\n`;
-        tasksMessage+= '. Por favor, devuélveme las tareas en un mensaje claramente organizado, formato **Tarea 1**: Título - Descripción , **Tarea 2**: Título - Descripción , etc';
-      });
-
-      // Agregar el mensaje de tareas al array de mensajes
-      this.messages.push({ role: 'user', content: tasksMessage });
-
-      // Enviar el array completo de mensajes al LLM
-      this.chatService.sendMessageToLLM(this.messages).subscribe(
-        (response) => {
-          const botReply = response.choices[0].message.content;
-          this.messages.push({ role: 'assistant', content: botReply });
-        },
-        (error) => {
-          console.error('Error enviando tareas al LLM', error);
-          this.messages.push({
-            role: 'assistant',
-            content: 'Error al enviar las tareas al LLM.',
-          });
-        }
-      );
-    } catch (error) {
-      console.error('Error obteniendo las tareas', error);
+// Método para enviar las tareas almacenadas al LLM
+async sendTasksToLLM() {
+  try {
+    const tasks = await this.taskService.getAllTasks();
+    if (tasks.length === 0) {
       this.messages.push({
         role: 'assistant',
-        content: 'Error al obtener las tareas.',
+        content: 'No hay tareas guardadas.',
       });
+      return;
     }
-  }
 
+    // Crear un mensaje único y formateado con todas las tareas excluyendo 'imageUrl'
+    let tasksMessage = 'Estas son tus tareas:\n';
+    tasks.forEach((task, index) => {
+      tasksMessage += `**Tarea ${index + 1}**: ${task.title} - ${task.content}\n`;
+    });
+
+    tasksMessage += '\nPor favor, devuélveme las tareas en un mensaje claramente organizado, formato **Tarea 1**: Título - Descripción, **Tarea 2**: Título - Descripción, etc.';
+
+    // Mostrar "Enviando tareas..." al usuario
+    this.messages.push({ role: 'user', content: 'Enviando tareas...' });
+
+    // Enviar el mensaje formateado de tareas al LLM
+    const formattedMessages = [
+      { role: 'user', content: tasksMessage }
+    ];
+    
+    this.chatService.sendMessageToLLM([...this.messages, ...formattedMessages]).subscribe(
+      (response) => {
+        let botReplyContent: string;
+
+        if (this.platform.is('hybrid')) { // Entorno nativo
+          const responseData = response.data;
+          if (
+            responseData &&
+            responseData.choices &&
+            responseData.choices.length > 0
+          ) {
+            botReplyContent = responseData.choices[0].message.content;
+          } else {
+            botReplyContent = 'Error al interpretar la respuesta del LLM.';
+          }
+        } else {
+          if (
+            response &&
+            response.choices &&
+            response.choices.length > 0
+          ) {
+            botReplyContent = response.choices[0].message.content;
+          } else {
+            botReplyContent = 'Error al interpretar la respuesta del LLM.';
+          }
+        }
+
+        // Agregar la respuesta del asistente al array de mensajes
+        this.messages.push({ role: 'assistant', content: botReplyContent });
+      },
+      (error) => {
+        console.error('Error enviando tareas al LLM', error);
+        this.messages.push({
+          role: 'assistant',
+          content: 'Error al enviar las tareas al LLM.',
+        });
+      }
+    );
+  } catch (error) {
+    console.error('Error obteniendo las tareas', error);
+    this.messages.push({
+      role: 'assistant',
+      content: 'Error al obtener las tareas.',
+    });
+  }
+}
 
 
   adjuntarArchivo() {
@@ -183,6 +212,9 @@ export class ChatPage implements OnInit, OnDestroy {
     }, 3000);
   }
 }
+
+
+
 
 /* 
 ./: Directorio actual (mismo nivel).

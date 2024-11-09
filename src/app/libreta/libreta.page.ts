@@ -1,11 +1,10 @@
-
 // src/app/libreta/libreta.page.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TaskService } from '../services/task.service';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, Platform } from '@ionic/angular';
 import { AuthService } from '../services/auth.service'; // Importar AuthService
-//import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; // Importar funciones de la camara con capacitor
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; // Importar funciones de la camara con capacitor
 
 
 // Definir la interface para el tipo de datos de las tareas creadas
@@ -34,7 +33,9 @@ export class LibretaPage implements OnInit {
     private alertCtrl: AlertController,
     private router: Router,
     private authService: AuthService, // Se inyecta AuthService
-    private toastController: ToastController
+    private toastController: ToastController,
+    private platform: Platform // Detecta si está en móvil o web
+
   ) {}
 
 
@@ -56,36 +57,41 @@ export class LibretaPage implements OnInit {
   }
 
 
-  //*funciones de la camara capacitor no disponible en el navegador, se debe usar emulador android, ios ()
   // Método para capturar una imagen o seleccionar desde la galería
-  /*   async addImage(): Promise<string | null> {
+  async addImage(): Promise<string | null> {
     try {
       const image = await Camera.getPhoto({
         quality: 90,
         allowEditing: false,
         resultType: CameraResultType.DataUrl,
-        source: CameraSource.Prompt, // Permite al usuario elegir entre cámara o galería
+        source: CameraSource.Prompt, // Permite elegir entre cámara y galería
       });
-
-      return image?.dataUrl || null; // Devuelve la imagen en formato base64 o null si se cancela
+      return image?.dataUrl || null;
     } catch (error) {
       console.error('Error obteniendo la imagen', error);
-      this.showToast('Error al obtener la imagen.');
+      this.showToast('Imagen no seleccionada.');
       return null;
     }
-  } */
+  }
 
 
   //*Crear o editar una tarea, permite adjuntar imagen
   async newTask(taskId: string | null = null) {
     try {
+      let imageUrl: string | null = null;
 
-        //*Codigo comentado para que no se utilice las funciones de la camara no disponible en el navegador
-      let imageUrl: string | null = null; // Variable para almacenar la URL de la imagen
-    /*   if (!taskId) {
-        imageUrl = await this.addImage(); // Capturar o seleccionar imagen para nueva tarea
-        console.log('Imagen seleccionada:', imageUrl); // Imprimir la URL de la imagen seleccionada
-      } */
+      if (taskId) {
+        // Si estamos editando, obtenemos la tarea actual para usar su imagen
+        const existingTask = this.tasks.find(task => task.id === taskId);
+        if (existingTask) {
+          imageUrl = existingTask.imageUrl ?? null; // Asegura que sea 'string' o 'null', Mantiene la imagen original al modificar la tarea
+
+        }
+      } else if (this.platform.is('hybrid')) {
+        // Solo ofrecer la opción de imagen en dispositivos móviles
+        imageUrl = await this.addImage();
+        console.log('Imagen seleccionada:', imageUrl);
+      }
        
       const alert = await this.alertCtrl.create({
         header: taskId ? 'Editar tarea' : 'Nueva tarea',   // Define el titulo del formulario (dependiendo si es una nueva tarea o se esta editando una existente)
@@ -119,7 +125,7 @@ export class LibretaPage implements OnInit {
                 id,
                 title: data.title,
                 content: data.content,
-                imageUrl: imageUrl || null, // Guardar la URL de la imagen
+                imageUrl: imageUrl || null, // Usa la imagen existente o nueva si está disponible
               };
               try {
                 console.log('Guardando tarea:', task); // Imprimir la tarea que se va a guardar
@@ -182,9 +188,6 @@ export class LibretaPage implements OnInit {
     await toast.present();
   }
 }
-
-
-
 
 
 
