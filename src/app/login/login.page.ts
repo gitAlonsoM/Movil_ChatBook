@@ -8,20 +8,35 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  /* Animacion de entrada al chat, en caso de entrar como usuario registrado o como invitado. */
   animations: [
+    /* Animación de entrada */
     trigger('pulseAnimation', [
       state('inactive', style({ transform: 'scale(1)', opacity: 1 })),
       state('active', style({ transform: 'scale(1.9)', opacity: 0.5 })),
       transition('inactive <=> active', [animate('0.3s')]),
+    ]),
+    /* Animación de botón presionado */
+    trigger('buttonPressAnimation', [
+      state('normal', style({ transform: 'scale(1)', backgroundColor: '#3880ff' })),
+      state('pressed', style({ transform: 'scale(0.95)', backgroundColor: '#4c8dff' })),
+      transition('normal <=> pressed', animate('100ms ease-in-out')),
+    ]),
+    /* Animación de cambio de fondo para la pantalla de login */
+    trigger('backgroundTransition', [
+      transition(':enter', [
+        style({ backgroundColor: 'white' }),
+        animate('1s', style({ backgroundColor: '#f2f2f2' })),
+      ]),
     ]),
   ],
 })
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
+  rememberMe: boolean = false; // Nuevo campo para "Recordar cuenta"
   loading: boolean = false; // Control del loading
   animationState: string = 'inactive'; // Estado de la animación
+  buttonState: string = 'normal'; // Estado de animación de botón
   showMessage: boolean = false; // Para mostrar la barra de mensaje de desconexión
   message: string | null = null; // Para el mensaje de desconexión
   isConnecting: boolean = false; // Para controlar el estado de conexión
@@ -31,85 +46,101 @@ export class LoginPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private toastController: ToastController,
-    private loadingController: LoadingController // Inyección del LoadingController
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
+    // Verificar si hay mensaje de desconexión en localStorage
     this.message = localStorage.getItem('logoutMessage'); // Obtener el mensaje
     if (this.message) {
-      this.showMessage = true; // Mostrar la barra
-      localStorage.removeItem('logoutMessage'); // Borrar el mensaje después de usarlo
+      this.showMessage = true;
+      localStorage.removeItem('logoutMessage');
       setTimeout(() => {
-        this.showMessage = false; // Ocultar la barra después de 3 segundos
+        this.showMessage = false;
       }, 3000);
     }
+    // Remover mensaje de invitado
+    localStorage.removeItem('guestMessage');
+    this.isConnecting = false;
 
-    // Asegúrate de limpiar el mensaje de invitado si existe
-    localStorage.removeItem('guestMessage'); // Limpia el mensaje de invitado
-    this.isConnecting = false; //oculta el logo de conexión si esta en false
+    // Verificar si el usuario ya está logueado y "recordar cuenta"
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      // Si hay usuario guardado en localStorage, iniciar sesión automáticamente
+      this.router.navigate(['/chat']);
+    }
   }
 
   async login() {
     console.log('Email:', this.email);
     console.log('Password:', this.password);
 
+    // Validación de campos vacíos
     if (!this.email.trim() || !this.password.trim()) {
-      this.presentToast('Error: Debes estar autenticado por favor crea una cuenta registrate.');
+      this.presentToast('Error: Debes estar autenticado. Por favor, crea una cuenta.', 'danger', '⚠️');
       return;
     }
 
-    this.isConnecting = true; // Muestra el logo de conexión
+    this.isConnecting = true;
+    this.loading = true; // Activa el spinner en el botón
     const loading = await this.loadingController.create({
-      message: 'Cargando...', // Mensaje que se muestra
-      duration: 2000 // Duración del loading en milisegundos
+      message: 'Cargando...',
+      duration: 2000
     });
 
-    await loading.present(); // Presenta el loading
+    await loading.present();
 
     try {
       const user = await this.authService.login(this.email, this.password);
       if (user) {
-        this.presentToast('Entrando como usuario autenticado...'); // Mensaje de autenticación
-        this.animationState = 'active'; // Activa la animación
+        this.presentToast('Entrando como usuario autenticado...', 'success', '✅');
+        this.animationState = 'active';
+
+        // Si "Recordar cuenta" está marcado, guardar el usuario en localStorage
+        if (this.rememberMe) {
+          localStorage.setItem('user', JSON.stringify(user)); // Guardar los datos del usuario
+        }
+
         setTimeout(() => {
-          this.router.navigate(['/chat']); // Redirige a la página del chat
-          loading.dismiss(); //loading desaparece
-          this.animationState = 'inactive'; // Restablece la animación
-        }, 2000); // Espera 2 segundos
+          this.router.navigate(['/chat']);
+          loading.dismiss();
+          this.animationState = 'inactive';
+          this.loading = false; // Desactiva el spinner
+        }, 2000);
       }
     } catch (error) {
       this.handleError(error);
     } finally {
-      this.isConnecting = false; // Oculta el logo de conexión
-      loading.dismiss(); //loading desaparece en caso de error
+      this.isConnecting = false;
+      loading.dismiss();
+      this.loading = false;
     }
   }
 
   async guestLogin() {
-    this.isConnecting = true; // Muestra el logo de conexión
+    this.isConnecting = true;
     const loading = await this.loadingController.create({
-      message: 'Cargando...', // Mensaje que se muestra
-      duration: 1000 // Duración del loading en milisegundos
+      message: 'Cargando...',
+      duration: 1000
     });
 
-    await loading.present(); // Presenta el loading
+    await loading.present();
 
-    // Mensaje de entrada como invitado
-    this.presentToast('Entrando como invitado...');
+    this.presentToast('...', 'primary', '👤');
 
     setTimeout(() => {
-      this.router.navigate(['/chat']); // Redirige a la página del chat
-      loading.dismiss(); // loading desaparece
-      this.isConnecting = false; // Oculta el logo de conexión
-    }, 1000); // Simula un retraso de 1 segundo
+      this.router.navigate(['/chat']);
+      loading.dismiss();
+      this.isConnecting = false;
+    }, 1000);
   }
 
-  private async presentToast(message: string) {
+  private async presentToast(message: string, color: string = 'dark', icon: string = '') {
     const toast = await this.toastController.create({
-      message,
+      message: `${icon} ${message}`,
       duration: 2000,
       position: 'top',
-      color: 'dark',
+      color: color,
     });
     await toast.present();
   }
@@ -133,9 +164,9 @@ export class LoginPage implements OnInit {
     }
 
     console.error('Error en el inicio de sesión:', error);
-    this.presentToast(errorMessage);
-    this.loading = false; // oculta el loading en caso de error
-    this.isConnecting = false; // oculta el logo de conexión en caso de error
+    this.presentToast(errorMessage, 'danger', '⚠️');
+    this.loading = false;
+    this.isConnecting = false;
   }
 
   createAcc() {
@@ -143,6 +174,11 @@ export class LoginPage implements OnInit {
   }
 
   forgottenPassword() {
-    this.router.navigate(['/recover-key']); // Redirige a la página de recuperación de contraseña
+    this.router.navigate(['/recover-key']);
+  }
+
+  // Cambia el estado del botón cuando se presiona
+  buttonPress(state: string) {
+    this.buttonState = state;
   }
 }

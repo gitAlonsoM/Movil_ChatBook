@@ -1,13 +1,14 @@
 <!-- myApp\src\app\recover-key\recover-key.page.html -->
 <ion-header>
   <ion-toolbar>
+    <!-- Logo de la aplicación -->
     <img class="logo-img" src="assets/images/logo.png" alt="ChatBook Logo" />
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <div  class="container-recover"  >
+  <!-- Contenedor principal de la página de recuperación de contraseña -->
+  <div class="container-recover">
     
     <!-- Card principal del contenido -->
     <ion-card class="card-recover">
@@ -16,40 +17,41 @@
       </ion-card-header>
 
       <ion-card-content>
-        <!-- Formulario de la card, para enviar el correo email de recuperacion de cuenta-->
+        <!-- Formulario para enviar el correo de recuperación de cuenta -->
         <form (ngSubmit)="sendRecoveryEmail()"> <!-- ngSubmit es una directiva de Angular que se usa en formularios para manejar el evento de envío (submit), el formulario activa la funcion "sendRecoveryEmail()" -->
+          
+          <!-- Campo para ingresar el correo electrónico -->
           <ion-item>
             <ion-label position="floating">Correo Electrónico</ion-label>
             <ion-input
               type="email"
-              [(ngModel)]="email"
-              name="email"
-              required
-              #emailInput="ngModel"
-            ></ion-input>
+              [(ngModel)]="email"> <!-- Vincula el valor del campo email con la propiedad email de la clase -->
+            </ion-input>
           </ion-item>
-          <ion-button expand="full" type="submit" >Enviar Recuperación</ion-button>
+
+          <!-- Botón para enviar el correo de recuperación -->
+          <ion-button expand="full" type="submit">Enviar Recuperación</ion-button>
+
+          <!-- Botón para regresar a la página de login -->
           <ion-button expand="full" fill="clear" (click)="goToLogin()">Volver al Login</ion-button>
+
         </form>
       </ion-card-content>
     </ion-card>
 
   </div>
-
 </ion-content>
-
-
-
-
 
 <!-- 
 
-*[(ngModel)]="email": Las propiedades que usan ngModel en el archivo HTML deben ser usadas en la clase  de page.ts, usadas como propiedades de la clase.
+
+*[(ngModel)]="email": Las propiedades que usan ngModel en el archivo HTML deben ser usadas en la clase de page.ts, como propiedades de la clase.
 
 *fill="clear" es un atributo específico de Ionic para los botones (<ion-button>).
-fill="clear" hace que el botón tenga un fondo transparente y no tenga relleno visible
-
+  fill="clear" hace que el botón tenga un fondo transparente y no tenga relleno visible.
 
 *expand="full" es un atributo específico de Ionic para los botones (<ion-button>).
-Hace que el botón se expanda a todo el ancho disponible de su contenedor.
+  Hace que el botón se expanda a todo el ancho disponible de su contenedor.
+
 -->
+
