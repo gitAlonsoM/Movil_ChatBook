@@ -153,6 +153,17 @@ npm install firebase @angular/fire
 
 
 
+
 ## Reconstruir y Sincronizar el Proyecto con android studio
 ionic build
 npx cap sync android
+npx cap open android 
+
+
+## APK Sin Firmar
+npx cap add android
+npx cap sync
+ionic capacitor build android
+npx cap open android
+En Android Studio, selecciona Build > Build APK.
+Esto generará la APK sin firmar, y Android Studio te proporcionará la ruta donde se guarda.
