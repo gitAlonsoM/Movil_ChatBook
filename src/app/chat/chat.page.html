@@ -26,7 +26,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content fullscreen>
   <!-- Contenedor principal del chat -->
   <div class="chat-container">
     <!-- Área de mensajes -->
@@ -49,34 +49,23 @@
       </ion-list>
     </div>
 
-    <!-- Input y botones de acción -->
-    <div class="chat-input-container">
-
-      <!-- Botón para obtener y enviar las tareas almacenadas al LLM -->
+    <!-- Botones de acción -->
+    <div class="action-buttons">
       <ion-button fill="clear" (click)="sendTasksToLLM()">
-        <ion-icon name="list-outline"></ion-icon>
-        Tareas
+        <ion-icon name="clipboard-outline"></ion-icon>
       </ion-button>
-      
-      <!-- Botón para adjuntar archivos -->
-     <!--  <ion-button fill="clear" (click)="adjuntarArchivo()">
-        <ion-icon name="attach-outline"></ion-icon>
-      </ion-button> -->
 
-      <!-- Botón para enviar audio -->
-     <!--  <ion-button fill="clear" (click)="sendAudio()">
-        <ion-icon name="mic-outline"></ion-icon>
-      </ion-button> -->
+      <ion-button fill="clear" (click)="sendLocation()">
+        <ion-icon name="location-outline"></ion-icon>
+      </ion-button>
+    </div>
 
-      
-
-      <!-- Input de mensaje -->
+    <!-- Sección de entrada de mensajes -->
+    <div class="message-input-section">
       <ion-input
         [(ngModel)]="userMessage"
         placeholder="Escribe tu mensaje..."
       ></ion-input>
-
-      <!-- Botón para enviar mensaje -->
       <ion-button fill="clear" (click)="sendMessage()">
         <ion-icon name="send-outline"></ion-icon>
       </ion-button>
@@ -88,13 +77,16 @@
 </ion-content>
 
 
-<ion-footer>
+
+
+
+<!-- <ion-footer>
   <ion-toolbar class="ion-text-center ion-margin-top">
     <ion-title>© 2024 ChatBook</ion-title>
     <p>Todos los derechos reservados.</p>
   </ion-toolbar>
 </ion-footer>
-
+ -->
 
 
 

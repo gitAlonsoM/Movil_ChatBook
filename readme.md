@@ -139,6 +139,9 @@ Módulo HTTP de Angular: permite hacer solicitudes HTTP (como POST) al servidor 
 npm install @angular/common/http
 
 
+## =========================================================================================
+
+
 ## Comando relacionados con capacitor y uso de la camara
 npm install @capacitor/camera  Instala el plugin de la cámara
 npx cap sync  Sincroniza las dependencias de Capacitor con las plataformas nativas.
@@ -147,11 +150,22 @@ ionic build  compila la aplicación, generando archivos
 npm run build compila la aplicación, generando scripts en packege.json
 
 
+
+## Comandos y archivos relacionados con capacitor y uso de geolocalizacion
+npm install @capacitor/geolocation
+geolocation.service.ts  
+
+
 ## Posibles errores de inicio y solucion
 "Node packages may not be installed. Try installing with 'npm install'."
 npm install firebase @angular/fire
 
 
+
+
+## Sincroniza los plugins de Capacitor
+Siempre despues de modificar algun plugins de Capacitor sincronizar los cambios antes de usar ionic serve para que se reflejen los cambios.
+npx cap sync
 
 
 ## Reconstruir, Sincronizar y emular con android studio
@@ -169,3 +183,6 @@ npx cap open android
 *En Android Studio, selecciona Build > Build APK.
 Esto generará la APK sin firmar, y Android Studio te proporcionará la ruta donde se guarda.
 
+
+## Archivo relacionado con android studio
+AndroidManifest.xml

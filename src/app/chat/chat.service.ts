@@ -17,7 +17,7 @@ export class ChatService {
   private apiUrl = 'https://api.openai.com/v1/chat/completions';
   private apiKey = '';
 
-  private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes.`;
+  private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. Asumiras que la ubicacion en coordenadas que te llega es en donde esta el usuario en ese momento y le entregaras informacion relevante con esa ubicacion.`;
 
   private apiParams = {
     model: 'gpt-4o-mini',
