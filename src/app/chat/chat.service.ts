@@ -1,4 +1,3 @@
-/* src/app/chat/chat.service.ts  */
 // src/app/chat/chat.service.ts
 
 import { Injectable } from '@angular/core';
@@ -72,7 +71,6 @@ export class ChatService {
       return this.http.post(this.apiUrl, body, { headers: httpHeaders }).pipe(
         catchError((error) => {
           console.error('Error al enviar mensaje al LLM:', error);
-          alert(`Error al enviar mensaje: ${JSON.stringify(error, null, 2)}`);
           return throwError(() => error);
         })
       );
