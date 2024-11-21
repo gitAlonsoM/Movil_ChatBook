@@ -1,10 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <!-- Botón de menú con tres rayitas -->
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>¿Quiénes somos?</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<!-- Menú en el lado derecho -->
+<ion-menu side="end" menuId="first" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item routerLink="/home">
+        <ion-label>Inicio</ion-label>
+      </ion-item>
+      <ion-item routerLink="/quienes-somos">
+        <ion-label>¿Quiénes somos?</ion-label>
+      </ion-item>
+      <ion-item routerLink="/contacto">
+        <ion-label>Contacto</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content id="main-content" [fullscreen]="true">
   <!-- Descripción de la app o del equipo -->
   <div class="descripcion">
     <h2>Sobre nosotros:</h2>
@@ -16,8 +42,6 @@
     </p>
   </div>
 
-
-  
   <!-- Visión -->
   <div class="vision">
     <h2>Visión:</h2>
@@ -48,7 +72,6 @@
         </a>
       </div>
     </div>
-  
   </div>
 
   <!-- Ubicación -->
