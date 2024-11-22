@@ -123,6 +123,18 @@ package.json: Listado de todas las dependencias y scripts del proyecto.
 ## Firebase
    @angular/fire@18.0.1
 
+
+## Capacitor plugins for android:
+       @capacitor-community/http@1.4.1
+       @capacitor/app@6.0.1
+       @capacitor/camera@6.1.0
+       @capacitor/geolocation@6.0.1
+       @capacitor/haptics@6.0.1
+       @capacitor/keyboard@6.0.2
+       @capacitor/preferences@6.0.2
+       @capacitor/status-bar@6.0.1
+
+
 ## Instalaciones Realizadas
 Para soportar las nuevas funcionalidades, se realizaron las siguientes instalaciones:
 
