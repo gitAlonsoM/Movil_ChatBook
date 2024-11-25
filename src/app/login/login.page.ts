@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
   showMessage: boolean = false; // Para mostrar la barra de mensaje de desconexión
   message: string | null = null; // Para el mensaje de desconexión
   isConnecting: boolean = false; // Para controlar el estado de conexión
-  isGuest: boolean = false; // Para verificar si el usuario es invitado
+  isGuest: boolean = false; // Para verificar si el usuario es invitado (AGREGADO)
 
   constructor(
     private router: Router,
@@ -47,7 +47,6 @@ export class LoginPage implements OnInit {
     }
     // Remover mensaje de invitado
     localStorage.removeItem('guestMessage');
-    this.isConnecting = false;
 
     // Verificar si el usuario ya está logueado y "recordar cuenta"
     const savedUser = localStorage.getItem('user');
@@ -68,10 +67,9 @@ export class LoginPage implements OnInit {
     }
 
     this.isConnecting = true;
-    this.loading = true; // Activa el spinner en el botón
+    this.animationState = 'active'; // Comienza la animación
     const loading = await this.loadingController.create({
       message: 'Cargando...',
-      duration: 2000
     });
 
     await loading.present(); // Muestra el spinner de carga
@@ -80,27 +78,24 @@ export class LoginPage implements OnInit {
       const user = await this.authService.login(this.email, this.password);
       if (user) {
         this.presentToast('Entrando como usuario autenticado...', 'success', '✅');
-        this.animationState = 'active';
 
         // Si "Recordar cuenta" está marcado, guardar el usuario en localStorage
         if (this.rememberMe) {
           localStorage.setItem('user', JSON.stringify(user)); // Guardar los datos del usuario
         }
 
-        setTimeout(() => {
-          this.router.navigate(['/chat']); // Navegar a la página de chat
-          loading.dismiss(); // Ocultar el loading spinner
-          this.animationState = 'inactive'; // Cambiar el estado de la animación
-          this.loading = false; // Desactivar el spinner
-        }, 2000); // Espera 2 segundos antes de ocultar el spinner y navegar
-
+        // Esperar a que termine la navegación y después ocultar el spinner
+        this.router.navigate(['/chat']).then(() => {
+          loading.dismiss(); // Oculta el loading después de la navegación
+          this.animationState = 'inactive'; // Detiene la animación
+          this.isConnecting = false; // Cambia el estado de conexión
+        });
       }
     } catch (error) {
       this.handleError(error); // Manejo de errores en el login
     } finally {
-      this.isConnecting = false; // Termina el proceso de conexión
-      // En caso de que haya algún error y no se haya navegado, asegurarse de ocultar el loading
-      if (!this.loading) {
+      // Si no hay usuario y hubo algún error, se asegura de ocultar el spinner
+      if (this.isConnecting && loading) {
         loading.dismiss();
       }
     }
@@ -117,10 +112,12 @@ export class LoginPage implements OnInit {
 
     this.presentToast('...', 'primary', '👤');
 
+    // Usar un setTimeout para simular la conexión y luego navegar
     setTimeout(() => {
-      this.router.navigate(['/chat']);
-      loading.dismiss();
-      this.isConnecting = false;
+      this.router.navigate(['/chat']).then(() => {
+        loading.dismiss(); // Oculta el loading después de la navegación
+        this.isConnecting = false;
+      });
     }, 1000);
   }
 
@@ -154,7 +151,6 @@ export class LoginPage implements OnInit {
 
     console.error('Error en el inicio de sesión:', error);
     this.presentToast(errorMessage, 'danger', '⚠️');
-    this.loading = false;
     this.isConnecting = false;
   }
 
