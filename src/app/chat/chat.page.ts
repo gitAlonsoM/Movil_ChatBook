@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { ToastController, Platform } from '@ionic/angular'; //Platform se usa para verificar si la app esta ejecutada en un entorno nativo
 import { TaskService } from '../services/task.service';
 import { Subscription } from 'rxjs'; // Importa Subscription para manejar observables
-import { GeolocationService } from '../services/geolocation.service';
+import { GeolocationService } from '../services/geolocation.service'; //Se importa el servicio
 
 
 //decorador para declarar que es un Componente de Angular (pagina visual, interactuar con html, escuchar eventos de usuario, (UI),etc)
@@ -40,6 +40,7 @@ export class ChatPage implements OnInit, OnDestroy {
   ) {}
 
   
+
   async sendLocation() {
     try {
       const coords = await this.geolocationService.getCurrentPosition();
@@ -106,6 +107,8 @@ export class ChatPage implements OnInit, OnDestroy {
       });
     }
   }
+
+
 
   ngOnInit() {
     this.authSubscription = this.authService.isLoggedIn$.subscribe(

@@ -61,12 +61,12 @@ export class LibretaPage implements OnInit {
   async addImage(): Promise<string | null> {
     try {
       const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: false,
-        resultType: CameraResultType.DataUrl,
+        quality: 90, //Calidad de la img
+        allowEditing: false, // Sin edición.
+        resultType: CameraResultType.DataUrl, // Retorna la imagen en formato base64.
         source: CameraSource.Prompt, // Permite elegir entre cámara y galería
       });
-      return image?.dataUrl || null;
+      return image?.dataUrl || null; // Devuelve la imagen en base64 o null si no se seleccionó ninguna.
     } catch (error) {
       console.error('Error obteniendo la imagen', error);
       this.showToast('Imagen no seleccionada.');
@@ -94,7 +94,7 @@ export class LibretaPage implements OnInit {
       }
        
       const alert = await this.alertCtrl.create({
-        header: taskId ? 'Editar tarea' : 'Nueva tarea',   // Define el titulo del formulario (dependiendo si es una nueva tarea o se esta editando una existente)
+        header: taskId ? 'Editar tarea' : 'Nueva tarea', // Define el titulo del formulario (dependiendo si es una nueva tarea o se esta editando una existente)
         inputs: [
           {
             name: 'title',
@@ -145,6 +145,7 @@ export class LibretaPage implements OnInit {
       this.showToast('Error al abrir el formulario de tarea.');
     }
   }
+
 
   //*Eliminar tarea
   async deleteTask(taskId: string) {
@@ -227,6 +228,9 @@ se utiliza para evaluar una expresión y devolver uno de dos valores dependiendo
 
 
 
+*Servicio Platform de Ionic 
+Se usa en este caso para determinar si la aplicación se está ejecutando en un entorno híbrido ('hybrid').  
+Un entorno híbrido es cuando se esta ejecutando en un mobil como apk o en un emulador. Si se especificara solamente 'mobile' solo seria en "apk" pero no se podria probar en el emulador de android studio. Otros valores pueden ser 'desktop', 'android', 'ios', 
 
 
 

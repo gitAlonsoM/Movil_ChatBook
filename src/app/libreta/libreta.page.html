@@ -36,13 +36,16 @@
     Agregar nueva tarea
   </ion-button>
 
+  
    <!-- Lista de tareas -->
    <ion-list>
     <ion-item-sliding *ngFor="let task of tasks">
       <ion-item>
         <ion-label>
+
           <h2>{{ task.title }}</h2>
           <p>{{ task.content }}</p>
+
           <!-- Mostrar la miniatura de la imagen en caso que exista -->
           <img
             *ngIf="task.imageUrl"
@@ -50,6 +53,7 @@
             alt="Imagen de tarea"
             style="max-width: 100px;"
           />
+
         </ion-label>
       </ion-item>
 

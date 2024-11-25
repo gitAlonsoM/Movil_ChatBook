@@ -1,11 +1,13 @@
 /* src\app\services\geolocation.service.ts */
 
 import { Injectable } from '@angular/core';
-import { Geolocation, Position } from '@capacitor/geolocation';
+import { Geolocation, Position } from '@capacitor/geolocation'; //plugins de capacitor de geolocalización
 
 @Injectable({
   providedIn: 'root',
 })
+
+//El servicio verifica, solicita y obtiene el permiso del usuario. Finalmente entraga la posicion en coordenadas (latitud y longitud).
 export class GeolocationService {
   constructor() {}
 
@@ -22,6 +24,6 @@ export class GeolocationService {
 
     // Obtener la posición actual
     const coordinates = await Geolocation.getCurrentPosition();
-    return coordinates.coords;
+    return coordinates.coords; //retorna las coordenadas
   }
 }

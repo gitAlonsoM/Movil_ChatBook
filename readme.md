@@ -1,23 +1,20 @@
 # Aplicación "Libreta + Chat con LLM"
-
 ## Descripción
-Esta aplicación permite a los usuarios interactuar con un modelo de lenguaje (LLM) a través de un chat y gestionar sus tareas diarias mediante una libreta de recordatorios. La aplicación está diseñada para funcionar tanto en dispositivos móviles como en navegadores web, utilizando Ionic y Angular, usando autentificacion de usuarios mediante firebase.
+Esta aplicación permite a los usuarios interactuar con un modelo de lenguaje (LLM) a través de un chat y gestionar sus tareas personales.
+Ha sido desarrollada utilizando Ionic, Angular y Firebase, soportando funcionalidades en dispositivos móviles y navegadores web.
 
 
 ## Páginas y Componentes principales
-La mayoría de las funcionalidades aún están en desarrollo, pero se destacan las siguientes:
 1. **Login**: Página de autenticación de usuarios.
-2. **Creación de Cuenta**: Formulario para el registro de nuevos usuarios, que requiere un email único y una contraseña.
-3. **Chat**: Interfaz de chat para interactuar con el modelo de lenguaje (LLM), con la capacidad de guardar tareas de forma automática en la libreta y asignar un horario de alarma.
-4. **Libreta**: Página para gestionar tareas con funcionalidades CRUD (Crear, Leer, Actualizar, Eliminar). Las tareas pueden ser visualizadas, editadas y eliminadas directamente desde la lista. Cada tarea puede tener, opcionalmente, un horario de notificación en el dispositivo móvil.
-5. **Menú Desplegable**: Componente reutilizable para la navegación y opciones varias dentro de la aplicación.
-6. **Componentes adicionales**:
-   - **Formulario de Tareas**: Permite crear y editar tareas dentro de la página de Libreta.
-   - **Botones Personalizados**: Elementos de interfaz diseñados para mejorar la experiencia del usuario.
-   - **Animaciones** con Angular Material.
-   - **Otras Páginas**: Adicionales para restablecer contraseña, entre otros servicios secundarios.
+2. **Creación de Cuenta**: Formulario para el registro de nuevos usuarios mediante un email único y una contraseña.
+3. **Chat**: Interfaz de chat con el LLM.
+4. **Libreta**: Página para gestionar tareas con funcionalidades CRUD (Crear, Leer, Actualizar, Eliminar). Incluye soporte para imágenes asociadas a tareas.
+5. **Otras Páginas**:
+   - Recuperación de contraseña.
+   - Información de contacto en "¿Quiénes somos?".
 
 
+# ======================================================================================
 
 ## Estructura del Proyecto
 El proyecto sigue una estructura típica de una aplicación Angular con Ionic. A continuación, se detalla la estructura principal del proyecto:
@@ -25,70 +22,78 @@ El proyecto sigue una estructura típica de una aplicación Angular con Ionic. A
 
 myApp/
 │
-├── .angular/                # Configuración de Angular
-├── .vscode/                 # Configuración de Visual Studio Code
-├── node_modules/            # Dependencias instaladas del proyecto
-├── src/                     # Código fuente del proyecto
-│   ├── app/                 # Contiene todas las páginas, componentes y servicios de la app
-│   │   ├── chat/            # Código de la página de chat y servicios relacionados con LLM
-│   │   |──connection-status # Componente que indica y gestiona el estado de conexion.
-│   │   ├── home/            # Página de inicio (no utilizada en este proyecto)
-│   │   ├── libreta/         # Página de la libreta de tareas con CRUD implementado
-│   │   ├── login/           # Página de autenticación de usuarios
-│   │   ├── recover-key/     # Página para recuperación de contraseñas
-│   │   ├── register/        # Página para el registro de nuevos usuarios
-│   │   ├── services/        # Servicios, incluyendo el servicio de tareas y autentificación (TaskService, auth)
-│   │   ├── app-routing.module.ts  # Módulo de enrutamiento de la aplicación
-│   │   ├── app.component.ts       # Componente principal de la aplicación
-│   │   ├── app.module.ts          # Módulo principal de la aplicación
-│   │
-│   ├── assets/              # Recursos estáticos (imágenes, íconos, etc.)
-│   ├── environments/        # Configuración de entornos (producción/desarrollo)
-│   ├── theme/               # Estilos globales de la aplicación (SCSS)
+├── .angular/
+├── .vscode/
+├── android/ # Proyecto nativo de Android generado por Capacitor
+├── node_modules/ # Dependencias instaladas del proyecto
+├── src/ # Código fuente del proyecto
+│ ├── app/ # Contiene todas las páginas, componentes y servicios de la app
+│ │ ├── chat/ # Código de la página de chat y servicios relacionados con LLM
+│ │ ├── connection-status/ # Componente que gestiona el estado de conexión
+│ │ ├── guards/ # Control de acceso a páginas protegidas
+│ │ ├── libreta/ # Página con CRUD implementado para tareas
+│ │ ├── login/ # Página de autenticación de usuarios
+│ │ ├── quienes-somos/ # Información de contacto de la app
+│ │ ├── recover-key/ # Recuperación de contraseñas
+│ │ ├── register/ # Registro de nuevos usuarios
+│ │ ├── services/ # Servicios:
+│ │ │ ├── auth.service.ts # Manejo de autenticación
+│ │ │ ├── task.service.ts # CRUD de tareas
+│ │ │ ├── geolocation.service.ts # Servicio de geolocalización para obtener ubicación del usuario
+│ │ ├── app-routing.module.ts # Configuración de rutas de la aplicación
+│ │ ├── app.component.html # Template principal de la app
+│ │ ├── app.module.ts # Módulo principal del proyecto
+│ │
+│ ├── assets/ # Recursos estáticos como imágenes e íconos
+│ ├── environments/ # Configuración para producción/desarrollo
+│ ├── theme/ # Estilos SCSS globales
+│ ├── global.scss # Estilos generales adicionales
+│ ├── index.html # Archivo principal HTML del proyecto
 │
-├── angular.json             # Configuración del proyecto Angular
-├── capacitor.config.ts      # Configuración de Capacitor
-├── ionic.config.json        # Configuración específica de Ionic
-├── package.json             # Dependencias y scripts del proyecto
-├── readme.md                # Archivo de documentación del proyecto
-├── tsconfig.json            # Configuración de TypeScript
+├── www/ # Archivos web compilados listos para el proyecto nativo
+├── angular.json # Configuración del proyecto Angular
+├── capacitor.config.ts # Configuración específica de Capacitor
+├── ionic.config.json # Configuración de Ionic
+├── package.json # Scripts y dependencias del proyecto
+├── readme.md # Archivo de documentación actualizado
+├── tsconfig.json # Configuración de TypeScript
 
+
+# ======================================================================================
 
 ## Funcionalidades Implementadas
-- **CRUD en la Libreta**: Es posible crear, editar y eliminar tareas en la libreta. Las tareas se almacenan localmente usando **Ionic Storage**, y son persistentes incluso después de cerrar y reabrir la aplicación.
-- **Persistencia Local**: La libreta de tareas usa **Capacitor Preferences** para asegurar que las tareas se guarden de manera local en dispositivos móviles y navegadores.
-- **Deslizamiento para Editar y Eliminar**: Las opciones de **Editar** y **Eliminar** están disponibles al deslizar cada tarea.
-- **Autentificacion de usuario**: Es posible crear cuentas de usuario y autentificarse correctamente, haciendo uso de "firebase".
-- **Recuperacion contraseña**: Es posible entregar el correo de cuenta, y recuperar la contraseña en el correo personal.
-- **Desconectarse de la cuenta**: Es posible desconectarse de la cuenta al hacer click aparece un mensaje que dice se ha desconectado de forma exitosa.
-- **Logo de coneccion**: Funciona correctamente al entrar como usuario autenticado o como invitado aparece un mensaje en cada uno con una barra que se despliega y luego desaparece, ademas aparece el logo con un mensaje que dice iniciando sesion
-- **Boton de desconexion**: El boton de desconexion funciona correctamente y aparece como invisible al estar como invitado
-- **Boton de Libreta**: El boton de libreta funciona correctamente y aparece el mensaje debes iniciar sesion para hacer uso de esta caracteristica.
-- **Luz verde - gris de coneccion**: Funciona correctamente tanto como para entrar como usuario autenticado y invitado, es decir si se entra como usuario aparece con un circulo de color verde y si es invitado cambia a color gris.
-**Arreglo de animacion: La animacion funciona de forma exitosa al iniciar sesion y al desconectarse.
+- **Gestión de tareas con CRUD**: Crear, editar y eliminar tareas almacenadas localmente utilizando **Capacitor Preferences** y **from '@ionic/storage-angular** para garantizar la persistencia de los datos, incluso después de cerrar la aplicación.
+- **Fotografías en tareas**: Adjuntar imágenes tomadas con la cámara o seleccionadas desde la galería (en dispositivos móviles).
+- **Geolocalización**: Enviar la ubicación actual al LLM para obtener el nombre del lugar.
+- **Autenticación**: Registro, inicio y recuperación de contraseña con Firebase.
+- **Interacción con el LLM**:
+  - Envío de tareas acumuladas para retroalimentación.
+  - Generación de respuestas contextuales personalizadas.
+
 
 
 ## Funcionalidades del LLM
 La aplicación utiliza un modelo de lenguaje (LLM) de OpenAI para interactuar con los usuarios en un chat. Las funciones implementadas incluyen:
 - **Generación de Respuestas**: El LLM crea respuestas contextuales basadas en los mensajes del usuario.
 - **Personalización**: Se ha configurado un *prompt customizable*.
+- **Envio de tareas**: Se ha activado un boton en el chat para enviarle todas las tareas acumuladas en la libreta, y obtener feedback inmediato del LLM segun las tareas almacenadas.
 
 
-### Módulos y Librerías Clave
+## Funcionalidades Nativas
+- **Cámara y galería**: Integración con la API de cámara de Capacitor. **from '@capacitor/camera'**
+- **GPS**: Uso de la API de geolocalización de Capacitor para obtener coordenadas, mediante **from '@capacitor/       geolocation'**
 
-- **@angular/common/http**: Facilita las solicitudes HTTP a la API de OpenAI.
-- **rxjs**: Permite gestionar de manera reactiva la comunicación asíncrona con la API.
 
 
 ## Futuras Funcionalidades
-- **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.(Alonso)
-- **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.(Alonso)
+- **Guardado de tareas con LLM**: El sistema LLM podrá guardar tareas de forma automatizada a petición del usuario, agregándolas a la libreta con un formato y horario predefinidos.
+- **Tareas con Horario de Notificación**: Cada tarea podrá tener un horario de notificación asignado, y el celular activará la notificación en el horario acordado.
 
 
+# ======================================================================================
 
 ## Inicia el Servidor de Desarrollo con Ionic
 Para iniciar el servidor de desarrollo y probar la aplicación en un navegador, utiliza el siguiente comando:
-
 ionic serve
 
 
@@ -107,7 +112,13 @@ capacitor.config.ts: Configuración de Capacitor para integrar funcionalidades n
 src/app: Contiene todos los componentes y páginas de la aplicación.
 package.json: Listado de todas las dependencias y scripts del proyecto.
 
-## Versiones usadas en el Proyecto
+### Módulos y Librerías Clave
+
+- **@angular/common/http**: Facilita las solicitudes HTTP a la API de OpenAI.
+- **rxjs**: Permite gestionar de manera reactiva la comunicación asíncrona con la API.
+
+
+### Versiones usadas en el Proyecto
 - **IONIC**: ionic --version "7.2.0"
 - **ANGULAR**: ng --version "18.2.3"
 --**FIREBASE**: firebase --version "10.14.0"
@@ -124,7 +135,7 @@ package.json: Listado de todas las dependencias y scripts del proyecto.
    @angular/fire@18.0.1
 
 
-## Capacitor plugins for android:
+### Capacitor plugins for android:
        @capacitor-community/http@1.4.1
        @capacitor/app@6.0.1
        @capacitor/camera@6.1.0
@@ -151,33 +162,39 @@ Módulo HTTP de Angular: permite hacer solicitudes HTTP (como POST) al servidor 
 npm install @angular/common/http
 
 
-## =========================================================================================
-
-
-## Comando relacionados con capacitor y uso de la camara
-npm install @capacitor/camera  Instala el plugin de la cámara
-npx cap sync  Sincroniza las dependencias de Capacitor con las plataformas nativas.
-
-ionic build  compila la aplicación, generando archivos 
-npm run build compila la aplicación, generando scripts en packege.json
-
-
-
-## Comandos y archivos relacionados con capacitor y uso de geolocalizacion
-npm install @capacitor/geolocation
-geolocation.service.ts  
-
-
 ## Posibles errores de inicio y solucion
 "Node packages may not be installed. Try installing with 'npm install'."
-npm install firebase @angular/fire
-
-
+npm install firebase @angular/fire
 
 
 ## Sincroniza los plugins de Capacitor
 Siempre despues de modificar algun plugins de Capacitor sincronizar los cambios antes de usar ionic serve para que se reflejen los cambios.
 npx cap sync
+
+
+
+## =========================================================================================
+
+### Uso de APIs Nativas mediante Capacitor
+
+## Comando relacionados con capacitor y uso de la camara
+npm install @capacitor/camera   Instala el plugin de la cámara
+npx cap sync                    Sincroniza las dependencias de Capacitor con las plataformas nativas.
+
+ionic build      compila la aplicación, generando archivos 
+npm run build    compila la aplicación, generando scripts en packege.json
+
+
+## Comandos y archivos relacionados con capacitor y uso de geolocalizacion
+npm install @capacitor/geolocation
+npx cap sync 
+
+geolocation.service.ts  Archivo del servicio de geolocalizacion
+
+
+## =========================================================================================
+### Android Studio
+npx cap add android     (Estructura compatible con Android en la carpeta android/. Se usa una sola vez. )
 
 
 ## Reconstruir, Sincronizar y emular con android studio
@@ -187,8 +204,7 @@ npx cap open android
 *Medium phone API TyramisuPrivacySandbox -->Run app.
 
 
-## APK Sin Firmar
-npx cap add android
+## Generacion de APK Sin Firmar
 npx cap sync
 ionic capacitor build android
 npx cap open android
@@ -196,5 +212,5 @@ npx cap open android
 Esto generará la APK sin firmar, y Android Studio te proporcionará la ruta donde se guarda.
 
 
-## Archivo relacionado con android studio
+## Archivo clave de android studio
 AndroidManifest.xml

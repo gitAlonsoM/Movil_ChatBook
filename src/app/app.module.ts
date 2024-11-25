@@ -38,4 +38,4 @@ import { IonicStorageModule } from '@ionic/storage-angular';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {} 
