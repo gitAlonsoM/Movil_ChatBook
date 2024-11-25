@@ -14,21 +14,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('inactive', style({ transform: 'scale(1)', opacity: 1 })),
       state('active', style({ transform: 'scale(1.9)', opacity: 0.5 })),
       transition('inactive <=> active', [animate('0.3s')]),
-    ]),
-    /* Animación de botón presionado */
-    trigger('buttonPressAnimation', [
-      state('normal', style({ transform: 'scale(1)', backgroundColor: '#3880ff' })),
-      state('pressed', style({ transform: 'scale(0.95)', backgroundColor: '#4c8dff' })),
-      transition('normal <=> pressed', animate('100ms ease-in-out')),
-    ]),
-    /* Animación de cambio de fondo para la pantalla de login */
-    trigger('backgroundTransition', [
-      transition(':enter', [
-        style({ backgroundColor: 'white' }),
-        animate('1s', style({ backgroundColor: '#f2f2f2' })),
-      ]),
-    ]),
-  ],
+    ]),,
+      ],
+ 
 })
 export class LoginPage implements OnInit {
   email: string = '';
