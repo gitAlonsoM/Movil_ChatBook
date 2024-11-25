@@ -55,7 +55,8 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/chat']);
     }
   }
-
+   
+// entrar como usuario autenticado
   async login() {
     console.log('Email:', this.email);
     console.log('Password:', this.password);
@@ -100,6 +101,8 @@ export class LoginPage implements OnInit {
       }
     }
   }
+
+  // entrar como invitado a la aplicacion
 
   async guestLogin() {
     this.isConnecting = true;
