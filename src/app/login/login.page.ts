@@ -14,9 +14,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('inactive', style({ transform: 'scale(1)', opacity: 1 })),
       state('active', style({ transform: 'scale(1.9)', opacity: 0.5 })),
       transition('inactive <=> active', [animate('0.3s')]),
-    ]),,
-      ],
- 
+    ]),
+  ]
 })
 export class LoginPage implements OnInit {
   email: string = '';
@@ -24,7 +23,6 @@ export class LoginPage implements OnInit {
   rememberMe: boolean = false; // Nuevo campo para "Recordar cuenta"
   loading: boolean = false; // Control del loading
   animationState: string = 'inactive'; // Estado de la animación
-  buttonState: string = 'normal'; // Estado de animación de botón
   showMessage: boolean = false; // Para mostrar la barra de mensaje de desconexión
   message: string | null = null; // Para el mensaje de desconexión
   isConnecting: boolean = false; // Para controlar el estado de conexión
@@ -76,7 +74,7 @@ export class LoginPage implements OnInit {
       duration: 2000
     });
 
-    await loading.present();
+    await loading.present(); // Muestra el spinner de carga
 
     try {
       const user = await this.authService.login(this.email, this.password);
@@ -90,18 +88,21 @@ export class LoginPage implements OnInit {
         }
 
         setTimeout(() => {
-          this.router.navigate(['/chat']);
-          loading.dismiss();
-          this.animationState = 'inactive';
-          this.loading = false; // Desactiva el spinner
-        }, 2000);
+          this.router.navigate(['/chat']); // Navegar a la página de chat
+          loading.dismiss(); // Ocultar el loading spinner
+          this.animationState = 'inactive'; // Cambiar el estado de la animación
+          this.loading = false; // Desactivar el spinner
+        }, 2000); // Espera 2 segundos antes de ocultar el spinner y navegar
+
       }
     } catch (error) {
-      this.handleError(error);
+      this.handleError(error); // Manejo de errores en el login
     } finally {
-      this.isConnecting = false;
-      loading.dismiss();
-      this.loading = false;
+      this.isConnecting = false; // Termina el proceso de conexión
+      // En caso de que haya algún error y no se haya navegado, asegurarse de ocultar el loading
+      if (!this.loading) {
+        loading.dismiss();
+      }
     }
   }
 
@@ -163,10 +164,5 @@ export class LoginPage implements OnInit {
 
   forgottenPassword() {
     this.router.navigate(['/recover-key']);
-  }
-
-  // Cambia el estado del botón cuando se presiona
-  buttonPress(state: string) {
-    this.buttonState = state;
   }
 }
