@@ -7,7 +7,7 @@ import { Geolocation, Position } from '@capacitor/geolocation'; //plugins de cap
   providedIn: 'root',
 })
 
-//El servicio verifica, solicita y obtiene el permiso del usuario. Finalmente entraga la posicion en coordenadas (latitud y longitud).
+//El servicio verifica, solicita y obtiene el permiso del usuario. Finalmente entrega la posicion en coordenadas (latitud y longitud).
 export class GeolocationService {
   constructor() {}
 

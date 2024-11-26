@@ -29,7 +29,7 @@ export class ChatPage implements OnInit, OnDestroy {
   // Inicializar el array de mensajes con el mensaje del asistente
   messages = [{ role: 'assistant', content: 'Hola, ¿En qué puedo ayudarte?' }];
 
-  constructor(
+  constructor( //propiedades o dependencias inyectadas en la clase para ser usadas dentro de sus métodos. 
     private router: Router,
     private chatService: ChatService,
     private authService: AuthService,
@@ -47,7 +47,7 @@ export class ChatPage implements OnInit, OnDestroy {
       const locationMessage = `Mis coordenadas son: ${coords.latitude}, ${coords.longitude}. ¿Puedes decirme en qué ciudad y país me encuentro basado en estas coordenadas?`;
       console.log(locationMessage); // Debugging
 
-      // Agrega el mensaje al array de chat para que se muestre en la interfaz
+      // Agrega el mensaje al array de chat para que se muestre en la interfaz de usuario el mensaje "enviado ubicacion"
       this.messages.push({ role: 'user', content: 'Enviando ubicación...' });
 
       // Prepara el mensaje para el formato esperado por sendMessageToLLM

@@ -174,10 +174,9 @@ npx cap sync
 
 
 ## =========================================================================================
-
 ### Uso de APIs Nativas mediante Capacitor
 
-## Comando relacionados con capacitor y uso de la camara
+## Comando relacionados con capacitor y uso de la Camara
 npm install @capacitor/camera   Instala el plugin de la cámara
 npx cap sync                    Sincroniza las dependencias de Capacitor con las plataformas nativas.
 
@@ -185,15 +184,16 @@ ionic build      compila la aplicación, generando archivos
 npm run build    compila la aplicación, generando scripts en packege.json
 
 
-## Comandos y archivos relacionados con capacitor y uso de geolocalizacion
+## Comandos y archivos relacionados con capacitor y uso de Geolocalizacion
 npm install @capacitor/geolocation
 npx cap sync 
 
-geolocation.service.ts  Archivo del servicio de geolocalizacion
+src\app\services\geolocation.service.ts  Archivo del servicio de geolocalizacion
 
 
 ## =========================================================================================
 ### Android Studio
+npm install @capacitor/android
 npx cap add android     (Estructura compatible con Android en la carpeta android/. Se usa una sola vez. )
 
 
@@ -214,3 +214,5 @@ Esto generará la APK sin firmar, y Android Studio te proporcionará la ruta don
 
 ## Archivo clave de android studio
 AndroidManifest.xml
+
+## =========================================================================================

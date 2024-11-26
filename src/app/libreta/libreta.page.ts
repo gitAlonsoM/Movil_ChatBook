@@ -61,7 +61,7 @@ export class LibretaPage implements OnInit {
   async addImage(): Promise<string | null> {
     try {
       const image = await Camera.getPhoto({
-        quality: 90, //Calidad de la img
+        quality: 90, //Calidad de la img [0-100]
         allowEditing: false, // Sin edición.
         resultType: CameraResultType.DataUrl, // Retorna la imagen en formato base64.
         source: CameraSource.Prompt, // Permite elegir entre cámara y galería
