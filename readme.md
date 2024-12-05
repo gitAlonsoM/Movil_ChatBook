@@ -146,8 +146,8 @@ package.json: Listado de todas las dependencias y scripts del proyecto.
        @capacitor/status-bar@6.0.1
 
 
-## Instalaciones Realizadas
-Para soportar las nuevas funcionalidades, se realizaron las siguientes instalaciones:
+## Instalaciones Más importantes Realizadas
+Para soportar las nuevas funcionalidades, se realizaron las siguientes instalaciones, entre otras:
 
 Angular Animations:
 npm install @angular/animations
@@ -203,7 +203,7 @@ npx cap sync android
 npx cap open android 
 *Medium phone API TyramisuPrivacySandbox -->Run app.
 
-
+ 
 ## Generacion de APK Sin Firmar
 npx cap sync
 ionic capacitor build android

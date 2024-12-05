@@ -1,5 +1,4 @@
 // src/app/chat/chat.page.ts
-
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatService } from './chat.service';
@@ -10,24 +9,26 @@ import { Subscription } from 'rxjs'; // Importa Subscription para manejar observ
 import { GeolocationService } from '../services/geolocation.service'; //Se importa el servicio
 
 
-//decorador para declarar que es un Componente de Angular (pagina visual, interactuar con html, escuchar eventos de usuario, (UI),etc)
+//Decorador para declarar que es un Componente de Angular (pagina visual, interactuar con html, escuchar eventos de usuario, (UI),etc)
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',
   styleUrls: ['./chat.page.scss'],
 })
+
+
 export class ChatPage implements OnInit, OnDestroy {
   //Propiedades de la clase
   userMessage: string = '';
-
   isLoggedIn: boolean = false;
   logoutButtonHidden: boolean = false;
   message: string = ''; // Mensaje emergente que se mostrara
   showMessage: boolean = false; //controlar la visibilidad de mensajes emergentes
   private authSubscription: Subscription | null = null; // Inicializado a null
 
-  // Inicializar el array de mensajes con el mensaje del asistente
-  messages = [{ role: 'assistant', content: 'Hola, ¿En qué puedo ayudarte?' }];
+  // Inicializar el array de mensajes con el mensaje del asistente. 
+  messages = [{ role: 'assistant',  //propiedad-valor
+                content: 'Hola, ¿En qué puedo ayudarte?' }];
 
   constructor( //propiedades o dependencias inyectadas en la clase para ser usadas dentro de sus métodos. 
     private router: Router,
@@ -181,10 +182,12 @@ export class ChatPage implements OnInit, OnDestroy {
     }
   }
 
+
   // Método para enviar las tareas almacenadas al LLM
   async sendTasksToLLM() {
     try {
       const tasks = await this.taskService.getAllTasks();
+
       if (tasks.length === 0) {
         this.messages.push({
           role: 'assistant',
@@ -274,18 +277,27 @@ export class ChatPage implements OnInit, OnDestroy {
       this.showMessage = false; // Oculta el mensaje después de 3 segundos
     }, 3000);
   }
+  
 }
 
+
+
+
 /* 
-./: Directorio actual (mismo nivel).
-../: Sube un nivel en el árbol de directorios.
-Sin extensión .ts: TypeScript sabe automáticamente que está buscando un archivo .ts sin que se necesite especificar la extensión.
+* ./: Directorio actual (mismo nivel).
+  ../: Sube un nivel en el árbol de directorios.
+  Sin extensión .ts: TypeScript sabe automáticamente que está buscando un archivo .ts sin que se necesite especificar la extensión.
+
 
 * messages: 
-Un array que contiene los mensajes del chat. 
+Un array que contiene los mensajes del chat, tanto del asistente, como del usuario.
 Cada mensaje es un objeto con dos propiedades:
-  text: El texto del mensaje.
-  fromUser: Un booleano que indica si el mensaje fue enviado por el usuario (true) o por el bot (false).
+
+  messages = [{ 
+              role: 'user' o 'assistant'
+              content: 'El contenido varia en cada chat, pero hace referencia a el usuario o la respuesta del asistente' }];
+
+De esta forma se controla que contenido le corresponde a que rol.
 
 
 *OnInit y OnDestroy 
@@ -293,6 +305,9 @@ se utilizan para ejecutar lógica en momentos específicos del ciclo de vida de 
 La interfaz OnInit define el método ngOnInit(), que es invocado por Angular justo después de que el componente ha sido inicializado.
 La interfaz OnDestroy define el método ngOnDestroy(), que es invocado por Angular justo antes de que el componente sea destruido o eliminado.
 
+
+*Los tres puntos ... Operador de propagación (spread operator)
+Son parte de JavaScript (ES6). El operador ... toma elementos todos los elementos de un array y permite combinarlos en otro.
 
 *\n 
 salto de linea

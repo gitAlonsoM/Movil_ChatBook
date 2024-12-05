@@ -8,6 +8,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+
   animations: [
     /* Animación de entrada */
     trigger('pulseAnimation', [
@@ -17,6 +18,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]),
   ]
 })
+
+
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';

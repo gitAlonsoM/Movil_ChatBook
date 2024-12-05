@@ -52,4 +52,15 @@ async addImage(){}   <!--  Método para capturar una imagen o seleccionar desde 
 style="max-width: 100px;" 
 
 ## =========================================================================================
+## =========================================================================================
+
+## COMANDOS VARIOS
+ionic generate page login 
+ionic generate page chat 
+
+ionic generate service nombre-del-servicio
+ionic generate service chat_ejemplo
+ionic generate service services/task
+
+ionic generate component menu
 

@@ -28,6 +28,7 @@
 </ion-header>
 
 <ion-content fullscreen>
+
   <!-- Contenedor principal del chat -->
   <div class="chat-container">
     <!-- Área de mensajes -->
@@ -75,6 +76,7 @@
         <ion-icon name="send-outline"></ion-icon>
       </ion-button>
     </div>
+
   </div>
 
   <!-- Barra de mensaje de conexión -->
@@ -102,7 +104,7 @@
 
 
 <!-- 
-*ng
+*ng (Class, Model, For, if, etc)
 Es una abreviación de "Angular"
 ng es una convención que se utiliza manejar los servicios y módulos que son propios de Angular. 
 
@@ -111,6 +113,13 @@ Directiva de Angular para clases CSS.
   [ngClass]="{'user-message': chatItem.fromUser, 
               'bot-message': !chatItem.fromUser}"
     Agrega la clase de CSS "user-message" si proveien del usuario el mensaje(True), o la clase bot-message en el otro caso (false), 
+
+
+    
+*[hidden]="chatItem.role === 'system'"
+Usado para ocultar el rol system, que es el prompt de sistema.
+La propiedad hidden en HTML es un atributo booleano. Si se establece a true, el elemento será ocultado.
+
 
 *ngModel: 
 Directiva de Angular para la vinculación de datos bidireccional entre el componente y el template HTML.

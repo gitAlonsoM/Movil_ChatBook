@@ -2,7 +2,6 @@
 import { Injectable } from '@angular/core'; // {Injectable} para que el servicio pueda ser inyectado en otros componentes.
 import { Storage } from '@ionic/storage-angular'; // almacenamiento local de Ionic
 
-
 // Definicion de la interface "task", que representa cada tarea y sus propiedades
 interface Task {
   id: string;
@@ -15,13 +14,15 @@ interface Task {
   providedIn: 'root', // permite que el servicio esté disponible en toda la aplicación (a nivel raíz)
 })
 
+
 export class TaskService {
+
   constructor(private storage: Storage) {
     this.init(); // inicializa el almacenamiento de Ionic.
   }
 
-
-  async init() {   // Metodo asíncrono para inicializar el almacenamiento local.
+  async init() {
+    // Metodo asíncrono para inicializar el almacenamiento local.
     await this.storage.create(); // Inicializa el almacenamiento
   }
 
@@ -30,38 +31,28 @@ export class TaskService {
     return this.storage.set(id, task); // set almacena la tarea en el almacenamiento local usando el id como la clave y el objeto task como el valor.
   }
 
-
   //*Obtener todas las tareas almacenadas en local
   async getAllTasks(): Promise<Task[]> {
     let tasks: Task[] = []; // Se crea un array vacío para almacenar las tareas recuperadas
-    await this.storage.forEach((value, key) => { //se recorre "storage", en cada iteracion se obtiene el objeto y su ID. Luego se envia al array "tasks"
+    await this.storage.forEach((value, key) => {
+      //se recorre "storage", en cada iteracion se obtiene el objeto y su ID. Luego se envia al array "tasks"
       tasks.push({ id: key, ...value });
     });
     return tasks; // devuelve el array de tareas almacenadas.
   }
-
 
   // Eliminar tarea por ID
   deleteTask(id: string) {
     return this.storage.remove(id);
   }
 
-    // *Obtener una tarea por su clave "ID"
-  /* getTask(id: string) {
-    return this.storage.get(id);
-  } */
-
-
+ 
 }
 
 
 
-
-
-
-
-
 /* 
+
 
 *set(id, task)  :
 Es una función que almacena datos en el almacenamiento local de la aplicación, almacena la tarea en un formato clave-valor, similar a cómo funciona un diccionario o un objeto en JavaScript
@@ -107,5 +98,18 @@ en este contexto significa que el método getAllTasks() devuelve una promesa que
 Se usa en operaciones asíncronas (como leer datos del almacenamiento) porque puede tardar un tiempo en completarse.
 
 
+*imageUrl?: string | null;
+Esa sintaxis combina propiedades opcionales (?) con tipos union (|). No es un operador ternario, sino una declaración que define un tipo en TypeScript.
 
-*/
+
+*Obtener una tarea por su clave "ID"
+  /* getTask(id: string) {
+    return this.storage.get(id);
+  } 
+    
+  
+  
+  
+  */
+
+

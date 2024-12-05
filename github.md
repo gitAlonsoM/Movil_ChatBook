@@ -105,3 +105,10 @@ ionic generate component menu
 **Comandos para Crear Paginas**
 ionic generate page login 
 ionic generate page chat 
+
+
+_____________________
+APIKEY
+
+sk-proj-xlQNLXikv5N3GoOfJfP7VPcsIlYJ03CsHOmg_54RNoVnyu_KreL64-RwQBsy0T1v_XplJ1mW4uT3Bl
+bkFJ0MkJ1GpX5P7WC98V7VWYnLzmYlvEHCUh4o1yj5kw1tKmzHjXCCoYhCy3YB-Z_pR_GexsHT5qwA

@@ -1,5 +1,4 @@
 // src/app/chat/chat.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
@@ -12,25 +11,27 @@ import { Http } from '@capacitor-community/http';
 })
 
 
-
 export class ChatService {
-  private apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+  private apiUrl = 'https://api.openai.com/v1/chat/completions'; //Endpoint
   private apiKey = '';
 
   private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. Asumiras que la ubicacion en coordenadas que te llega es en donde esta el usuario en ese momento y le entregaras informacion relevante con esa ubicacion.`;
 
-  private apiParams = {
-    model: 'gpt-4o-mini',
-    temperature: 1,
+  private apiParams = {     //objeto literal{} (clave(propiedades)/valor)
+    model: 'gpt-4o-mini',   //gpt-4, gpt-4-turbo, gpt-4o-mini, gpt-3.5-turbo
+    temperature: 1,         //(0(determinista) a 2(creativo)
     max_tokens: 150,
-    frequency_penalty: 0.3,
-    presence_penalty: 0,
-    top_p: 1,
+    frequency_penalty: 0.3, //(-2.0 a 2.0). valores altos penalizan repeticion de palabras
+    presence_penalty: 0,    //(-2.0 a 2.0.)Favorece palabras nuevas
+    top_p: 1,               //0 a 1.
   };
 
-  constructor(private http: HttpClient, private platform: Platform) {}
 
-  sendMessageToLLM(messages: { role: string; content: string }[]): Observable<any> {
+  constructor(private http: HttpClient, private platform: Platform) {} 
+
+  sendMessageToLLM(messages: { role: string; content: string }[]): Observable<any> { //metodo para el LLM, retorna un observable para manejar la respuesta
+    
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.apiKey}`,
@@ -55,9 +56,9 @@ export class ChatService {
         params: {}, // Agregar un objeto params vacío
       };
 
-      return from(Http.post(options)).pipe(
-        catchError((error) => {
-          console.error('Error al enviar mensaje al LLM:', error);
+      return from(Http.post(options)).pipe( //retorna la respuesta de la api como post, 
+        catchError((error) => {  //Depuracion en caso de errores
+          console.error('Error al enviar mensaje al LLM:', error); 
           alert(`Error al enviar mensaje: ${JSON.stringify(error, null, 2)}`);
           console.log('URL:', options.url);
           console.log('Headers:', options.headers);
@@ -65,6 +66,7 @@ export class ChatService {
           return throwError(() => error);
         })
       );
+
     } else {
       // Ejecutándose en el navegador
       const httpHeaders = new HttpHeaders(headers);
@@ -97,8 +99,8 @@ Forma parte del módulo HTTP de Angular (@angular/common/http). Se utiliza para 
 *HttpHeaders: 
 Clase de Angular que permite definir encabezados HTTP personalizados. En este caso, se utiliza para incluir la clave API (Authorization) y el tipo de contenido (Content-Type).
 
-*Observable (objeto de RxJS):
-Permite manejar el resultado de una llamada HTTP, como la respuesta de la API de OpenAI. Es una manera eficiente de manejar flujos de datos asíncronos en Angular.
+*Observable (RxJS = Reactive Extensions for JavaScript):
+En el código, el Observable maneja la respuesta asíncrona de la API y se accede mediante subscribe. Este método procesa los datos de la respuesta (como response) o maneja errores, ejecutándose solo cuando te suscribes al Observable. "Es el metodo que ocupa angular para manejar API".
 
 *endpoint:
 es una URL específica dentro de una API a la que se envían solicitudes para interactuar con un servicio o recurso. 
@@ -107,8 +109,6 @@ es una URL específica dentro de una API a la que se envían solicitudes para in
 *apiParams
 La estructura que usa es un "objeto" de JS.
 Un objeto es una colección de pares clave-valor. En este caso, apiParams es un objeto con varias propiedades o claves; como model, temperature, max_tokens, etc., cada una con su propio valor.
-
-
 
 
 *Solicitud HTTP POST es un tipo de petición o request

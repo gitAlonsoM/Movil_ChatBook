@@ -15,7 +15,6 @@ interface Task {
   imageUrl?: string | null; // Url de la img es opcional
 }
 
-
 @Component({
   selector: 'app-libreta',
   templateUrl: './libreta.page.html',
@@ -116,7 +115,7 @@ export class LibretaPage implements OnInit {
             text: taskId ? 'Actualizar' : 'Guardar',
             handler: async (data) => {
               console.log('Datos del formulario:', data); // Imprimir los datos del formulario
-              if (!data.title || !data.content) {
+              if (!data.title || !data.content) { //en caso que alguno sea "false(vacio)" se invierte a "true" con !(operador de negacion(invierte el booleano)), y entra en la condicion if()
                 this.showToast('El título y el contenido son obligatorios.');
                 return;
               }
