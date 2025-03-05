@@ -216,3 +216,7 @@ Esto generará la APK sin firmar, y Android Studio te proporcionará la ruta don
 AndroidManifest.xml
 
 ## =========================================================================================
+
+Cuenta
+#toccatafugue45@gmail.com
+AndreZ1515

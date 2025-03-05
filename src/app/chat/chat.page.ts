@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs'; // Importa Subscription para manejar observ
 import { GeolocationService } from '../services/geolocation.service'; //Se importa el servicio
 
 
+
 //Decorador para declarar que es un Componente de Angular (pagina visual, interactuar con html, escuchar eventos de usuario, (UI),etc)
 @Component({
   selector: 'app-chat',

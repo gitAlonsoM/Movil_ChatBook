@@ -71,9 +71,12 @@
       <ion-input
         [(ngModel)]="userMessage"
         placeholder="Escribe tu mensaje..."
+          (keydown.enter)="sendMessage()"
       ></ion-input>
       <ion-button fill="clear" (click)="sendMessage()">
         <ion-icon name="send-outline"></ion-icon>
+      
+
       </ion-button>
     </div>
 
