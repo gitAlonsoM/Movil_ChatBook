@@ -14,7 +14,7 @@ import { Http } from '@capacitor-community/http';
 export class ChatService {
 
   private apiUrl = 'https://api.openai.com/v1/chat/completions'; //Endpoint
-  private apiKey = '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';
+  //private apiKey = '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';
 
   private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. Asumiras que la ubicacion en coordenadas que te llega es en donde esta el usuario en ese momento y le entregaras informacion relevante con esa ubicacion.`;
 
