@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ChatPage
+  },  {
+    path: 'custom-instruction',
+    loadChildren: () => import('./custom-instruction/custom-instruction.module').then( m => m.CustomInstructionPageModule)
   }
+
 ];
 
 @NgModule({

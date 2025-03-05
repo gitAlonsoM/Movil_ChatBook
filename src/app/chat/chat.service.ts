@@ -11,12 +11,28 @@ import { Http } from '@capacitor-community/http';
 })
 
 
+
 export class ChatService {
 
-  private apiUrl = 'https://api.openai.com/v1/chat/completions'; //Endpoint
-  //private apiKey = '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';
+  
+   //NEW CUSTOM INSTRUCTION - Inicio actualización de ChatService
+   private readonly _defaultPrompt: string = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. Asumiras que la ubicacion en coordenadas que te llega es en donde esta el usuario en ese momento y le entregaras informacion relevante con esa ubicacion.`;
+  
+   private systemPrompt: string = this._defaultPrompt;
+   
+   public updateSystemPrompt(newPrompt: string): void {
+     this.systemPrompt = newPrompt;
+   }
+   
+   public getDefaultPrompt(): string {
+     return this._defaultPrompt;
+   }
+   //NEW CUSTOM INSTRUCTION - Fin actualización de ChatService
 
-  private systemPrompt = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. Asumiras que la ubicacion en coordenadas que te llega es en donde esta el usuario en ese momento y le entregaras informacion relevante con esa ubicacion.`;
+
+
+  private apiUrl = 'https://api.openai.com/v1/chat/completions'; //Endpoint
+
 
   private apiParams = {     //objeto literal{} (clave(propiedades)/valor)
     model: 'gpt-4o-mini',   //gpt-4, gpt-4-turbo, gpt-4o-mini, gpt-3.5-turbo
@@ -29,6 +45,9 @@ export class ChatService {
 
 
   constructor(private http: HttpClient, private platform: Platform) {} 
+
+
+
 
   sendMessageToLLM(messages: { role: string; content: string }[]): Observable<any> { //metodo para el LLM, retorna un observable para manejar la respuesta
     

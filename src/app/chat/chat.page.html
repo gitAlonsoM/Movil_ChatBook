@@ -32,19 +32,16 @@
   <!-- Contenedor principal del chat -->
   <div class="chat-container">
     <!-- Área de mensajes -->
-    <div class="chat-messages">
+    
+    
+    <div class="chat-messages" #chatMessages>
       <!-- Listado de mensajes Bot - usuario -->
       <ion-list>
-        <ion-item
-          *ngFor="let chatItem of messages"
-          [hidden]="chatItem.role === 'system'"
-        >
-          <ion-label
-            [ngClass]="{
+        <ion-item *ngFor="let chatItem of messages" [hidden]="chatItem.role === 'system'">
+          <ion-label [ngClass]="{
               'user-message': chatItem.role === 'user',
               'bot-message': chatItem.role === 'assistant'
-            }"
-          >
+            }">
             {{ chatItem.content }}
           </ion-label>
         </ion-item>
@@ -63,6 +60,12 @@
       <ion-button fill="clear" (click)="sendLocation()">
         <ion-icon name="location-outline"></ion-icon>
       </ion-button>
+
+      <!--NEW CHAT STORE  -->
+      <ion-button fill="clear" (click)="clearChat()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+      <!--NEW CHAT STORE -->
 
     </div>
 

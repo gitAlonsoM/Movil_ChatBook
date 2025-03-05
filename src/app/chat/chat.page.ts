@@ -6,7 +6,9 @@ import { AuthService } from '../services/auth.service';
 import { ToastController, Platform } from '@ionic/angular'; //Platform se usa para verificar si la app esta ejecutada en un entorno nativo
 import { TaskService } from '../services/task.service';
 import { Subscription } from 'rxjs'; // Importa Subscription para manejar observables
+import { ChatStorageService, ChatMessage } from './chat-storage.service'; //NEW CHAT STORE
 import { GeolocationService } from '../services/geolocation.service'; //Se importa el servicio
+import { ViewChild, ElementRef } from '@angular/core';
 
 
 
@@ -19,6 +21,13 @@ import { GeolocationService } from '../services/geolocation.service'; //Se impor
 
 
 export class ChatPage implements OnInit, OnDestroy {
+
+   //NEW SCROLL - Agregar ViewChild para el contenedor de mensajes
+   @ViewChild('chatMessages', { static: false }) chatMessages!: ElementRef;
+
+   //NEW SCROLL - Fin ViewChild
+
+
   //Propiedades de la clase
   userMessage: string = '';
   isLoggedIn: boolean = false;
@@ -26,6 +35,7 @@ export class ChatPage implements OnInit, OnDestroy {
   message: string = ''; // Mensaje emergente que se mostrara
   showMessage: boolean = false; //controlar la visibilidad de mensajes emergentes
   private authSubscription: Subscription | null = null; // Inicializado a null
+
 
   // Inicializar el array de mensajes con el mensaje del asistente. 
   messages = [{ role: 'assistant',  //propiedad-valor
@@ -38,9 +48,21 @@ export class ChatPage implements OnInit, OnDestroy {
     private toastController: ToastController,
     private taskService: TaskService,
     private platform: Platform,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private chatStorageService: ChatStorageService  //NEW CHAT STORE
+
   ) {}
 
+
+  //NEW SCROLL - Método para desplazar el scroll al final
+  private scrollToBottom(): void {
+    setTimeout(() => {
+      if(this.chatMessages) {
+        this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollHeight;
+      }
+    }, 100);
+  }
+  //NEW SCROLL - Fin método
   
 
   async sendLocation() {
@@ -51,7 +73,9 @@ export class ChatPage implements OnInit, OnDestroy {
 
       // Agrega el mensaje al array de chat para que se muestre en la interfaz de usuario el mensaje "enviado ubicacion"
       this.messages.push({ role: 'user', content: 'Enviando ubicación...' });
-
+      //NEW CHAT STORE
+      this.chatStorageService.saveMessages(this.messages);
+      //NEW CHAT STORE
       // Prepara el mensaje para el formato esperado por sendMessageToLLM
       const messageToSend = [
         {
@@ -91,6 +115,8 @@ export class ChatPage implements OnInit, OnDestroy {
 
           // Agregar la respuesta del asistente al array de mensajes
           this.messages.push({ role: 'assistant', content: botReplyContent });
+           //NEW SCROLL - Desplazar scroll al final tras agregar el mensaje del asistente
+           this.scrollToBottom();
         },
         (error) => {
           console.error('Error enviando mensaje al LLM', error);
@@ -113,6 +139,14 @@ export class ChatPage implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
+     //NEW CHAT STORE
+    this.chatStorageService.loadMessages().then((savedMessages: ChatMessage[]) => {
+      if (savedMessages.length > 0) {
+        this.messages = savedMessages;
+      }
+    });
+     //NEW CHAT STORE 
     this.authSubscription = this.authService.isLoggedIn$.subscribe(
       (isLoggedIn) => {
         this.isLoggedIn = isLoggedIn;
@@ -134,8 +168,12 @@ export class ChatPage implements OnInit, OnDestroy {
   // Enviar el mensaje al bot y obtener su respuesta
   sendMessage() {
     if (this.userMessage.trim().length > 0) {
-      // Agregar el mensaje del usuario al array de mensajes
-      this.messages.push({ role: 'user', content: this.userMessage });
+
+     // Agregar el mensaje del usuario y guardar el historial
+    this.messages.push({ role: 'user', content: this.userMessage });
+    this.chatStorageService.saveMessages(this.messages); //NEW CHAT STORE
+
+    this.scrollToBottom();
 
       // Enviar el array completo de mensajes al LLM
       this.chatService.sendMessageToLLM(this.messages).subscribe(
@@ -169,17 +207,25 @@ export class ChatPage implements OnInit, OnDestroy {
 
           // Agregar la respuesta del asistente al array de mensajes
           this.messages.push({ role: 'assistant', content: botReplyContent });
+
+          this.scrollToBottom();
+
         },
         (error) => {
           console.error('Error enviando mensaje al LLM', error);
           this.messages.push({
             role: 'assistant',
             content: 'Error al comunicarse con el LLM.',
+        
+
           });
+          this.scrollToBottom();
         }
       );
 
       this.userMessage = ''; // Limpiar el input después de enviar
+       //NEW SCROLL - Desplazar scroll al final tras enviar el mensaje
+       this.scrollToBottom();
     }
   }
 
@@ -210,6 +256,10 @@ export class ChatPage implements OnInit, OnDestroy {
 
       // Mostrar "Enviando tareas..." al usuario
       this.messages.push({ role: 'user', content: 'Enviando tareas...' });
+
+      //NEW CHAT STORE
+      this.chatStorageService.saveMessages(this.messages);
+      //NEW CHAT STORE
 
       // Enviar el mensaje formateado de tareas al LLM
       const formattedMessages = [{ role: 'user', content: tasksMessage }];
@@ -279,6 +329,14 @@ export class ChatPage implements OnInit, OnDestroy {
     }, 3000);
   }
   
+  //NEW CHAT STORE 
+  clearChat(): void {
+    this.messages = [{ role: 'assistant', content: 'Hola, ¿En qué puedo ayudarte?' }];
+    this.chatStorageService.clearMessages();
+  }
+  //NEW CHAT STORE 
+
+
 }
 
 
