@@ -1,5 +1,4 @@
-<!-- src\app\chat\custom-instruction\custom-instruction.page.html -->
-<!--NEW CUSTOM INSTRUCTION - Inicio UI de Custom Instruction-->
+<!-- src/app/chat/custom-instruction/custom-instruction.page.html -->
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="end">
@@ -22,7 +21,12 @@
             Escribe cómo quieres que el LLM se comporte. (20–200 caracteres).
           </p>
         </ion-label>
-        <ion-input [(ngModel)]="customInstruction" placeholder="Escribe aquí tu instrucción"></ion-input>
+        <ion-textarea 
+          [(ngModel)]="customInstruction" 
+          placeholder="Escribe aquí tu instrucción" 
+          autoGrow="true"
+          class="responsive-textarea">
+        </ion-textarea>
       </ion-item>
       <ion-grid>
         <ion-row class="button-row">
@@ -37,4 +41,3 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
-<!--NEW CUSTOM INSTRUCTION - Fin UI de Custom Instruction-->

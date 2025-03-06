@@ -11,17 +11,18 @@ import { Http } from '@capacitor-community/http';
 })
 
 
-
 export class ChatService {
 
   
    //NEW CUSTOM INSTRUCTION - Inicio actualización de ChatService
-   private readonly _defaultPrompt: string = `Actúa como una secretaria eficiente que se encarga de guardar deberes y pendientes. Asumiras que la ubicacion en coordenadas que te llega es en donde esta el usuario en ese momento y le entregaras informacion relevante con esa ubicacion.`;
+   private readonly _defaultPrompt: string = `Actúa como una secretaria eficiente que se encarga de recibir y organizar tareas, analizar ubicacion en coordenadas, conversaciones amistosas, etc.`;
   
    private systemPrompt: string = this._defaultPrompt;
    
    public updateSystemPrompt(newPrompt: string): void {
-     this.systemPrompt = newPrompt;
+
+    const reinforcementText = `Asumiras que la ubicacion en coordenadas que te llega es en donde esta el usuario en ese momento y le entregaras informacion relevante con esa ubicacion. Tambien te encargaras de organizar tareas que el usuario puede enviarte, cuando te envie un listado de tareas, asumiras que son tareas que el usuario a guardado, y le ayudaras a organizarse mejor en sus quehaceres. Importante: En cuanto a tu personalidad y otras tareas que puedas cumplir seguiras extricamente lo siguiente en cada conversacion y no abandonaras nunca el ROL:\n\n`;
+    this.systemPrompt = reinforcementText + newPrompt;
    }
    
    public getDefaultPrompt(): string {
@@ -30,8 +31,8 @@ export class ChatService {
    //NEW CUSTOM INSTRUCTION - Fin actualización de ChatService
 
 
-
   private apiUrl = 'https://api.openai.com/v1/chat/completions'; //Endpoint
+  private apiKey = '';
 
 
   private apiParams = {     //objeto literal{} (clave(propiedades)/valor)
@@ -61,11 +62,17 @@ export class ChatService {
       ...messages,
     ];
 
+
     const body = {
       ...this.apiParams,
       messages: messagesWithSystemPrompt,
     };
 
+       // DEBUG: Imprime en consola el system prompt y los mensajes que se enviarán
+       console.log("DEBUG: Custom Instruction (system prompt):", this.systemPrompt);
+       console.log("DEBUG: Mensajes enviados:", messages);
+
+       
     if (this.platform.is('hybrid')) {
       // Ejecutándose en dispositivo o emulador
       const options = {

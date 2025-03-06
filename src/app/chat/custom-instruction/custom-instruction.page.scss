@@ -25,3 +25,20 @@ ion-card {
   margin-top: 16px;
 }
 /*NEW CUSTOM INSTRUCTION - Fin estilos Custom Instruction*/
+
+/* src/app/chat/custom-instruction/custom-instruction.page.scss */
+
+.responsive-textarea {
+  width: 100%;
+  min-height: 150px; /* Altura mínima para pantallas de escritorio */
+  font-size: 1.1em;
+  padding: 8px;
+}
+
+/* Para dispositivos móviles, aumentar la altura mínima */
+@media (max-width: 600px) {
+  .responsive-textarea {
+    min-height: 200px;
+    font-size: 1.2em;
+  }
+}

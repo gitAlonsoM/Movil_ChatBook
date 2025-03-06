@@ -204,12 +204,22 @@ npx cap open android
 *Medium phone API TyramisuPrivacySandbox -->Run app.
 
  
-## Generacion de APK Sin Firmar
+## Generacion de APK Sin Firmar (1)
 npx cap sync
 ionic capacitor build android
 npx cap open android
 *En Android Studio, selecciona Build > Build APK.
 Esto generará la APK sin firmar, y Android Studio te proporcionará la ruta donde se guarda.
+
+
+## Generacion de APK Sin Firmar (2)
+ionic build
+npx cap sync android
+cd android
+.\gradlew.bat assembleDebug
+
+Localiza la APK generada:
+android/app/build/outputs/apk/debug/app-debug.apk
 
 
 ## Archivo clave de android studio

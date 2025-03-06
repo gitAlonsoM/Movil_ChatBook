@@ -1,7 +1,7 @@
 /* src\app\chat\custom-instruction\custom-instruction.page.ts */
 //NEW CUSTOM INSTRUCTION - Inicio componente Custom Instruction
 import { Component, OnInit } from '@angular/core';
-import { CustomInstructionService } from '../custom-instruction.service';
+import { CustomInstructionService } from './custom-instruction.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ChatService } from '../chat.service';
