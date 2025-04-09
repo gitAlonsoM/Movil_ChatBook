@@ -190,8 +190,7 @@ npx cap sync
 
 src\app\services\geolocation.service.ts  Archivo del servicio de geolocalizacion
 
-
-## =========================================================================================
+=========================================================================================
 ### Android Studio
 npm install @capacitor/android
 npx cap add android     (Estructura compatible con Android en la carpeta android/. Se usa una sola vez. )
@@ -222,10 +221,22 @@ Localiza la APK generada:
 android/app/build/outputs/apk/debug/app-debug.apk
 
 
+## Generar el AAB (Android App Bundle) - Formato requerido para la publicación en Google Play–
+npx cap sync android
+ionic build
+npx cap open android
+En android Studio -> Build -> Build App -> Build Bundle(s)
+Se generar el archivo .abb y android studio dira en que ruta se encuentra
+
+
 ## Archivo clave de android studio
 AndroidManifest.xml
 
 ## =========================================================================================
+Ejecutar:
+npm install  (instalar dependencias declaradas en package.json)
+ionic serve
+
 
 Cuenta
 #toccatafugue45@gmail.com
